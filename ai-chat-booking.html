@@ -1,0 +1,1549 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>對話即下單 — AICMS AI 客服</title>
+<meta name="description" content="客人問完就走？官網每天漏單？AICMS AI 客服讓客人在對話框內直接完成預約，不跳頁、不填表、不流失。">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --bg-card: #ffffff;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --line-soft: #eef0f6;
+
+    --brand: #4f46e5;
+    --brand-deep: #3730a3;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --warn: #f59e0b;
+    --ok: #10b981;
+    --pink: #ec4899;
+
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --grad-soft: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 3px rgba(15, 23, 42, .06);
+    --shadow-md: 0 8px 20px rgba(15, 23, 42, .06), 0 2px 6px rgba(15, 23, 42, .04);
+    --shadow-lg: 0 24px 60px rgba(79, 70, 229, .14), 0 6px 16px rgba(15, 23, 42, .05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.7; letter-spacing: -0.005em;
+  }
+
+  /* Top nav */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px;
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: #fff;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 80px 0; }
+
+  /* Hero */
+  .hero { padding: 80px 0 60px; }
+  @media (min-width: 880px) {
+    .hero {
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center;
+    }
+  }
+  .hero-text { min-width: 0; }
+  .hero-phone-wrap { display: flex; justify-content: center; margin-top: 36px; }
+  @media (min-width: 880px) { .hero-phone-wrap { margin-top: 0; } }
+
+  /* Hero animated chat demo (inside phone) */
+  .demo-chat {
+    padding: 0; background: #f0f2f8;
+    height: 100%; display: flex; flex-direction: column;
+    overflow: hidden; position: relative;
+  }
+  .demo-chat .head {
+    display: flex; align-items: center; gap: 8px; padding: 32px 14px 10px;
+    background: linear-gradient(180deg, white 0%, rgba(255,255,255,.9) 100%);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .demo-chat .head .av {
+    width: 30px; height: 30px; border-radius: 50%; background: var(--grad);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 15px; font-weight: 800;
+  }
+  .demo-chat .head .info .name { font-size: 12.5px; font-weight: 700; color: var(--ink-0); line-height: 1.1; }
+  .demo-chat .head .info .ok { font-size: 10px; color: var(--ok); display: flex; align-items: center; gap: 3px; }
+  .demo-chat .head .info .ok::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ok);
+  }
+  .demo-chat .stream {
+    flex: 1; padding: 14px 14px 16px; overflow: hidden; position: relative;
+  }
+  .demo-bubble {
+    max-width: 80%; padding: 8px 12px; border-radius: 14px; margin-bottom: 7px;
+    font-size: 11.5px; line-height: 1.5; word-wrap: break-word;
+    opacity: 0; will-change: opacity, transform;
+  }
+  .demo-bubble.user {
+    background: var(--brand); color: white; margin-left: auto; border-bottom-right-radius: 4px;
+  }
+  .demo-bubble.bot {
+    background: white; border: 1px solid var(--line); border-bottom-left-radius: 4px;
+  }
+  .demo-card {
+    background: white; border: 2px solid var(--brand); border-radius: 12px;
+    padding: 10px 12px; margin-bottom: 7px; opacity: 0;
+    font-size: 11px; will-change: opacity, transform;
+  }
+  .demo-card .h {
+    font-weight: 700; font-size: 11.5px; color: var(--ink-0); margin-bottom: 7px;
+    padding-bottom: 6px; border-bottom: 1px solid var(--line-soft);
+  }
+  .demo-card .r { display: flex; justify-content: space-between; padding: 2px 0; font-size: 10.5px; }
+  .demo-card .r .l { color: var(--ink-3); }
+  .demo-card .r .v { color: var(--ink-0); font-weight: 600; }
+  .demo-card .total {
+    font-weight: 800; color: var(--brand); font-size: 13px;
+    border-top: 1px solid var(--line-soft); margin-top: 4px; padding-top: 6px;
+    display: flex; justify-content: space-between;
+  }
+  .demo-card .btn {
+    width: 100%; padding: 9px; background: var(--brand); color: white; border: none;
+    border-radius: 7px; font-weight: 700; font-size: 11.5px; margin-top: 8px;
+    position: relative; overflow: hidden;
+  }
+  .demo-success {
+    background: #dcfce7; border: 1px solid #86efac; color: #166534;
+    padding: 9px 12px; border-radius: 10px; font-size: 11.5px;
+    font-weight: 700; opacity: 0; will-change: opacity, transform;
+  }
+  .demo-email {
+    position: absolute; top: 8px; left: 8px; right: 8px;
+    background: rgba(250, 250, 252, 0.96); backdrop-filter: blur(14px);
+    border-radius: 14px; padding: 10px 12px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, .25), 0 4px 10px rgba(15, 23, 42, .08);
+    opacity: 0; z-index: 10; will-change: opacity, transform;
+  }
+  .demo-email .top { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .demo-email .ic {
+    width: 20px; height: 20px; border-radius: 5px;
+    background: white; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  }
+  .demo-email .app { font-size: 10px; font-weight: 700; color: var(--ink-1); letter-spacing: .02em; text-transform: uppercase; }
+  .demo-email .time { font-size: 9.5px; color: var(--ink-3); margin-left: auto; }
+  .demo-email .subj { font-size: 11.5px; font-weight: 700; color: var(--ink-0); margin-bottom: 2px; line-height: 1.3; }
+  .demo-email .body { font-size: 10.5px; color: var(--ink-2); line-height: 1.35; }
+
+  /* 22-second cycle — each step fades in at its own % of cycle, all fade out at 97-100% */
+  @keyframes m1 { 0%,4%{opacity:0;transform:translateY(8px)} 8%,93%{opacity:1;transform:translateY(0)} 97%,100%{opacity:0} }
+  @keyframes m2 { 0%,14%{opacity:0;transform:translateY(8px)} 18%,93%{opacity:1;transform:translateY(0)} 97%,100%{opacity:0} }
+  @keyframes m3 { 0%,26%{opacity:0;transform:translateY(8px)} 30%,93%{opacity:1;transform:translateY(0)} 97%,100%{opacity:0} }
+  @keyframes m4 { 0%,38%{opacity:0;transform:translateY(12px) scale(.96)} 42%,93%{opacity:1;transform:translateY(0) scale(1)} 97%,100%{opacity:0} }
+  @keyframes m5 {
+    0%,55%{opacity:0;transform:scale(1)}
+    57%,60%{opacity:0;transform:scale(.94)}
+    /* tap pulse */
+  }
+  @keyframes m5btn {
+    0%,55%{box-shadow:0 0 0 0 rgba(79,70,229,0); transform:scale(1)}
+    58%{box-shadow:0 0 0 6px rgba(79,70,229,.35); transform:scale(.97)}
+    62%{box-shadow:0 0 0 14px rgba(79,70,229,0); transform:scale(1)}
+    100%{box-shadow:0 0 0 0 rgba(79,70,229,0); transform:scale(1)}
+  }
+  @keyframes m6 { 0%,64%{opacity:0;transform:translateY(8px)} 68%,93%{opacity:1;transform:translateY(0)} 97%,100%{opacity:0} }
+  @keyframes m7 { 0%,72%{opacity:0;transform:translateY(-30px)} 76%,93%{opacity:1;transform:translateY(0)} 97%,100%{opacity:0;transform:translateY(-20px)} }
+  .demo-bubble.s1 { animation: m1 22s infinite ease-out; }
+  .demo-bubble.s2 { animation: m2 22s infinite ease-out; }
+  .demo-bubble.s3 { animation: m3 22s infinite ease-out; }
+  .demo-card.s4 { animation: m4 22s infinite ease-out; }
+  .demo-card.s4 .btn { animation: m5btn 22s infinite ease-out; }
+  .demo-success.s6 { animation: m6 22s infinite ease-out; }
+  .demo-email.s7 { animation: m7 22s infinite ease-out; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .demo-bubble, .demo-card, .demo-success, .demo-email { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .demo-card .btn { animation: none !important; }
+  }
+  .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 64px); font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.03em; margin-bottom: 22px; color: var(--ink-0);
+  }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 680px; line-height: 1.65; margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-cta .primary {
+    padding: 14px 24px; background: var(--ink-0); color: #fff;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: transform .15s;
+  }
+  .hero-cta .primary:hover { transform: translateY(-1px); }
+  .hero-cta .secondary {
+    padding: 14px 24px; background: transparent; color: var(--ink-1);
+    border: 1px solid var(--line); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  /* Pain section */
+  .pain {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .pain h2 small {
+    display: block; color: var(--brand); font-weight: 600; font-size: 14px;
+    letter-spacing: .08em; margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 34px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 18px; letter-spacing: -0.025em; line-height: 1.2;
+  }
+  h2 + .sub { font-size: 17px; color: var(--ink-2); margin-bottom: 36px; max-width: 680px; }
+  h3 { font-size: 19px; font-weight: 700; color: var(--ink-0); margin-bottom: 10px; }
+
+  .pain-grid { display: grid; gap: 16px; margin-top: 32px; }
+  @media (min-width: 720px) { .pain-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pain-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow-sm);
+  }
+  .pain-card .icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: #fef2f2; color: #dc2626;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 12px;
+  }
+  .pain-card h3 { font-size: 16px; margin-bottom: 6px; }
+  .pain-card p { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  /* Solution split */
+  .solution {
+    display: grid; gap: 40px; align-items: center;
+  }
+  @media (min-width: 880px) { .solution { grid-template-columns: 1fr 1fr; } }
+
+  /* Chat mockup */
+  .chat-mock {
+    background: #f0f2f8; border-radius: 22px; padding: 20px 18px;
+    max-width: 380px; margin: 0 auto; font-size: 14px;
+    box-shadow: var(--shadow-lg);
+  }
+  .chat-mock .bubble {
+    padding: 10px 14px; border-radius: 14px; margin: 8px 0; max-width: 86%; line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .chat-mock .from-user { background: var(--brand); color: white; margin-left: auto; border-bottom-right-radius: 4px; }
+  .chat-mock .from-bot { background: white; color: var(--ink-1); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .chat-mock .confirm-card {
+    background: white; border: 2px solid var(--brand); border-radius: 12px; padding: 12px;
+    margin: 10px 0; font-size: 12.5px;
+  }
+  .chat-mock .confirm-card .row { display: flex; justify-content: space-between; padding: 3px 0; }
+  .chat-mock .confirm-card .row .label { color: #888; }
+  .chat-mock .confirm-card .total { border-top: 1px solid #e5e7eb; margin-top: 6px; padding-top: 6px; font-weight: 700; }
+  .chat-mock .confirm-btn {
+    width: 100%; padding: 10px; background: var(--brand); color: white;
+    border: none; border-radius: 8px; font-weight: 600; margin-top: 10px; font-size: 12px;
+  }
+  .chat-mock .success {
+    background: #dcfce7; border: 1px solid #86efac; color: #166534;
+    padding: 10px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-top: 8px;
+  }
+
+  /* Benefit grid */
+  .benefits { display: grid; gap: 18px; margin: 36px 0; }
+  @media (min-width: 720px) { .benefits { grid-template-columns: repeat(3, 1fr); } }
+  .benefit {
+    padding: 24px; border-radius: 14px;
+    background: var(--bg-card); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  }
+  .benefit .big {
+    font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 6px;
+  }
+  .benefit .label { font-size: 14px; color: var(--ink-1); font-weight: 600; margin-bottom: 4px; }
+  .benefit .desc { font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+
+  /* Compare table */
+  .compare-wrap {
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    overflow: hidden; box-shadow: var(--shadow-md); margin: 28px 0;
+  }
+  table.compare { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  table.compare th, table.compare td {
+    padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  table.compare tr:last-child td { border-bottom: none; }
+  table.compare thead th {
+    background: var(--bg-soft); color: var(--ink-3); font-weight: 600;
+    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  table.compare td.head { color: var(--ink-0); font-weight: 700; width: 22%; }
+  table.compare .old { color: var(--ink-3); }
+  table.compare .new { color: var(--ink-1); font-weight: 500; }
+  table.compare .new::before { content: '✓ '; color: var(--ok); font-weight: 700; }
+
+  /* Step cards */
+  .steps { display: grid; gap: 18px; margin: 32px 0; }
+  @media (min-width: 720px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+  .step {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px; position: relative; box-shadow: var(--shadow-sm);
+  }
+  .step .num {
+    display: inline-block; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--grad); color: white;
+    text-align: center; line-height: 32px; font-weight: 700; font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .step h3 { font-size: 17px; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+  /* How it works — plain language cards */
+  .how { display: grid; gap: 16px; }
+  @media (min-width: 720px) { .how { grid-template-columns: repeat(2, 1fr); } }
+  .how-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px; box-shadow: var(--shadow-sm);
+  }
+  .how-card .q {
+    color: var(--brand); font-size: 13px; font-weight: 700;
+    letter-spacing: .06em; margin-bottom: 8px;
+  }
+  .how-card h3 { font-size: 18px; margin-bottom: 10px; }
+  .how-card p { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; }
+
+  /* Capability list */
+  .cap {
+    background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%);
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 36px; margin: 28px 0; box-shadow: var(--shadow-sm);
+  }
+  .cap-list { display: grid; gap: 18px; margin-top: 20px; }
+  @media (min-width: 720px) { .cap-list { grid-template-columns: repeat(2, 1fr); } }
+  .cap-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+  .cap-item .dot {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--brand-soft); color: var(--brand);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .cap-item .text strong { display: block; color: var(--ink-0); margin-bottom: 2px; font-size: 15px; }
+  .cap-item .text span { color: var(--ink-2); font-size: 13.5px; line-height: 1.55; }
+
+  /* Quote / callout */
+  .quote {
+    background: var(--grad-soft); border-radius: 18px;
+    padding: 36px; margin: 32px 0; border: 1px solid var(--line);
+  }
+  .quote .big-text {
+    font-size: 22px; line-height: 1.5; color: var(--ink-0); font-weight: 600;
+    letter-spacing: -0.01em; margin-bottom: 8px;
+  }
+  .quote .sub-text { color: var(--ink-2); font-size: 14px; }
+
+  /* CTA section */
+  .final-cta {
+    background: var(--ink-0); color: white;
+    border-radius: 20px; padding: 60px 40px; margin: 60px 0; text-align: center;
+  }
+  .final-cta h2 { color: white; }
+  .final-cta p { color: #c4c9dc; max-width: 540px; margin: 0 auto 28px; font-size: 16px; }
+  .final-cta .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .final-cta a.primary {
+    padding: 14px 28px; background: white; color: var(--ink-0);
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  .final-cta a.secondary {
+    padding: 14px 28px; background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+
+  /* Portal mockups (browser-framed) */
+  .portal-mock {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow-lg); overflow: hidden; margin: 24px 0 0;
+  }
+  .portal-mock .browser-bar {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    background: var(--bg-soft); border-bottom: 1px solid var(--line);
+  }
+  .portal-mock .dots { display: flex; gap: 6px; }
+  .portal-mock .dots span { width: 11px; height: 11px; border-radius: 50%; }
+  .portal-mock .dots span:nth-child(1) { background: #ff5f57; }
+  .portal-mock .dots span:nth-child(2) { background: #febc2e; }
+  .portal-mock .dots span:nth-child(3) { background: #28c840; }
+  .portal-mock .url {
+    flex: 1; padding: 5px 12px; background: white; border: 1px solid var(--line);
+    border-radius: 6px; font-size: 12px; color: var(--ink-3);
+  }
+  .portal-mock .body { padding: 22px; }
+
+  .portal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px; flex-wrap: wrap; gap: 12px;
+  }
+  .portal-head h4 { font-size: 16px; font-weight: 700; color: var(--ink-0); }
+  .portal-tools { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    background: white; border: 1px solid var(--line); color: var(--ink-2);
+  }
+  .chip.active { background: var(--brand); color: white; border-color: var(--brand); }
+  .chip-search {
+    padding: 5px 12px; border-radius: 999px; font-size: 12px;
+    background: var(--bg-soft); border: 1px solid var(--line); color: var(--ink-3);
+  }
+
+  /* Booking table */
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .portal-table {
+    width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0; font-size: 13px;
+  }
+  .portal-table th {
+    text-align: left; padding: 10px 12px; background: var(--bg-soft);
+    font-size: 11px; font-weight: 600; color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--line);
+  }
+  .portal-table td {
+    padding: 12px; border-bottom: 1px solid var(--line-soft); color: var(--ink-1);
+    vertical-align: middle;
+  }
+  .portal-table tr:last-child td { border-bottom: none; }
+  .portal-table .id { font-family: 'SF Mono', Consolas, monospace; color: var(--ink-3); font-size: 11.5px; }
+  .portal-table .customer { font-weight: 600; color: var(--ink-0); }
+  .portal-table .customer small { display: block; color: var(--ink-3); font-weight: 400; font-size: 11px; margin-top: 2px; }
+  .portal-table .amount { font-weight: 700; color: var(--ink-0); }
+  .portal-table .actions { white-space: nowrap; }
+  .portal-table .actions a {
+    font-size: 12px; color: var(--brand); text-decoration: none; font-weight: 600;
+    padding: 4px 8px; border-radius: 6px;
+  }
+
+  .pill {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .pill-ok { background: #dcfce7; color: #166534; }
+  .pill-warn { background: #fef3c7; color: #92400e; }
+  .pill-info { background: var(--brand-soft); color: var(--brand-deep); }
+  .pill-gray { background: #f3f4f6; color: #4b5563; }
+
+  .portal-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-soft);
+    font-size: 12px; color: var(--ink-3);
+  }
+  .portal-footer .pager { display: flex; gap: 4px; }
+  .portal-footer .pager span {
+    padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line); font-weight: 600;
+  }
+  .portal-footer .pager span.curr { background: var(--brand); color: white; border-color: var(--brand); }
+
+  /* Schedule board — time-slot package management */
+  .sched-role-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; margin-bottom: 14px;
+    background: #eef4ff; border: 1px solid #c7d8ff; border-radius: 8px;
+    font-size: 12.5px; color: var(--ink-1);
+  }
+  .sched-role-bar strong { color: var(--brand-deep); font-weight: 700; }
+  .sched-role-bar em { font-style: normal; color: var(--ink-3); }
+  .sched-toolbar {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .sched-toolbar .week-chip {
+    padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    background: white; border: 1px solid var(--line); color: var(--ink-1);
+    font-family: inherit; cursor: pointer;
+  }
+  .sched-toolbar .week-chip.active { background: var(--bg-soft); }
+  .sched-toolbar .range { color: var(--ink-2); font-size: 13px; font-weight: 500; margin-left: 4px; }
+  .sched-toolbar .add-pkg {
+    margin-left: auto;
+    padding: 8px 16px; background: #f59e0b; color: white; border: none;
+    border-radius: 8px; font-size: 13px; font-weight: 700;
+    font-family: inherit; cursor: pointer;
+  }
+  .sched-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .board {
+    display: grid; grid-template-columns: 130px repeat(7, minmax(120px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; min-width: 960px;
+  }
+  .board-cell {
+    background: white; padding: 10px 8px; min-height: 84px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .board-cell.head {
+    background: var(--bg-soft); font-size: 12px; font-weight: 600;
+    color: var(--ink-2); min-height: 48px; flex-direction: column; gap: 2px;
+  }
+  .board-cell.head .date { color: var(--ink-1); font-weight: 700; font-size: 13px; }
+  .board-cell.head.today { background: #eef4ff; }
+  .board-cell.head.today .date { color: var(--brand); }
+  .board-cell.col-today { background: #f7f9ff; }
+  .board-cell.row-head {
+    background: var(--bg-soft); align-items: flex-start; justify-content: flex-start;
+    flex-direction: column; padding: 12px; gap: 4px;
+  }
+  .board-cell.row-head .slot-name { font-size: 13.5px; font-weight: 700; color: var(--ink-0); }
+  .board-cell.row-head .slot-name b { color: var(--ink-0); }
+  .board-cell.row-head .slot-meta { font-size: 11px; color: var(--ink-3); font-weight: 500; }
+  .board-cell.empty { color: var(--ink-3); font-size: 14px; }
+  .pkg-add {
+    width: 100%; padding: 7px 8px; border: 1.5px dashed var(--line);
+    border-radius: 6px; background: white; color: var(--ink-3); font-size: 11.5px;
+    text-align: center; font-weight: 500;
+  }
+  .pkg-card {
+    width: 100%; padding: 7px 9px; border-radius: 6px;
+    font-size: 12px; line-height: 1.4;
+  }
+  .pkg-card.confirmed {
+    background: var(--brand-soft); border: 1px solid #c7d2fe; color: var(--brand-deep);
+  }
+  .pkg-card.pending {
+    background: #fef3c7; border: 1px solid #fcd34d; color: #92400e;
+  }
+  .pkg-card .pkg-title { font-weight: 700; font-size: 12px; margin-bottom: 2px; }
+  .pkg-card .pkg-meta { font-size: 11px; opacity: .9; }
+
+  /* RWD phone mockups */
+  .phone-row {
+    display: grid; gap: 28px; margin-top: 40px;
+    grid-template-columns: 1fr; justify-items: center;
+  }
+  @media (min-width: 880px) { .phone-row { grid-template-columns: repeat(3, 1fr); } }
+  .phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .phone-frame {
+    width: 280px; height: 580px;
+    background: #0f172a; border-radius: 36px; padding: 12px;
+    box-shadow: 0 30px 60px rgba(15, 23, 42, .22), 0 10px 20px rgba(15, 23, 42, .12);
+    position: relative;
+  }
+  .phone-frame::before {
+    content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 18px; background: #0f172a; border-radius: 0 0 12px 12px; z-index: 2;
+  }
+  .phone-screen {
+    width: 100%; height: 100%; background: white; border-radius: 26px;
+    overflow: hidden; position: relative; font-size: 12px; color: var(--ink-1);
+    line-height: 1.4; letter-spacing: 0;
+  }
+  .phone-screen > img {
+    width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: top center;
+  }
+  .phone-statusbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 22px 4px; font-size: 11px; font-weight: 700; color: var(--ink-0);
+  }
+  .phone-statusbar .icons { font-size: 10px; letter-spacing: .5px; color: var(--ink-1); }
+  .phone-content {
+    padding: 8px 14px 14px; overflow-y: auto;
+    height: calc(100% - 28px); position: relative;
+  }
+  .phone-caption { font-size: 13.5px; color: var(--ink-2); font-weight: 600; }
+  .pwa-pills {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 32px;
+    font-size: 12.5px;
+  }
+  .pwa-pills .item {
+    padding: 6px 14px; background: white; border: 1px solid var(--line);
+    border-radius: 999px; color: var(--ink-2); font-weight: 600;
+  }
+  /* in-app webview top chrome (Safari View Controller style) */
+  .webview-bar {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    border-bottom: 1px solid var(--line-soft); margin-bottom: 10px;
+  }
+  .webview-bar .x {
+    width: 22px; height: 22px; border-radius: 50%; background: #f1f2f5;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-2); font-size: 13px; flex-shrink: 0;
+  }
+  .webview-bar .url {
+    flex: 1; text-align: center; font-size: 10.5px; color: var(--ink-1); font-weight: 600;
+  }
+  .webview-bar .more {
+    width: 22px; height: 22px; border-radius: 50%; background: #f1f2f5;
+    display: flex; align-items: center; justify-content: center; font-size: 10px;
+  }
+  .app-nav {
+    display: flex; gap: 12px; align-items: center; font-size: 11px;
+    color: var(--ink-2); padding: 4px 0 10px; border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 10px;
+  }
+  .app-nav a { color: var(--ink-2); text-decoration: underline; cursor: pointer; }
+  .app-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+
+  /* Audience / 適合誰 — category cards with tag pills */
+  .audience-grid {
+    display: grid; gap: 16px; margin: 36px 0 24px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .audience-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .audience-grid { grid-template-columns: repeat(3, 1fr); } }
+  .audience-cat {
+    background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 22px; box-shadow: var(--shadow-sm);
+  }
+  .audience-cat .cat-title {
+    font-size: 15px; font-weight: 700; color: var(--ink-0); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .audience-cat .cat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .audience-cat .cat-tags span {
+    padding: 4px 11px; background: var(--bg-soft); border: 1px solid var(--line-soft);
+    border-radius: 999px; font-size: 12.5px; color: var(--ink-2); font-weight: 500;
+  }
+  .audience-rule {
+    margin-top: 18px; padding: 16px 20px; background: var(--bg-soft);
+    border: 1px solid var(--line); border-radius: 10px; font-size: 14px;
+    color: var(--ink-1); line-height: 1.7;
+  }
+  .audience-rule strong { color: var(--brand-deep); }
+  .audience-rule .check { color: var(--ok); font-weight: 700; }
+  .audience-rule .cross { color: #b91c1c; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="logo">AICMS</div>
+  <div class="links">
+    <a href="#pain">問題</a>
+    <a href="#solution">解法</a>
+    <a href="#how">原理</a>
+    <a href="#trust">為何能信</a>
+  </div>
+  <a href="#" class="cta">立即線上諮詢</a>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">AI 客服 × 線上預約</div>
+    <h1>
+      客人不會回來填表單。<br>
+      讓他<span class="grad">在對話裡就下單</span>。
+    </h1>
+    <p class="lede">
+      AICMS 的 AI 客服直接連到你的預約系統。客人問「這週六有空位嗎」，AI 當場查時段、報價格、收資料、跳出確認單一鍵成立訂單。<br>
+      全程在對話框內。不跳頁、不填表、不再流失。
+    </p>
+    <div class="hero-cta">
+      <a href="#" class="primary">立即線上諮詢</a>
+      <a href="https://waterman-sports.cc" class="secondary">看示範站 →</a>
+    </div>
+  </div>
+
+  <div class="hero-phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="demo-chat">
+          <!-- email notification 滑入 (最後出現) -->
+          <div class="demo-email s7">
+            <div class="top">
+              <div class="ic">✉️</div>
+              <span class="app">郵件</span>
+              <span class="time">現在</span>
+            </div>
+            <div class="subj">✅ SUP 立槳體驗 — 訂單確認</div>
+            <div class="body">陳大明 您好，您的預約已成立。5/24 (六) 09:00，2 人，NT$ 3,000…</div>
+          </div>
+
+          <div class="head">
+            <div class="av">水</div>
+            <div class="info">
+              <div class="name">水行者 AI 客服</div>
+              <div class="ok">線上 · 通常 5 秒回</div>
+            </div>
+          </div>
+
+          <div class="stream">
+            <div class="demo-bubble user s1">週六上午有空位嗎？2 人新手 🏄</div>
+            <div class="demo-bubble bot s2">🌅 5/24 (六) 09:00 還剩 4 位<br>新手友善 · 含 GoPro · NT$ 1,500/人</div>
+            <div class="demo-bubble user s3">好，預定！陳大明 0918-115-406</div>
+            <div class="demo-card s4">
+              <div class="h">📋 預約確認</div>
+              <div class="r"><span class="l">行程</span><span class="v">SUP 立槳體驗</span></div>
+              <div class="r"><span class="l">時間</span><span class="v">5/24 (六) 09:00</span></div>
+              <div class="r"><span class="l">人數</span><span class="v">2 人</span></div>
+              <div class="total"><span>合計</span><span>NT$ 3,000</span></div>
+              <button class="btn">立即確認 →</button>
+            </div>
+            <div class="demo-success s6">✅ 訂單成立！確認信已寄出。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAIN ============ -->
+<section id="pain" class="pain">
+  <h2><small>每天正在發生的事</small>那些被你網站漏掉的客人。</h2>
+  <p class="sub">線上預約轉換率低，不是客人不想買，是中間「擋住他」的東西太多。</p>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="icon">😤</div>
+      <h3>問完價格就消失</h3>
+      <p>客人問「多少錢」，你的客服還沒回，他已經去看下一家。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">📝</div>
+      <h3>跳到表單就放棄</h3>
+      <p>聊得好好的，一被丟到預約頁面，當下就少 60% 的人按下送出。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🔁</div>
+      <h3>同樣的問題回 100 次</h3>
+      <p>「有沒有素食」「兒童算嗎」「停車怎麼辦」——客服每天浪費在這。</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🌙</div>
+      <h3>下班時間就漏單</h3>
+      <p>晚上 10 點客人想訂，沒人回。隔天起床發現他改訂別家了。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section id="solution">
+  <h2>客人講話，AI 直接幫他訂。</h2>
+  <p class="sub">不是「會聊天的 FAQ」。是真的能幫你出訂單的 AI 助理。</p>
+
+  <div class="solution">
+    <div>
+      <h3 style="font-size: 22px; margin-bottom: 14px;">一段對話，完成這些事：</h3>
+      <div style="display: grid; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: start;">
+          <span style="color: var(--ok); font-weight: 700; font-size: 18px;">✓</span>
+          <span><strong>即時查時段</strong>：直接讀你的預約系統，不會編造。</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: start;">
+          <span style="color: var(--ok); font-weight: 700; font-size: 18px;">✓</span>
+          <span><strong>即時算價格</strong>：含加購、兒童、早鳥、平假日差價，後台真實試算。</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: start;">
+          <span style="color: var(--ok); font-weight: 700; font-size: 18px;">✓</span>
+          <span><strong>對話內出確認單</strong>：客人按一下，訂單就成立。</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: start;">
+          <span style="color: var(--ok); font-weight: 700; font-size: 18px;">✓</span>
+          <span><strong>客人改條件自動重算</strong>：「改成 3 人」「加早鳥」秒重出確認單。</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: start;">
+          <span style="color: var(--ok); font-weight: 700; font-size: 18px;">✓</span>
+          <span><strong>下單瞬間通知你</strong>：手機 push 跟 email 同步送達。</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: start;">
+          <span style="color: var(--ok); font-weight: 700; font-size: 18px;">✓</span>
+          <span><strong>解不掉就轉真人</strong>：一鍵跳 LINE，對話完整保留。</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chat-mock">
+        <div class="bubble from-user">這週六下午 2 大 1 小想玩 SUP，有空嗎？</div>
+        <div class="bubble from-bot">
+          14:00 已經有人開了 4 人團（猴洞秘境），你們 3 位可以併進去，比較好成行。<br><br>
+          費用：大人 NT$1,200×2、兒童 NT$800×1，秘境加 NT$300<br>
+          <strong>總計 NT$3,500</strong>
+        </div>
+        <div class="bubble from-user">好，幫我訂</div>
+        <div class="bubble from-bot">沒問題，麻煩給我姓名、電話、email</div>
+        <div class="bubble from-user">陳建文 / 0912345 / rai@xx.com</div>
+        <div class="bubble from-bot" style="padding: 8px;">
+          以下是確認單，按按鈕完成：
+          <div class="confirm-card">
+            <div class="row"><span class="label">時段</span><span>SUP 體驗</span></div>
+            <div class="row"><span class="label">時間</span><span>05/24 14:00</span></div>
+            <div class="row"><span class="label">人數</span><span>3 人（併團）</span></div>
+            <div class="row total"><span>總計</span><span>NT$ 3,500</span></div>
+            <button class="confirm-btn">✓ 確認預約</button>
+          </div>
+        </div>
+        <div class="success">✓ 預約成功・編號 N72TRL・確認信已寄出</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFITS ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2>帶給生意的改變</h2>
+  <p class="sub">客人不流失、客服不重複、訂單不漏接。</p>
+
+  <div class="benefits">
+    <div class="benefit">
+      <div class="big">24h</div>
+      <div class="label">永遠在線接單</div>
+      <div class="desc">半夜、假日、客服請假都不停。客人問就有人答，能訂就直接訂。</div>
+    </div>
+    <div class="benefit">
+      <div class="big">0 跳轉</div>
+      <div class="label">對話內完成下單</div>
+      <div class="desc">不用切換頁面、不用重填資料、不用等 email 回覆。摩擦歸零。</div>
+    </div>
+    <div class="benefit">
+      <div class="big">秒回</div>
+      <div class="label">時段價格立即報</div>
+      <div class="desc">查得到、算得準、報得快。客人不用等，就不會跑去看別家。</div>
+    </div>
+    <div class="benefit">
+      <div class="big">省客服</div>
+      <div class="label">重複問題不再煩你</div>
+      <div class="desc">FAQ 級的問題 AI 全包，客服只處理真正需要人介入的事。</div>
+    </div>
+    <div class="benefit">
+      <div class="big">推併團</div>
+      <div class="label">主動幫你拼出團</div>
+      <div class="desc">看到時段已有人開團，自動引導散客併進去，提升出團率。</div>
+    </div>
+    <div class="benefit">
+      <div class="big">不亂講</div>
+      <div class="label">資料以你的後台為準</div>
+      <div class="desc">所有時段、價格都從你的系統撈，AI 不能編造，不會報錯價。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARE ============ -->
+<section>
+  <h2>傳統流程 vs. AICMS</h2>
+  <p class="sub">同一個客人想預約，兩種體驗，兩種結果。</p>
+
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>環節</th><th>傳統流程</th><th>AICMS AI 客服</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="head">查時段</td>
+          <td class="old">客人自己點到行事曆頁慢慢找</td>
+          <td class="new">問一句就回答，順便推薦併團時段</td>
+        </tr>
+        <tr>
+          <td class="head">問價格</td>
+          <td class="old">看方案頁、自己算加購、來回問</td>
+          <td class="new">「2 大 1 小加秘境」秒給總金額</td>
+        </tr>
+        <tr>
+          <td class="head">下單</td>
+          <td class="old">被丟到表單頁，重填一次資料</td>
+          <td class="new">對話內出確認卡，按一下成立</td>
+        </tr>
+        <tr>
+          <td class="head">改條件</td>
+          <td class="old">回去改表單、重新計算</td>
+          <td class="new">「加早鳥」「換時段」自動重算</td>
+        </tr>
+        <tr>
+          <td class="head">下班時段</td>
+          <td class="old">沒人接、改天再說、客人跑了</td>
+          <td class="new">24 小時運作，半夜也能成立訂單</td>
+        </tr>
+        <tr>
+          <td class="head">轉真人</td>
+          <td class="old">填表單等回信、對話歸零</td>
+          <td class="new">一鍵跳 LINE，對話完整轉交</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ VS OTHER AI ============ -->
+<section style="background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%); border-top: 1px solid var(--line);">
+  <div class="eyebrow" style="background: #fef3c7; color: #b45309;">關鍵差異</div>
+  <h2>跟其他 AI 客服比，差在哪？</h2>
+  <p class="sub">市面上大部分 AI 客服只做一件事：<strong>回答問題</strong>。我們做的是另一件事：<strong>幫你把客人變成訂單</strong>。</p>
+
+  <div class="quote" style="margin-bottom: 36px;">
+    <div class="big-text" style="font-size: 20px;">大部分 AI 客服讓你「省客服」。<br>AICMS 讓你「多接單」。</div>
+    <div class="sub-text">兩種定位、兩種結果。一個降成本、一個增收入。</div>
+  </div>
+
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>比較項目</th><th>一般 AI 客服</th><th>AICMS AI 客服</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="head">核心目的</td>
+          <td class="old">減少客服工時</td>
+          <td class="new"><strong>提升下單轉換率</strong></td>
+        </tr>
+        <tr>
+          <td class="head">能做的事</td>
+          <td class="old">看 FAQ、回答問題</td>
+          <td class="new">查時段、算價格、收資料、開單、寄信</td>
+        </tr>
+        <tr>
+          <td class="head">價格回覆</td>
+          <td class="old">給方案頁連結，叫客人自己看</td>
+          <td class="new">即時試算總金額（含加購、折扣、平假日）</td>
+        </tr>
+        <tr>
+          <td class="head">客人想下單</td>
+          <td class="old">「請點這裡填表單」→ 客人就跑了</td>
+          <td class="new">對話內出確認卡，按一下成立訂單</td>
+        </tr>
+        <tr>
+          <td class="head">客人改條件</td>
+          <td class="old">講太多次就轉真人</td>
+          <td class="new">自動重算、出新確認單，AI 自己處理</td>
+        </tr>
+        <tr>
+          <td class="head">與後台連動</td>
+          <td class="old">只讀靜態文件，跟系統脫鉤</td>
+          <td class="new">直連你的預約系統，資料同步</td>
+        </tr>
+        <tr>
+          <td class="head">最終產出</td>
+          <td class="old">一段回覆訊息</td>
+          <td class="new"><strong>一筆訂單編號 + 確認信 + 你的手機通知</strong></td>
+        </tr>
+        <tr>
+          <td class="head">數據可衡量</td>
+          <td class="old">聊了幾次、回應了幾題</td>
+          <td class="new"><strong>聊了 N 次 → 成立 M 筆訂單 → 轉換率多少</strong></td>
+        </tr>
+        <tr>
+          <td class="head">遇到不懂的</td>
+          <td class="old">自由發揮、容易編答案</td>
+          <td class="new">不確定就轉真人，紀錄完整保留</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="benefits" style="grid-template-columns: repeat(3, 1fr); margin-top: 36px;">
+    <div class="benefit" style="text-align: center;">
+      <div class="big">問 → 答</div>
+      <div class="label" style="color: var(--ink-3); margin-top: 8px;">一般 AI 客服的終點</div>
+      <div class="desc" style="margin-top: 8px;">客人問完之後，下單還是要靠他自己。</div>
+    </div>
+    <div class="benefit" style="text-align: center; border: 2px solid var(--brand); background: var(--brand-soft);">
+      <div class="big">問 → 答 → 訂</div>
+      <div class="label" style="margin-top: 8px;">AICMS 的終點</div>
+      <div class="desc" style="margin-top: 8px;"><strong>對話結束時，訂單已經在你後台。</strong></div>
+    </div>
+    <div class="benefit" style="text-align: center;">
+      <div class="big">看數字</div>
+      <div class="label" style="color: var(--ink-3); margin-top: 8px;">每月直接看轉換</div>
+      <div class="desc" style="margin-top: 8px;">後台告訴你：這個月 AI 帶來幾筆訂單、多少金額。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STEPS ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2>三步驟，客人就完成預約</h2>
+  <p class="sub">AI 嚴格按順序，不會跳步、不會自作主張、不會在資料齊全之前就送單。</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>把需求聊清楚</h3>
+      <p>想要哪個方案、什麼時段、幾個人。AI 邊聊邊查你的後台，把可訂時段跟金額都先確認。</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>讓客人選下一步</h3>
+      <p>給三個選項：請 AI 幫我訂、我自己填表單、找真人客服。<strong>不替客人決定</strong>，他要走哪條都可以。</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>確認單一鍵成立</h3>
+      <p>對話內收姓名電話 → 浮出確認卡 → 按下確認 → 訂單成立、寄信、推播你 — 全部自動。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW (plain language) ============ -->
+<section id="how">
+  <h2>背後是怎麼運作的</h2>
+  <p class="sub">不用懂技術也能看懂。我們把每個常見的疑問拆給你。</p>
+
+  <div class="how">
+    <div class="how-card">
+      <div class="q">Q1</div>
+      <h3>AI 怎麼知道我家的時段跟價格？</h3>
+      <p>AI 不是「猜」，它有專屬通道可以直接讀你的預約系統。客人問什麼，它就查什麼，回答完全來自你的後台資料。</p>
+    </div>
+    <div class="how-card">
+      <div class="q">Q2</div>
+      <h3>它會不會亂報價、報錯價？</h3>
+      <p>不會。AI 被嚴格訓練「報任何金額前必須先用試算工具」，金額完全由你的後台計算，AI 只負責把結果講給客人聽。算錯一次系統會自動偵測、強制重算。</p>
+    </div>
+    <div class="how-card">
+      <div class="q">Q3</div>
+      <h3>確認單上的金額會跟實際不一樣嗎？</h3>
+      <p>不會。確認單顯示的金額直接來自系統試算，不是 AI 講的數字。客人按下確認時，系統會再次驗證，確保跟對話中講的完全一致。</p>
+    </div>
+    <div class="how-card">
+      <div class="q">Q4</div>
+      <h3>AI 答不出來的問題怎麼辦？</h3>
+      <p>它被訓練成「不確定的就不能編」。一旦超出網站知識範圍，會主動說「這個我幫你問真人」並跳出 LINE 按鈕，對話紀錄完整保留給你的客服接手。</p>
+    </div>
+    <div class="how-card">
+      <div class="q">Q5</div>
+      <h3>萬一被機器人灌爆怎麼辦？</h3>
+      <p>內建四道防護：偽造表單偵測、IP 黑名單、發言頻率限制、行為訊號判讀。超過閾值自動封鎖，省下你的 API 費用，也保護真實客人。</p>
+    </div>
+    <div class="how-card">
+      <div class="q">Q6</div>
+      <h3>客人改條件，AI 會不會搞錯？</h3>
+      <p>不會。客人說「再加一個小孩」或「改早鳥」，AI 會把舊單作廢、重新算、出新的確認單。記憶可達 15 輪對話，不會掉資料。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section id="trust" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2>為什麼可以放心讓 AI 接客？</h2>
+  <p class="sub">我們把「商家最擔心的事」當成核心設計重點，不是事後補丁。</p>
+
+  <div class="cap">
+    <h3 style="font-size: 18px; margin-bottom: 4px;">六道內建保護，讓 AI 不會出錯</h3>
+    <p style="font-size: 14px; color: var(--ink-2);">每一道都已上線運作，你不用設定，預設就生效。</p>
+    <div class="cap-list">
+      <div class="cap-item">
+        <div class="dot">1</div>
+        <div class="text">
+          <strong>金額必須來自後台</strong>
+          <span>AI 不准用「我記得」「大概是」報價，違反規則系統會自動糾錯重算。</span>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="dot">2</div>
+        <div class="text">
+          <strong>動嘴不動手會被攔截</strong>
+          <span>AI 講「以下是確認單」但沒實際開單？系統偵測到立即補開，客人不會看到空白。</span>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="dot">3</div>
+        <div class="text">
+          <strong>答不出的問題會自動記下</strong>
+          <span>客人問了 AI 答不出？後台一覽表幫你看「該補哪些 FAQ」。</span>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="dot">4</div>
+        <div class="text">
+          <strong>你手動寫的答案最大</strong>
+          <span>知識庫支援手動編輯，你寫的「標準答案」永遠優先，AI 不會用網站內容覆寫你的。</span>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="dot">5</div>
+        <div class="text">
+          <strong>多輪對話不掉資料</strong>
+          <span>記憶可達 15 輪。客人改來改去都不會「忘了前面講過什麼」。</span>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="dot">6</div>
+        <div class="text">
+          <strong>不確定就轉真人</strong>
+          <span>AI 從不裝懂，超出範圍立刻跳 LINE 按鈕，對話紀錄完整轉交客服。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <div class="big-text">「AI 客服最大的疑慮不是『會不會聊天』，是『會不會亂答』。<br>我們把『不亂答』寫進每一層架構，這才敢上線。」</div>
+    <div class="sub-text">— AICMS 產品設計原則</div>
+  </div>
+</section>
+
+<!-- ============ AUDIENCE / 適合誰 ============ -->
+<section>
+  <h2><small>適合誰</small>「以時段為服務商品」的體驗 / 顧問型業者。</h2>
+  <p class="sub">只要你做的事是「客人預約一段時間 + 你 / 教練 / 顧問本人現場服務」，這套就是為你蓋的。產品 = 時段，下單 = 選日期 → 選時段 → 確認人數 + 付款。共通邏輯一樣，AI 客服自然懂得回。</p>
+
+  <div class="audience-grid">
+
+    <div class="audience-cat">
+      <div class="cat-title">🏞 戶外 / 水上體驗</div>
+      <div class="cat-tags">
+        <span>SUP 立槳</span>
+        <span>獨木舟</span>
+        <span>泛舟 / 漂流</span>
+        <span>溯溪</span>
+        <span>潛水 / 自潛</span>
+        <span>衝浪</span>
+        <span>滑板</span>
+        <span>風帆 / 帆船</span>
+        <span>飛行傘 / 滑翔翼</span>
+        <span>高空彈跳</span>
+        <span>跳傘</span>
+        <span>攀岩</span>
+        <span>登山嚮導</span>
+        <span>賞鯨</span>
+        <span>滑雪 / 雪板</span>
+        <span>馬術</span>
+        <span>釣魚船</span>
+        <span>熱氣球</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">💆 美容 / 美髮 / 紋繡</div>
+      <div class="cat-tags">
+        <span>美甲師</span>
+        <span>美睫</span>
+        <span>美髮設計師</span>
+        <span>美容護膚</span>
+        <span>紋繡 / 半永久</span>
+        <span>SPA</span>
+        <span>按摩 / 推拿</span>
+        <span>芳療師</span>
+        <span>整復所</span>
+        <span>寵物美容</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">🩺 醫療 / 復健 / 諮商</div>
+      <div class="cat-tags">
+        <span>診所醫師</span>
+        <span>牙醫</span>
+        <span>中醫師</span>
+        <span>物理治療師</span>
+        <span>復健科</span>
+        <span>心理諮商師</span>
+        <span>心理師</span>
+        <span>營養師</span>
+        <span>護理諮詢</span>
+        <span>助產士</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">🏋️ 健身 / 運動教學</div>
+      <div class="cat-tags">
+        <span>健身教練</span>
+        <span>私人教練</span>
+        <span>瑜珈老師</span>
+        <span>皮拉提斯</span>
+        <span>高爾夫教練</span>
+        <span>網球 / 羽球教練</span>
+        <span>游泳教練</span>
+        <span>拳擊教練</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">🎨 才藝 / 工藝體驗</div>
+      <div class="cat-tags">
+        <span>家教課程</span>
+        <span>鋼琴 / 樂器老師</span>
+        <span>語言老師</span>
+        <span>陶藝體驗</span>
+        <span>烹飪 / 烘焙課</span>
+        <span>調酒體驗</span>
+        <span>攝影教學</span>
+        <span>程式 / 機器人教學</span>
+        <span>樂高 / 才藝班</span>
+        <span>駕訓班教練</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">💼 顧問 / 專業諮詢</div>
+      <div class="cat-tags">
+        <span>法律顧問</span>
+        <span>企業顧問</span>
+        <span>創業顧問</span>
+        <span>網紅顧問</span>
+        <span>AI 顧問</span>
+        <span>財務顧問</span>
+        <span>投資顧問</span>
+        <span>保險經紀</span>
+        <span>形象顧問</span>
+        <span>婚禮策劃師</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">📸 攝影 / 創作服務</div>
+      <div class="cat-tags">
+        <span>婚紗攝影</span>
+        <span>商業攝影</span>
+        <span>個人寫真</span>
+        <span>形象照</span>
+        <span>VLOG / 影片拍攝</span>
+        <span>美術 / 插畫接案</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">🍷 微型店面 / 私廚</div>
+      <div class="cat-tags">
+        <span>私廚 / 預約制餐廳</span>
+        <span>調香 / 蠟燭 DIY</span>
+        <span>桌遊店</span>
+        <span>密室逃脫</span>
+        <span>占卜 / 塔羅</span>
+        <span>身心靈工作坊</span>
+      </div>
+    </div>
+
+    <div class="audience-cat">
+      <div class="cat-title">🏠 到府 / 預約上門</div>
+      <div class="cat-tags">
+        <span>居家清潔</span>
+        <span>到府按摩</span>
+        <span>寵物保姆</span>
+        <span>家電維修</span>
+        <span>水電修繕</span>
+        <span>搬家服務</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="audience-rule">
+    📐 <strong>判斷規則一句話</strong>：
+    產品標題 = 時段名稱、下單流程 = 選日期 + 選時段 + 確認人數，<span class="check">這套就是為你蓋的 ✓</span>。<br>
+    純電商賣實體商品、外送餐點、純資訊網站<span class="cross">不適合 ✗</span> — 那些沒有「指定時段服務」的概念。
+  </div>
+</section>
+
+<!-- ============ ADMIN ============ -->
+<section>
+  <h2>你可以掌控的事</h2>
+  <p class="sub">後台直接調整，不用工程師。</p>
+
+  <div class="benefits" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="benefit">
+      <div class="label" style="font-size: 16px; margin-bottom: 8px;">📚 知識庫一鍵掃描</div>
+      <div class="desc">改了官網內容？按一下，AI 的回答依據立刻更新。手動寫的答案不會被蓋掉。</div>
+    </div>
+    <div class="benefit">
+      <div class="label" style="font-size: 16px; margin-bottom: 8px;">💬 對話紀錄全保留</div>
+      <div class="desc">每段對話可篩選查閱，看 AI 怎麼回的、有沒有轉真人、客人滿不滿意。</div>
+    </div>
+    <div class="benefit">
+      <div class="label" style="font-size: 16px; margin-bottom: 8px;">🎨 語氣風格自由設</div>
+      <div class="desc">字數上限、要不要條列、整體口吻——想要「正式」還是「親切」隨你切換。</div>
+    </div>
+    <div class="benefit">
+      <div class="label" style="font-size: 16px; margin-bottom: 8px;">⚡ 模型快慢可選</div>
+      <div class="desc">基本方案用「快速版」省成本，進階方案綁定「高階版」處理複雜對話，後台一鍵切。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTAL — 訂單查詢 ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>內部後台 #1</small>員工接單、老闆看流水，同一份訂單表。</h2>
+  <p class="sub">AI 客服在對話內成立的、客人自己上網下單的、員工電話補建的——三種來源全部進到同一個內部後台。員工不用切 Excel / LINE 群轉貼，老闆隨時查今日進單、本月營收，不再憑感覺。</p>
+
+  <div class="portal-mock">
+    <div class="browser-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url">app.your-site.com/bookings</div>
+    </div>
+    <div class="body">
+      <div class="portal-head">
+        <h4>📋 預約訂單</h4>
+        <div class="portal-tools">
+          <span class="chip active">今天</span>
+          <span class="chip">本週</span>
+          <span class="chip">全部</span>
+          <span class="chip">已成立</span>
+          <span class="chip-search">🔍 搜尋客人 / 編號</span>
+        </div>
+      </div>
+
+      <div class="table-scroll">
+        <table class="portal-table">
+          <thead>
+            <tr>
+              <th>編號</th>
+              <th>客人</th>
+              <th>行程</th>
+              <th>日期時間</th>
+              <th>人數</th>
+              <th>金額</th>
+              <th>狀態</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="id">#WB-0234</td>
+              <td class="customer">陳小姐<small>0912-***-456</small></td>
+              <td>SUP 立槳體驗</td>
+              <td>05/22 09:00</td>
+              <td>2</td>
+              <td class="amount">NT$ 3,000</td>
+              <td><span class="pill pill-ok">已付款</span></td>
+              <td class="actions"><a>檢視</a></td>
+            </tr>
+            <tr>
+              <td class="id">#WB-0233</td>
+              <td class="customer">林先生<small>0918-***-201</small></td>
+              <td>獨木舟 — 賊仔澳</td>
+              <td>05/22 13:30</td>
+              <td>4</td>
+              <td class="amount">NT$ 6,000</td>
+              <td><span class="pill pill-info">AI 對話成立</span></td>
+              <td class="actions"><a>檢視</a></td>
+            </tr>
+            <tr>
+              <td class="id">#WB-0232</td>
+              <td class="customer">Wang John<small>0978-***-110</small></td>
+              <td>SUP 進階課程</td>
+              <td>05/23 09:00</td>
+              <td>1</td>
+              <td class="amount">NT$ 1,800</td>
+              <td><span class="pill pill-warn">待付款</span></td>
+              <td class="actions"><a>提醒</a></td>
+            </tr>
+            <tr>
+              <td class="id">#WB-0231</td>
+              <td class="customer">張小姐<small>0935-***-887</small></td>
+              <td>獨木舟 — 豆腐岬</td>
+              <td>05/24 14:00</td>
+              <td>6</td>
+              <td class="amount">NT$ 9,000</td>
+              <td><span class="pill pill-ok">已付款</span></td>
+              <td class="actions"><a>檢視</a></td>
+            </tr>
+            <tr>
+              <td class="id">#WB-0230</td>
+              <td class="customer">黃同學<small>0961-***-334</small></td>
+              <td>SUP 立槳體驗</td>
+              <td>05/25 09:00</td>
+              <td>3</td>
+              <td class="amount">NT$ 4,500</td>
+              <td><span class="pill pill-gray">已取消</span></td>
+              <td class="actions"><a>檢視</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="portal-footer">
+        <span>顯示 1-5 共 47 筆</span>
+        <div class="pager">
+          <span>‹</span>
+          <span class="curr">1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTAL — 排班 ============ -->
+<section>
+  <h2><small>內部後台 #2</small>排班負責人建團、教練分派，AI 同步抓得到。</h2>
+  <p class="sub">老闆 / 排班負責人在這裡開團、設時段、指派教練；員工 / 教練在自己手機看當天哪幾團、誰報名了。AI 客服讀的是同一份排班，自然不會把休假當營業日、不會超賣、不會把已滿的團還推給客人。</p>
+
+  <div class="portal-mock">
+    <div class="browser-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="url">app.your-site.com/schedule</div>
+    </div>
+    <div class="body">
+      <div class="sched-role-bar">
+        🔍 你是 <strong>排班負責人 (可建團/分派)</strong> <em>— 看到的是全公司排班.</em>
+      </div>
+
+      <div class="sched-toolbar">
+        <button class="week-chip">← 上週</button>
+        <button class="week-chip active">本週</button>
+        <button class="week-chip">下週 →</button>
+        <span class="range">05/18 ~ 05/24</span>
+        <button class="add-pkg">+ 加包團</button>
+      </div>
+
+      <div class="sched-scroll">
+        <div class="board">
+          <!-- Header row -->
+          <div class="board-cell head"><div>時段</div></div>
+          <div class="board-cell head"><span class="date">05/18</span><span>週一</span></div>
+          <div class="board-cell head today"><span class="date">05/19</span><span>週二</span></div>
+          <div class="board-cell head"><span class="date">05/20</span><span>週三</span></div>
+          <div class="board-cell head"><span class="date">05/21</span><span>週四</span></div>
+          <div class="board-cell head"><span class="date">05/22</span><span>週五</span></div>
+          <div class="board-cell head"><span class="date">05/23</span><span>週六</span></div>
+          <div class="board-cell head"><span class="date">05/24</span><span>週日</span></div>
+
+          <!-- 日出 4:00 -->
+          <div class="board-cell row-head"><span class="slot-name">日出<b>4:00</b></span><span class="slot-meta">180 分鐘 / 容量 30</span></div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell col-today empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell"><div class="pkg-add">+ 04:00 包團</div></div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+
+          <!-- 晨曦 6:00 -->
+          <div class="board-cell row-head"><span class="slot-name">晨曦<b>6:00</b></span><span class="slot-meta">180 分鐘 / 容量 30</span></div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell col-today empty">—</div>
+          <div class="board-cell"><div class="pkg-add">+ 06:00 包團</div></div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+
+          <!-- 上午 9:00 -->
+          <div class="board-cell row-head"><span class="slot-name">上午<b>9:00</b></span><span class="slot-meta">180 分鐘 / 容量 30</span></div>
+          <div class="board-cell"><div class="pkg-add">+ 09:00 包團</div></div>
+          <div class="board-cell col-today"><div class="pkg-add">+ 09:00 包團</div></div>
+          <div class="board-cell"><div class="pkg-card confirmed"><div class="pkg-title">散客團 (6人)</div><div class="pkg-meta">3 SUP / 阿凱</div></div></div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell"><div class="pkg-card pending"><div class="pkg-title">⛵ 待建團 (7 人)</div><div class="pkg-meta">09:00 ~ 12:00</div></div></div>
+          <div class="board-cell"><div class="pkg-add">+ 09:00 包團</div></div>
+          <div class="board-cell empty">—</div>
+
+          <!-- 下午 2:00 -->
+          <div class="board-cell row-head"><span class="slot-name">下午<b>2:00</b></span><span class="slot-meta">180 分鐘 / 容量 30</span></div>
+          <div class="board-cell"><div class="pkg-add">+ 14:00 包團</div></div>
+          <div class="board-cell col-today empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+
+          <!-- 黃昏 3:00 -->
+          <div class="board-cell row-head"><span class="slot-name">黃昏<b>3:00</b></span><span class="slot-meta">180 分鐘 / 容量 30</span></div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell col-today empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+          <div class="board-cell empty">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RWD / PWA ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>全 RWD + PWA</small>桌機後台、手機帶著走。</h2>
+  <p class="sub">所有畫面——官網、訂單、排班——都是響應式。教練在現場用手機直接看當天哪幾團、誰報名了；客人滑手機就下單。「加到主畫面」一鍵變 App，免上架商店。</p>
+
+  <div class="phone-row">
+
+    <!-- Phone 1: 官網首頁 — 真實截圖 -->
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="screenshots/phone-homepage.png" alt="官網首頁 — waterman-sports.cc" loading="lazy" />
+        </div>
+      </div>
+      <div class="phone-caption">官網首頁 — 內建 AI 客服 widget</div>
+    </div>
+
+    <!-- Phone 2: 訂單查詢 portal — 真實截圖 -->
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="screenshots/phone-orders.png" alt="訂單查詢後台 — 員工接單畫面" loading="lazy" />
+        </div>
+      </div>
+      <div class="phone-caption">訂單後台 — 員工 / 老闆隨時查</div>
+    </div>
+
+    <!-- Phone 3: 排班 portal — 真實截圖 -->
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="screenshots/phone-schedule.png" alt="排班後台 — 排班負責人建團畫面" loading="lazy" />
+        </div>
+      </div>
+      <div class="phone-caption">排班後台 — 排班員建團、教練分派</div>
+    </div>
+
+  </div>
+
+  <div class="pwa-pills">
+    <span class="item">📱 加到主畫面 = App</span>
+    <span class="item">🔔 推播通知</span>
+    <span class="item">⚡ 離線可載入</span>
+    <span class="item">🛜 弱網優化</span>
+    <span class="item">🚀 不用上架商店</span>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="cta">
+  <div class="final-cta">
+    <h2>讓你的網站今天就會接單。</h2>
+    <p>30 分鐘線上會議，了解你的網站現況與需求，提供最適合的導入方式與報價。</p>
+    <div class="btn-row">
+      <a href="#" class="primary">立即線上諮詢</a>
+      <a href="https://waterman-sports.cc" class="secondary">先看示範站</a>
+    </div>
+    <p style="font-size: 13px; color: #8a90a8; margin-top: 24px;">已上線客戶：水行者運動 · waterman-sports.cc</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>AICMS — 為 AI 搜尋而生的 CMS</div>
+  <div style="margin-top: 8px;">© 2026 · <a href="https://waterman-sports.cc">查看示範站</a> · <a href="mailto:rai0603@gmail.com">聯絡我們</a></div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AICMS — 為 AI 搜尋而生的 CMS</title>
+<meta name="description" content="AICMS 是為 AI 搜尋時代設計的 CMS。AEO/GEO 結構優先、內建 AI 客服 × 線上預約、自動產 JSON-LD / llms.txt。台灣 SMB 專用。">
+<meta property="og:title" content="AICMS — 為 AI 搜尋而生的 CMS">
+<meta property="og:description" content="AEO/GEO 結構優先 · AI 客服 × 線上預約 · 自動產 JSON-LD / llms.txt">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --brand: #4f46e5;
+    --brand-deep: #3730a3;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+    --shadow-md: 0 8px 20px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.04);
+    --shadow-lg: 0 24px 60px rgba(79,70,229,.14), 0 6px 16px rgba(15,23,42,.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.7; letter-spacing: -0.005em;
+  }
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px; background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; font-size: 17px; letter-spacing: -0.02em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: white;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+  main { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 80px 0; }
+
+  .hero { padding: 80px 0 60px; }
+  .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 64px); font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.03em; margin-bottom: 22px; color: var(--ink-0);
+  }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 680px; line-height: 1.65; margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-cta .primary {
+    padding: 14px 24px; background: var(--ink-0); color: white;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+  .hero-cta .secondary {
+    padding: 14px 24px; background: transparent; color: var(--ink-1);
+    border: 1px solid var(--line); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  h2 {
+    font-size: 34px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 18px; letter-spacing: -0.025em; line-height: 1.2;
+  }
+  h2 small {
+    display: block; color: var(--brand); font-weight: 600; font-size: 14px;
+    letter-spacing: .08em; margin-bottom: 8px;
+  }
+  h2 + .sub { font-size: 17px; color: var(--ink-2); margin-bottom: 36px; max-width: 680px; }
+
+  .feature-grid {
+    display: grid; gap: 18px; margin-top: 36px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+  .feature-card {
+    display: block; padding: 28px; background: white;
+    border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow-sm); text-decoration: none; color: inherit;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--brand);
+  }
+  .feature-card.coming { opacity: .55; cursor: default; }
+  .feature-card.coming:hover { transform: none; box-shadow: var(--shadow-sm); border-color: var(--line); }
+  .feature-card .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand); font-size: 11px;
+    font-weight: 700; letter-spacing: .03em; margin-bottom: 12px;
+  }
+  .feature-card.coming .badge { background: #f3f4f6; color: var(--ink-3); }
+  .feature-card h3 {
+    font-size: 21px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 10px; letter-spacing: -0.02em;
+  }
+  .feature-card p { color: var(--ink-2); font-size: 15px; line-height: 1.6; margin-bottom: 14px; }
+  .feature-card .more {
+    color: var(--brand); font-size: 14px; font-weight: 700;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+
+  .pill-list {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;
+  }
+  .pill-list .pill {
+    padding: 5px 12px; background: var(--bg-soft); border: 1px solid var(--line);
+    border-radius: 999px; font-size: 12.5px; color: var(--ink-2); font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="logo">AICMS</div>
+  <a href="#features" class="cta">看功能</a>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="eyebrow">為 AI 搜尋時代設計的 CMS</div>
+  <h1>
+    讓你的網站<br>
+    <span class="grad">被 AI 引用、被客人下單</span>。
+  </h1>
+  <p class="lede">
+    AICMS 不是另一個 WordPress 替代品。它從架構上就是為「AI 搜尋當第一級用戶」設計：自動產 JSON-LD / llms.txt，內建 AI 客服 × 線上預約，客人在對話裡就完成下單。台灣 SMB 專用。
+  </p>
+  <div class="hero-cta">
+    <a href="#" class="primary">立即線上諮詢</a>
+    <a href="#features" class="secondary">看功能 →</a>
+  </div>
+  <div class="pill-list">
+    <span class="pill">🤖 多模型 AI (Claude / GPT / Gemini)</span>
+    <span class="pill">📋 內建線上預約</span>
+    <span class="pill">🧩 AEO / GEO 結構優先</span>
+    <span class="pill">📱 PWA · 加到主畫面 = App</span>
+    <span class="pill">🔌 MCP Gateway · agent-native</span>
+  </div>
+</section>
+
+<section id="features" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>功能介紹</small>每一塊獨立可看，組合起來就是 AICMS。</h2>
+  <p class="sub">所有功能設計都圍繞一個核心 — 把網站從「給人讀」進化成「給人讀 + 被 AI 引用 + 直接成單」。挑你最關心的點進去看。</p>
+
+  <div class="feature-grid">
+    <a class="feature-card" href="./ai-chat-booking.html">
+      <span class="badge">已上線</span>
+      <h3>對話即下單 — AI 客服 × 線上預約</h3>
+      <p>客人問「這週六有空位嗎」，AI 當場查時段、報價格、收資料、跳出確認單一鍵成立訂單。全程在對話框內，不跳頁、不填表、不再流失。</p>
+      <span class="more">看詳細介紹 →</span>
+    </a>
+
+    <div class="feature-card coming">
+      <span class="badge">即將推出</span>
+      <h3>AEO / GEO 結構引擎</h3>
+      <p>後台填表單，自動產出 JSON-LD / llms.txt / schema.org markup。Google 結構化資料測試秒過，Claude / ChatGPT / Perplexity 自動引用。</p>
+      <span class="more">敬請期待</span>
+    </div>
+
+    <div class="feature-card coming">
+      <span class="badge">即將推出</span>
+      <h3>MCP Gateway — Agent-Native CMS</h3>
+      <p>每個 tenant 自動有 MCP server，AI agent 直接接站內查預約、下訂、看商品。為下一個世代的 AI agent 客流做好準備。</p>
+      <span class="more">敬請期待</span>
+    </div>
+
+    <div class="feature-card coming">
+      <span class="badge">即將推出</span>
+      <h3>WordPress 一鍵匯入</h3>
+      <p>把現有 WordPress 站丟給 AICMS，AI 自動重排版、補 schema、上 AEO 結構。原內容保留、SEO 不掉、上線無痛。</p>
+      <span class="more">敬請期待</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 AICMS · <a href="https://github.com/rai0603/aicms-marketing">GitHub</a>
+</footer>
+
+</body>
+</html>
