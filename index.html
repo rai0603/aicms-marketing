@@ -43,7 +43,9 @@
   nav.top .logo {
     font-weight: 800; font-size: 17px; letter-spacing: -0.02em;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; transition: opacity .15s;
   }
+  nav.top a.logo:hover { opacity: .75; }
   nav.top .cta {
     padding: 8px 16px; background: var(--ink-0); color: white;
     border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
@@ -135,7 +137,7 @@
 <body>
 
 <nav class="top">
-  <div class="logo">AICMS</div>
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
   <a href="#features" class="cta">看功能</a>
 </nav>
 

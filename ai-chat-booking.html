@@ -52,7 +52,9 @@
   nav.top .logo {
     font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; transition: opacity .15s;
   }
+  nav.top a.logo:hover { opacity: .75; }
   nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
   nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
   nav.top .links a:hover { color: var(--ink-0); }
@@ -646,7 +648,7 @@
 <body>
 
 <nav class="top">
-  <div class="logo">AICMS</div>
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
   <div class="links">
     <a href="#pain">問題</a>
     <a href="#solution">解法</a>
