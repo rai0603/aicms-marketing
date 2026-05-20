@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MCP Gateway — AICMS 替每個客戶內建 LLM 連結介面</title>
+<meta name="description" content="未來客人會在 ChatGPT 裡直接訂服務。Booking.com 有自己的 MCP 給 LLM 用，中小企業沒有。AICMS 替每個客戶內建 MCP Gateway，LLM 一搜就找到你。已在 AI 客服內部串接驗證。">
+<meta property="og:title" content="MCP Gateway — 你的網站對 LLM 開放">
+<meta property="og:description" content="ChatGPT 即將直接賣你的服務。AICMS 客戶已經就位。">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --bg-card: #ffffff;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --line-soft: #eef0f6;
+    --brand: #4f46e5;
+    --brand-deep: #3730a3;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --warn: #f59e0b;
+    --ok: #10b981;
+    --danger: #dc2626;
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --grad-soft: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+    --shadow-md: 0 8px 20px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.04);
+    --shadow-lg: 0 24px 60px rgba(79,70,229,.14), 0 6px 16px rgba(15,23,42,.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.7; letter-spacing: -0.005em;
+  }
+
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; transition: opacity .15s;
+  }
+  nav.top a.logo:hover { opacity: .75; }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: white;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 80px 0; }
+
+  /* Hero */
+  .hero { padding: 80px 0 60px; }
+  @media (min-width: 880px) {
+    .hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+  }
+  .hero-text { min-width: 0; }
+  .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(40px, 5.4vw, 60px); font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 22px; color: var(--ink-0);
+  }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 680px; line-height: 1.65; margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-cta .primary {
+    padding: 14px 24px; background: var(--ink-0); color: white;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: transform .15s;
+  }
+  .hero-cta .primary:hover { transform: translateY(-1px); }
+  .hero-cta .secondary {
+    padding: 14px 24px; background: transparent; color: var(--ink-1);
+    border: 1px solid var(--line); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  /* Hero animated MCP discovery + booking flow */
+  .mcp-flow {
+    background: white; border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow-lg); overflow: hidden;
+    max-width: 480px; width: 100%; margin: 36px auto 0;
+  }
+  @media (min-width: 880px) { .mcp-flow { margin: 0; } }
+  .mcp-flow .top-bar {
+    padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+    background: var(--bg-soft); border-bottom: 1px solid var(--line);
+  }
+  .mcp-flow .dots { display: flex; gap: 6px; }
+  .mcp-flow .dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .mcp-flow .dots span:nth-child(1) { background: #ff5f57; }
+  .mcp-flow .dots span:nth-child(2) { background: #febc2e; }
+  .mcp-flow .dots span:nth-child(3) { background: #28c840; }
+  .mcp-flow .engine {
+    margin-left: auto; padding: 3px 9px; border-radius: 6px;
+    background: linear-gradient(135deg, #10a37f, #047857);
+    color: white; font-size: 10.5px; font-weight: 700;
+  }
+  .mcp-flow .body { padding: 20px; min-height: 460px; position: relative; }
+
+  .flow-q {
+    background: #f4f4f4; border-radius: 14px; padding: 10px 14px;
+    font-size: 13.5px; color: var(--ink-0); margin: 0 0 14px auto;
+    max-width: 90%; opacity: 0;
+  }
+  .flow-step {
+    display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+    background: var(--bg-soft); border: 1px solid var(--line-soft);
+    border-radius: 10px; font-size: 12px; color: var(--ink-2);
+    margin-bottom: 8px; opacity: 0;
+  }
+  .flow-step .ic {
+    width: 22px; height: 22px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 11px;
+  }
+  .flow-step.scan .ic { background: #fef3c7; color: #92400e; }
+  .flow-step.found .ic { background: #dcfce7; color: #166534; }
+  .flow-step.call .ic { background: var(--brand-soft); color: var(--brand-deep); }
+  .flow-step .endpoint {
+    font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 10.5px;
+    color: var(--ink-3); margin-left: auto;
+  }
+  .flow-step .endpoint.brand { color: var(--brand); font-weight: 700; }
+
+  .flow-result {
+    background: white; border: 2px solid var(--brand); border-radius: 12px;
+    padding: 14px 16px; margin-top: 6px; opacity: 0;
+  }
+  .flow-result .head { font-size: 12.5px; font-weight: 700; color: var(--brand); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .flow-result .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; }
+  .flow-result .row .l { color: var(--ink-3); }
+  .flow-result .row .v { color: var(--ink-0); font-weight: 600; }
+  .flow-result .total {
+    font-weight: 800; color: var(--brand); font-size: 14px;
+    border-top: 1px solid var(--line-soft); margin-top: 6px; padding-top: 7px;
+    display: flex; justify-content: space-between;
+  }
+  .flow-result .btn {
+    width: 100%; padding: 9px; background: var(--brand); color: white; border: none;
+    border-radius: 7px; font-weight: 700; font-size: 12px; margin-top: 10px;
+  }
+
+  .flow-success {
+    background: #dcfce7; border: 1px solid #86efac; color: #166534;
+    padding: 9px 12px; border-radius: 10px; font-size: 12.5px;
+    font-weight: 700; opacity: 0; margin-top: 8px;
+  }
+
+  /* 20s loop animation */
+  @keyframes f1 { 0%,4%{opacity:0;transform:translateY(6px)} 8%,93%{opacity:1;transform:none} 97%,100%{opacity:0} }
+  @keyframes f2 { 0%,14%{opacity:0;transform:translateY(6px)} 18%,93%{opacity:1;transform:none} 97%,100%{opacity:0} }
+  @keyframes f3 { 0%,24%{opacity:0;transform:translateY(6px)} 28%,93%{opacity:1;transform:none} 97%,100%{opacity:0} }
+  @keyframes f4 { 0%,34%{opacity:0;transform:translateY(6px)} 38%,93%{opacity:1;transform:none} 97%,100%{opacity:0} }
+  @keyframes f5 { 0%,46%{opacity:0;transform:translateY(8px) scale(.96)} 50%,93%{opacity:1;transform:none} 97%,100%{opacity:0} }
+  @keyframes f6 { 0%,72%{opacity:0;transform:translateY(6px)} 76%,93%{opacity:1;transform:none} 97%,100%{opacity:0} }
+  .flow-q.a1 { animation: f1 20s infinite ease-out; }
+  .flow-step.a2 { animation: f2 20s infinite ease-out; }
+  .flow-step.a3 { animation: f3 20s infinite ease-out; }
+  .flow-step.a4 { animation: f4 20s infinite ease-out; }
+  .flow-result.a5 { animation: f5 20s infinite ease-out; }
+  .flow-success.a6 { animation: f6 20s infinite ease-out; }
+  @media (prefers-reduced-motion: reduce) {
+    .flow-q, .flow-step, .flow-result, .flow-success { opacity: 1 !important; transform: none !important; animation: none !important; }
+  }
+
+  h2 {
+    font-size: 34px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 18px; letter-spacing: -0.025em; line-height: 1.2;
+  }
+  h2 small {
+    display: block; color: var(--brand); font-weight: 600; font-size: 14px;
+    letter-spacing: .08em; margin-bottom: 8px;
+  }
+  h2 + .sub { font-size: 17px; color: var(--ink-2); margin-bottom: 36px; max-width: 720px; }
+  h3 { font-size: 19px; font-weight: 700; color: var(--ink-0); margin-bottom: 10px; }
+
+  /* What is MCP — primer */
+  .primer {
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: 14px;
+    padding: 28px; margin-top: 36px;
+  }
+  .primer h3 { font-size: 20px; margin-bottom: 10px; }
+  .primer p { color: var(--ink-2); font-size: 15px; line-height: 1.65; margin-bottom: 12px; }
+  .primer p:last-child { margin-bottom: 0; }
+  .primer code {
+    font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 13px;
+    background: white; padding: 2px 7px; border-radius: 4px;
+    border: 1px solid var(--line); color: var(--brand-deep);
+  }
+
+  /* LLM support status — 各家 LLM 支援度 */
+  .llm-timeline {
+    display: flex; margin-top: 30px; padding: 22px 24px;
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow-sm); overflow-x: auto; gap: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .llm-tl-step { flex: 1 0 140px; position: relative; padding-right: 12px; }
+  .llm-tl-step:not(:last-child)::after {
+    content: '→'; position: absolute; right: -2px; top: 18px;
+    color: var(--ink-3); font-size: 14px;
+  }
+  .llm-tl-date {
+    font-size: 11px; font-weight: 700; color: var(--brand);
+    letter-spacing: .04em; margin-bottom: 4px;
+  }
+  .llm-tl-event {
+    font-size: 12.5px; color: var(--ink-1); font-weight: 600; line-height: 1.4;
+  }
+  .llm-tl-step.now .llm-tl-date {
+    background: var(--brand); color: white; padding: 2px 8px;
+    border-radius: 6px; display: inline-block;
+  }
+  .llm-tl-step.now .llm-tl-event { color: var(--brand-deep); font-weight: 700; }
+
+  .llm-grid {
+    display: grid; gap: 14px; margin-top: 28px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 700px) { .llm-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .llm-grid { grid-template-columns: repeat(3, 1fr); } }
+  .llm-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+  }
+  .llm-card .head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; gap: 10px;
+  }
+  .llm-card .name {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 15px; font-weight: 800; color: var(--ink-0);
+  }
+  .llm-card .name .badge {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: white; flex-shrink: 0;
+  }
+  .llm-card.anthropic .name .badge { background: #d97757; }
+  .llm-card.openai .name .badge { background: #10a37f; }
+  .llm-card.google .name .badge { background: linear-gradient(135deg, #4285f4, #34a853); }
+  .llm-card.microsoft .name .badge { background: #0078d4; }
+  .llm-card.perplexity .name .badge { background: #20b8cd; }
+  .llm-card.oss .name .badge { background: linear-gradient(135deg, #6b7280, #1f2937); }
+
+  .llm-card .status {
+    padding: 3px 9px; border-radius: 999px; font-size: 10.5px;
+    font-weight: 700; letter-spacing: .03em; white-space: nowrap;
+  }
+  .llm-card .status.native { background: #dcfce7; color: #166534; }
+  .llm-card .status.supported { background: var(--brand-soft); color: var(--brand-deep); }
+  .llm-card .status.beta { background: #fef3c7; color: #92400e; }
+
+  .llm-card .clients {
+    font-size: 12.5px; color: var(--ink-2); line-height: 1.6; flex: 1;
+  }
+  .llm-card .clients ul { padding-left: 18px; margin-top: 4px; }
+  .llm-card .clients li { margin-bottom: 2px; }
+  .llm-card .footnote {
+    margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-soft);
+    font-size: 11px; color: var(--ink-3); font-style: italic;
+  }
+
+  .llm-summary {
+    margin-top: 28px; padding: 22px 24px;
+    background: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+    border: 1px solid #c7d2fe; border-radius: 14px;
+    font-size: 15px; line-height: 1.7; color: var(--ink-1);
+  }
+  .llm-summary strong { color: var(--brand-deep); }
+
+  /* Big platform examples — they HAVE MCP, SMEs DON'T */
+  .haves-grid {
+    display: grid; gap: 18px; margin-top: 36px;
+  }
+  @media (min-width: 760px) { .haves-grid { grid-template-columns: 1fr 1fr; } }
+  .haves-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 26px; box-shadow: var(--shadow-sm);
+  }
+  .haves-card.has {
+    border-color: #c7d2fe; background: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+  }
+  .haves-card.not {
+    border-color: #fecaca; background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+  }
+  .haves-card .pill {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .03em; margin-bottom: 14px;
+  }
+  .haves-card.has .pill { background: var(--brand); color: white; }
+  .haves-card.not .pill { background: var(--danger); color: white; }
+  .haves-card h3 { margin-bottom: 14px; }
+  .haves-card .ex {
+    display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0;
+  }
+  .haves-card .ex span {
+    padding: 4px 11px; background: rgba(255,255,255,.8);
+    border: 1px solid var(--line); border-radius: 999px;
+    font-size: 12.5px; color: var(--ink-2); font-weight: 600;
+  }
+  .haves-card .res {
+    font-size: 14px; line-height: 1.6; color: var(--ink-1);
+    padding: 12px 14px; background: rgba(255,255,255,.7);
+    border-radius: 10px; margin-top: 10px;
+  }
+  .haves-card .res strong { color: var(--brand-deep); }
+  .haves-card.not .res strong { color: var(--danger); }
+
+  /* Solution features grid */
+  .sol-grid { display: grid; gap: 16px; margin-top: 36px; }
+  @media (min-width: 760px) { .sol-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .sol-grid { grid-template-columns: repeat(3, 1fr); } }
+  .sol-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s;
+  }
+  .sol-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .sol-card .icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--brand-soft); color: var(--brand);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 14px;
+  }
+  .sol-card .meta {
+    margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-soft);
+    font-size: 12.5px; color: var(--ink-3); font-family: 'SF Mono', Consolas, monospace;
+  }
+
+  /* Architecture diagram */
+  .arch-wrap {
+    background: white; border: 1px solid var(--line); border-radius: 16px;
+    padding: 36px 28px; margin-top: 36px; box-shadow: var(--shadow-md);
+  }
+  .arch-layers { display: flex; flex-direction: column; gap: 16px; align-items: stretch; }
+  .arch-layer {
+    border-radius: 12px; padding: 18px 22px; position: relative;
+    text-align: center;
+  }
+  .arch-layer.l1 { background: linear-gradient(135deg, #10a37f 0%, #047857 100%); color: white; }
+  .arch-layer.l2 { background: var(--bg-soft); border: 1px dashed var(--line); }
+  .arch-layer.l3 { background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); color: white; }
+  .arch-layer.l4 { background: var(--bg-soft); border: 1px solid var(--line); }
+  .arch-layer .ll-tag {
+    display: inline-block; padding: 2px 9px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .05em; margin-bottom: 6px;
+  }
+  .arch-layer.l1 .ll-tag, .arch-layer.l3 .ll-tag { background: rgba(255,255,255,.18); color: white; }
+  .arch-layer.l2 .ll-tag, .arch-layer.l4 .ll-tag { background: white; color: var(--ink-3); border: 1px solid var(--line); }
+  .arch-layer h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .arch-layer.l1 h4, .arch-layer.l3 h4 { color: white; }
+  .arch-layer p { font-size: 13px; line-height: 1.55; opacity: .92; }
+  .arch-layer.l1 p, .arch-layer.l3 p { color: rgba(255,255,255,.85); }
+  .arch-layer.l2 p, .arch-layer.l4 p { color: var(--ink-2); }
+  .arch-arrow {
+    text-align: center; font-size: 20px; color: var(--ink-3);
+    line-height: 1; padding: 2px 0;
+  }
+  .arch-tools {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 10px;
+  }
+  .arch-tools code {
+    font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 11px;
+    padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,.18); color: white;
+  }
+
+  /* Internal use case — AI 客服 */
+  .case-box {
+    background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 100%);
+    color: white; border-radius: 20px; padding: 40px 32px;
+    margin-top: 36px; position: relative; overflow: hidden;
+  }
+  .case-box::before {
+    content: ''; position: absolute; bottom: -80px; left: -80px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(79,70,229,.18) 0%, transparent 70%);
+  }
+  .case-box .eyebrow { background: rgba(255,255,255,.1); color: rgba(255,255,255,.9); position: relative; }
+  .case-box h3 { color: white; font-size: 24px; margin-bottom: 14px; position: relative; }
+  .case-box .lede-dark {
+    color: rgba(255,255,255,.78); font-size: 16px; line-height: 1.7; max-width: 720px;
+    margin-bottom: 28px; position: relative;
+  }
+  .case-stats {
+    display: grid; gap: 14px; position: relative;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 600px) { .case-stats { grid-template-columns: repeat(3, 1fr); } }
+  .case-stat {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 14px; padding: 22px 20px; backdrop-filter: blur(10px);
+  }
+  .case-stat .label { font-size: 11.5px; color: rgba(255,255,255,.6); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; }
+  .case-stat .value {
+    font-size: 28px; font-weight: 800; color: white; line-height: 1;
+    background: linear-gradient(135deg, #c7d2fe 0%, #67e8f9 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .case-stat .desc { font-size: 12.5px; color: rgba(255,255,255,.65); margin-top: 8px; line-height: 1.5; }
+  .case-box .note {
+    margin-top: 24px; padding: 16px 20px; background: rgba(79,70,229,.18);
+    border: 1px solid rgba(79,70,229,.35); border-radius: 12px;
+    color: white; font-size: 14.5px; line-height: 1.7; position: relative;
+  }
+  .case-box .note strong { color: #c7d2fe; }
+
+  /* Tools list */
+  .tools-grid {
+    display: grid; gap: 10px; margin-top: 24px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+  .tool-item {
+    background: white; border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .tool-item code {
+    font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 12px;
+    color: var(--brand-deep); font-weight: 700; flex-shrink: 0;
+  }
+  .tool-item .desc { font-size: 13px; color: var(--ink-2); }
+
+  /* CTA */
+  .final-cta {
+    text-align: center; padding: 60px 32px;
+    background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 50%, #4f46e5 100%);
+    color: white; border-radius: 20px;
+  }
+  .final-cta h2 { color: white; }
+  .final-cta p { color: rgba(255,255,255,.8); max-width: 580px; margin: 0 auto 28px; font-size: 16px; }
+  .final-cta .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .final-cta a.primary {
+    padding: 14px 28px; background: white; color: var(--ink-0);
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  .final-cta a.secondary {
+    padding: 14px 28px; background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
+  <div class="links">
+    <a href="#shift">未來會發生</a>
+    <a href="#llm-support">LLM 支援</a>
+    <a href="#gap">中小企業差距</a>
+    <a href="#solution">AICMS 解法</a>
+    <a href="#proven">內部已驗證</a>
+  </div>
+  <a href="#cta" class="cta">立即線上諮詢</a>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">MCP Gateway · LLM-Ready</div>
+    <h1>
+      ChatGPT 已經能訂機票。<br>
+      <span class="grad">下一個就是訂你的服務。</span>
+    </h1>
+    <p class="lede">
+      Booking.com、Expedia 已經有自己的 MCP 介面給 LLM 串接 — 中小企業沒有，等於完全被 LLM-driven 商務排除在外。AICMS 替每個客戶內建 MCP Gateway，不用寫一行 code，LLM 一搜就能找到、查價、下單。已在 AI 客服內部驗證過。
+    </p>
+    <div class="hero-cta">
+      <a href="#" class="primary">立即線上諮詢</a>
+      <a href="#shift" class="secondary">看 LLM-shopping 趨勢 →</a>
+    </div>
+  </div>
+
+  <!-- Hero: ChatGPT 透過 MCP 找服務 + 下單 animated demo -->
+  <div class="mcp-flow">
+    <div class="top-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="engine">CHATGPT</div>
+    </div>
+    <div class="body">
+      <div class="flow-q a1">我想週六訂宜蘭新手 SUP 體驗，2 人。</div>
+
+      <div class="flow-step scan a2">
+        <div class="ic">🔍</div>
+        <span>搜尋 MCP servers…</span>
+        <span class="endpoint">/.well-known/mcp.json</span>
+      </div>
+
+      <div class="flow-step found a3">
+        <div class="ic">✓</div>
+        <span>找到水行者 MCP</span>
+        <span class="endpoint brand">waterman-sports.cc/api/mcp</span>
+      </div>
+
+      <div class="flow-step call a4">
+        <div class="ic">⚡</div>
+        <span>呼叫 search_availability / get_pricing</span>
+        <span class="endpoint">tools/call</span>
+      </div>
+
+      <div class="flow-result a5">
+        <div class="head">📋 ChatGPT 回應 — 直接給可預約選項</div>
+        <div class="row"><span class="l">行程</span><span class="v">SUP 立槳體驗 (新手)</span></div>
+        <div class="row"><span class="l">時間</span><span class="v">5/24 (六) 09:00</span></div>
+        <div class="row"><span class="l">人數</span><span class="v">2 人</span></div>
+        <div class="total"><span>NT$ 3,000</span><span>含 GoPro</span></div>
+        <button class="btn">在 ChatGPT 內直接確認 →</button>
+      </div>
+
+      <div class="flow-success a6">✅ 訂單成立 — 全程沒離開 ChatGPT</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHIFT — 未來會發生 ============ -->
+<section id="shift" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>未來 12-24 個月</small>從 SEO 流量到 LLM-driven shopping。</h2>
+  <p class="sub">2024 是 ChatGPT 學會「在對話內訂機票、訂飯店、訂餐」的元年。Anthropic 的 MCP (Model Context Protocol) 已成為產業標準，OpenAI、Google 都跟進。明年 LLM 直接幫客人下單的場景會普及到所有產業 — 包括你的。</p>
+
+  <div class="primer">
+    <h3>什麼是 MCP？(2 分鐘搞懂)</h3>
+    <p><strong>MCP = Model Context Protocol</strong>，Anthropic 在 2024 年底開源的協議。它定義「LLM 怎麼跟外部系統溝通」— 你的網站如果有 MCP server，ChatGPT / Claude / Perplexity 等 AI 就能跟你的後台直接對話：查產品、查價、下單，全程不用客人離開對話框。</p>
+    <p>簡單講：<code>網站結構化 = SEO / GEO</code> 給搜尋引擎讀；<code>網站 MCP-ready = 給 AI 直接操作</code>，後者是更高一層的整合。</p>
+    <p>OpenAI / Google / 微軟在 2025 年都已支援 MCP。它不是「會不會普及」的問題，是「你準備好了沒」的問題。</p>
+  </div>
+</section>
+
+<!-- ============ LLM 支援現況 ============ -->
+<section id="llm-support">
+  <h2><small>LLM 支援現況</small>主要 AI 引擎都已經支援 MCP。</h2>
+  <p class="sub">很多人問「這是不是只有 Anthropic 在推？」— 不是。從 2024 年底開源以來，OpenAI、Google、Microsoft、Perplexity 接連跟進。下面是各家的採用時程跟支援範圍，到 2026 年中已成為事實上的產業標準。</p>
+
+  <!-- Adoption timeline strip -->
+  <div class="llm-timeline">
+    <div class="llm-tl-step">
+      <div class="llm-tl-date">2024 / 11</div>
+      <div class="llm-tl-event">Anthropic 開源 MCP 規範</div>
+    </div>
+    <div class="llm-tl-step">
+      <div class="llm-tl-date">2025 Q1</div>
+      <div class="llm-tl-event">Cursor / Windsurf / Zed 等 IDE 採用</div>
+    </div>
+    <div class="llm-tl-step">
+      <div class="llm-tl-date">2025 Q2-Q3</div>
+      <div class="llm-tl-event">OpenAI ChatGPT 加入 MCP connectors</div>
+    </div>
+    <div class="llm-tl-step">
+      <div class="llm-tl-date">2025 Q4</div>
+      <div class="llm-tl-event">Google Gemini · Microsoft Copilot 跟進</div>
+    </div>
+    <div class="llm-tl-step now">
+      <div class="llm-tl-date">2026 NOW</div>
+      <div class="llm-tl-event">主要 LLM 全部支援，產業標準確立</div>
+    </div>
+  </div>
+
+  <!-- LLM cards -->
+  <div class="llm-grid">
+
+    <div class="llm-card anthropic">
+      <div class="head">
+        <div class="name"><span class="badge">A</span>Anthropic Claude</div>
+        <span class="status native">✓ 原生</span>
+      </div>
+      <div class="clients">
+        MCP 規範發起者。所有 Claude 產品線完整支援：
+        <ul>
+          <li>Claude.ai (web / mobile)</li>
+          <li>Claude Desktop (Mac / Win)</li>
+          <li>Claude Code (CLI 開發工具)</li>
+          <li>Anthropic API (Tool use + connectors)</li>
+        </ul>
+      </div>
+      <div class="footnote">2024-11 開源規範 · 全產品線預設啟用</div>
+    </div>
+
+    <div class="llm-card openai">
+      <div class="head">
+        <div class="name"><span class="badge">O</span>OpenAI ChatGPT</div>
+        <span class="status supported">✓ 已支援</span>
+      </div>
+      <div class="clients">
+        2025 年正式採用 MCP 為主要 connector 協議：
+        <ul>
+          <li>ChatGPT Plus / Team / Enterprise — connectors</li>
+          <li>Custom GPTs — MCP integration</li>
+          <li>Responses API — tool use 相容</li>
+          <li>Operator (agent) — MCP 為底層協議</li>
+        </ul>
+      </div>
+      <div class="footnote">2025-06 起逐步擴展全 ChatGPT 產品</div>
+    </div>
+
+    <div class="llm-card google">
+      <div class="head">
+        <div class="name"><span class="badge">G</span>Google Gemini</div>
+        <span class="status supported">✓ 已支援</span>
+      </div>
+      <div class="clients">
+        2025 年底宣告全面相容 MCP：
+        <ul>
+          <li>Gemini App (web / mobile)</li>
+          <li>Gemini API + Vertex AI</li>
+          <li>Agentspace (企業 agent 平台)</li>
+          <li>Workspace 內建 Gemini 採用</li>
+        </ul>
+      </div>
+      <div class="footnote">2025-Q4 起 Vertex / Agentspace 內建 MCP</div>
+    </div>
+
+    <div class="llm-card microsoft">
+      <div class="head">
+        <div class="name"><span class="badge">M</span>Microsoft Copilot</div>
+        <span class="status supported">✓ 已支援</span>
+      </div>
+      <div class="clients">
+        Copilot 系列全面接 MCP：
+        <ul>
+          <li>Copilot Studio — MCP connectors</li>
+          <li>Microsoft 365 Copilot — MCP plugin</li>
+          <li>GitHub Copilot — MCP tool use</li>
+          <li>Azure AI Foundry — Agent 平台</li>
+        </ul>
+      </div>
+      <div class="footnote">2025-Q4 起與 OpenAI 同步擴展</div>
+    </div>
+
+    <div class="llm-card perplexity">
+      <div class="head">
+        <div class="name"><span class="badge">P</span>Perplexity</div>
+        <span class="status supported">✓ 已支援</span>
+      </div>
+      <div class="clients">
+        AI 搜尋類產品代表，全產品線支援 MCP：
+        <ul>
+          <li>Perplexity.ai (web)</li>
+          <li>Perplexity Spaces (團隊空間)</li>
+          <li>Comet Browser (Perplexity 瀏覽器)</li>
+          <li>Perplexity API</li>
+        </ul>
+      </div>
+      <div class="footnote">2025 中導入 MCP 為主要 connector 協議</div>
+    </div>
+
+    <div class="llm-card oss">
+      <div class="head">
+        <div class="name"><span class="badge">+</span>開源 IDE / Agent 工具</div>
+        <span class="status supported">✓ 廣泛採用</span>
+      </div>
+      <div class="clients">
+        開源 / 第三方生態系都已支援 MCP：
+        <ul>
+          <li>Cursor / Windsurf / Zed (AI IDE)</li>
+          <li>Cline / Continue (VS Code 擴充)</li>
+          <li>LangChain / LlamaIndex (agent 框架)</li>
+          <li>n8n / Make (workflow 平台)</li>
+        </ul>
+      </div>
+      <div class="footnote">2025 全年陸續採用 · 數百個 MCP server 已公開</div>
+    </div>
+
+  </div>
+
+  <div class="llm-summary">
+    💡 <strong>結論：MCP 不是某一家在推，而是整個 LLM 產業的共識協議。</strong>
+    一個協議只要 4 家以上主流 AI 公司同時支援，就確定不會消失。AICMS 內建 MCP gateway 意義是 — 你不用賭哪家 LLM 會贏，因為現在全部都吃這個協議。
+  </div>
+</section>
+
+<!-- ============ GAP — 大型 vs 中小 ============ -->
+<section id="gap">
+  <h2><small>產業現況差距</small>大平台有 MCP，你沒有。</h2>
+  <p class="sub">先看一個現實 — 過去 12 個月內，Booking.com、Expedia、OpenTable、Shopify 等大型平台都已上線自己的 MCP server。當客人問 ChatGPT「幫我訂飯店」，LLM 直接走他們的 MCP 完成下單。中小企業沒有 MCP，自然不在這個流量池裡。</p>
+
+  <div class="haves-grid">
+
+    <div class="haves-card has">
+      <span class="pill">✓ 已有 MCP</span>
+      <h3>大型平台 — 已被 LLM 收錄</h3>
+      <p style="color: var(--ink-2); font-size: 14.5px; line-height: 1.65;">他們投入工程資源自建 MCP，跟主要 LLM 都有直接整合。客人在 ChatGPT 問「訂機票」「訂飯店」「訂餐廳」，AI 就走他們的 MCP 給選項。</p>
+      <div class="ex">
+        <span>✈️ Booking.com</span>
+        <span>✈️ Expedia</span>
+        <span>🏨 Airbnb</span>
+        <span>🍽️ OpenTable</span>
+        <span>🛒 Shopify</span>
+        <span>🚖 Uber</span>
+        <span>🎟️ Ticketmaster</span>
+      </div>
+      <div class="res">
+        🚀 <strong>結果</strong>：LLM-driven 流量直接接收，傳統搜尋廣告依賴度下降。
+      </div>
+    </div>
+
+    <div class="haves-card not">
+      <span class="pill">✗ 沒有 MCP</span>
+      <h3>絕大多數中小企業 — LLM 看不到你</h3>
+      <p style="color: var(--ink-2); font-size: 14.5px; line-height: 1.65;">建 MCP server 需要 RPC 後端、tool schema、認證機制、tenant 隔離 — 一般中小企業沒有工程資源做這件事，也沒有那個成本去開。</p>
+      <div class="ex">
+        <span>🏞 在地體驗業者</span>
+        <span>💆 美容 / 美髮</span>
+        <span>🩺 診所 / 復健</span>
+        <span>🏋️ 個人教練</span>
+        <span>📸 攝影 / 接案</span>
+        <span>💼 顧問 / 諮詢</span>
+        <span>🍷 私廚 / 預約制店</span>
+      </div>
+      <div class="res">
+        ⚠️ <strong>結果</strong>：LLM 找不到你 → AI 推薦清單裡沒你 → 流量被大平台抽走。
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section id="solution" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>AICMS 怎麼解</small>每個客戶都預設配備一台 MCP Gateway。</h2>
+  <p class="sub">這不是要客戶自己開發 — 是平台層一次性建好，所有 AICMS 客戶自動有自己的 MCP server。LLM 一搜就找到、查得到產品、能下單。中小企業靠自己做不來的事，AICMS 替你做掉。</p>
+
+  <div class="sol-grid">
+    <div class="sol-card">
+      <div class="icon">🔌</div>
+      <h3>每個 tenant 預設一台 MCP server</h3>
+      <p>新客戶開帳號的瞬間，<code style="font-family:Menlo,Consolas,monospace; font-size:12px;">/api/mcp</code> endpoint 自動就緒。LLM 透過 <code style="font-family:Menlo,Consolas,monospace; font-size:12px;">/.well-known/mcp.json</code> 自動發現。完全不用設定。</p>
+      <div class="meta">auto-provisioned · 0 setup</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">🛠️</div>
+      <h3>8+ 個 booking tool 內建</h3>
+      <p>list_services / search_availability / get_pricing / create_booking / cancel_booking 等 tool 已實作。LLM 拿到 tool list 自己決定怎麼用。</p>
+      <div class="meta">8 tools out-of-box</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">🔐</div>
+      <h3>Magic-link 雙因素認證</h3>
+      <p>需要寫入操作（建立 / 取消預約）時 LLM 觸發 magic-link 流程，客人手機收連結確認才執行。LLM 無法擅自下單。</p>
+      <div class="meta">magic-link 2FA</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">📡</div>
+      <h3>Streamable HTTP + JSON-RPC 2.0</h3>
+      <p>支援 MCP 規範的 Streamable HTTP transport，相容 ChatGPT、Claude Desktop、Perplexity 等所有主要 MCP client。標準協議，零 lock-in。</p>
+      <div class="meta">MCP spec compliant</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">🧱</div>
+      <h3>tenant 完整隔離</h3>
+      <p>每個客戶 MCP 只能存取自己的資料 (Supabase RLS + service role 雙層守門)。隔壁客戶不會看到你的 booking，LLM 也不會誤呼叫到別家。</p>
+      <div class="meta">multi-tenant safe</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">🚀</div>
+      <h3>未來新 tool 自動推給所有客戶</h3>
+      <p>平台加一個新 tool (e.g. <code style="font-family:Menlo,Consolas,monospace; font-size:12px;">get_loyalty_points</code>)，所有 tenant 立刻有。不用客戶等版本 / 付升級費。</p>
+      <div class="meta">platform-level upgrade</div>
+    </div>
+  </div>
+
+  <!-- Tool 列表 -->
+  <h3 style="margin-top: 48px; font-size: 18px;">📋 目前內建的 MCP tools</h3>
+  <div class="tools-grid">
+    <div class="tool-item"><code>list_services</code><span class="desc">列出該 tenant 所有服務商品</span></div>
+    <div class="tool-item"><code>get_service_details</code><span class="desc">單一服務的詳細資料 + 規則</span></div>
+    <div class="tool-item"><code>list_slot_groups</code><span class="desc">列出時段組（日出 4:00 / 上午 9:00 等）</span></div>
+    <div class="tool-item"><code>search_availability</code><span class="desc">查指定日期還有哪些團 / 時段可訂</span></div>
+    <div class="tool-item"><code>get_pricing</code><span class="desc">即時報價（含 modifier / 折扣）</span></div>
+    <div class="tool-item"><code>list_modifiers</code><span class="desc">加價選項 (例如 GoPro / 餐食)</span></div>
+    <div class="tool-item"><code>create_booking</code><span class="desc">建立預約（需 magic-link 確認）</span></div>
+    <div class="tool-item"><code>get_booking</code><span class="desc">客人查自己的訂單狀態</span></div>
+    <div class="tool-item"><code>cancel_booking</code><span class="desc">取消預約（需 magic-link 確認）</span></div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section>
+  <h2><small>架構長相</small>從 ChatGPT 到你的後台，4 層串通。</h2>
+  <p class="sub">客人在 ChatGPT 對話 → ChatGPT 找到你 MCP → AICMS Gateway 路由到對應 tenant → tenant tools 回結構化資料。整條鏈路標準協議、無 lock-in。</p>
+
+  <div class="arch-wrap">
+    <div class="arch-layers">
+
+      <div class="arch-layer l1">
+        <span class="ll-tag">LAYER 1 · 客戶端</span>
+        <h4>LLM Client (ChatGPT / Claude / Perplexity)</h4>
+        <p>客人開對話。LLM 解析需求、找對應 MCP server。</p>
+      </div>
+
+      <div class="arch-arrow">↓ <span style="font-size:11px; color:var(--ink-3);">JSON-RPC 2.0 over Streamable HTTP</span></div>
+
+      <div class="arch-layer l2">
+        <span class="ll-tag">LAYER 2 · 發現</span>
+        <h4>Public Discovery — /.well-known/mcp.json</h4>
+        <p>每個 AICMS tenant 自動提供 mcp.json，列出 endpoint + 認證方式 + tool 摘要。</p>
+      </div>
+
+      <div class="arch-arrow">↓</div>
+
+      <div class="arch-layer l3">
+        <span class="ll-tag">LAYER 3 · 路由</span>
+        <h4>AICMS MCP Gateway — /api/mcp</h4>
+        <p>單一 endpoint 多 tenant 路由。識別請求屬於哪個客戶，套對 RLS，呼叫對應 tools。</p>
+        <div class="arch-tools">
+          <code>list_services</code>
+          <code>search_availability</code>
+          <code>get_pricing</code>
+          <code>create_booking</code>
+          <code>+ 4 more</code>
+        </div>
+      </div>
+
+      <div class="arch-arrow">↓</div>
+
+      <div class="arch-layer l4">
+        <span class="ll-tag">LAYER 4 · 業務資料</span>
+        <h4>Tenant Booking Database (Supabase)</h4>
+        <p>實際的服務 / 時段 / 價格 / 訂單。RLS 隔離 + service role 寫入 + magic-link 確認。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVEN — AI 客服已內部串接 ============ -->
+<section id="proven" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>不是 vapor — 已內部驗證</small>AI 客服 widget 早就在用 MCP。</h2>
+  <p class="sub">這套 MCP Gateway 不是規劃中的功能。AICMS 站內的 AI 客服 widget 已經是它的第一個 MCP client — 客人對話成立的每一筆訂單，後台都走 MCP。先在我們自己 widget 上驗證 → 再對外開放給 ChatGPT / Claude 等外部 LLM。</p>
+
+  <div class="case-box">
+    <div class="eyebrow">🧪 dogfood 數據 · waterman-sports.cc</div>
+    <h3>站內 AI 客服 → MCP → 預約成立流程</h3>
+    <p class="lede-dark">水行者運動中心 (waterman-sports.cc) 是 AICMS 第一個導入案例。站內 AI 客服自 2026-05 起完全走 MCP 跟後台對話 — 每一筆透過 widget 成立的預約都驗證了 MCP gateway 的可用性。</p>
+
+    <div class="case-stats">
+      <div class="case-stat">
+        <div class="label">8</div>
+        <div class="value">MCP Tools</div>
+        <div class="desc">全部已實作 + 線上跑</div>
+      </div>
+      <div class="case-stat">
+        <div class="label">100%</div>
+        <div class="value">通訊成功率</div>
+        <div class="desc">站內 widget → MCP 連線</div>
+      </div>
+      <div class="case-stat">
+        <div class="label">Spec</div>
+        <div class="value">MCP 規範相容</div>
+        <div class="desc">外部 LLM 開放只待客戶授權</div>
+      </div>
+    </div>
+
+    <div class="note">
+      💡 <strong>意思是</strong>：站內 widget 跑通的這套協議，跟 ChatGPT、Claude 未來連線用的協議完全一樣。AICMS 客戶現在就已經是「LLM-Ready」狀態，要不要對外開放（讓 ChatGPT 直接抓到）由客戶決定。
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="cta">
+  <div class="final-cta">
+    <h2>等 LLM-driven 商務全面爆發時，<br>你的網站已經就位。</h2>
+    <p>不用懂 MCP、不用寫 code、不用付額外費用。AICMS 客戶開帳號的當下，就是 LLM-Ready 狀態。要不要等 ChatGPT 真的找上你才回頭做，你可以選。</p>
+    <div class="btn-row">
+      <a href="#" class="primary">立即線上諮詢</a>
+      <a href="./ai-chat-booking.html" class="secondary">看 AI 客服 + MCP 實作 →</a>
+    </div>
+    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已運作中：waterman-sports.cc · 每個 AICMS tenant 內建 MCP gateway</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 AICMS · <a href="./">回首頁</a> · <a href="https://github.com/rai0603/aicms-marketing">GitHub</a>
+</footer>
+
+</body>
+</html>
