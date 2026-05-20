@@ -132,6 +132,61 @@
     padding: 5px 12px; background: var(--bg-soft); border: 1px solid var(--line);
     border-radius: 999px; font-size: 12.5px; color: var(--ink-2); font-weight: 500;
   }
+
+  /* Pain section — 4 痛點 */
+  .pain-section { padding: 80px 0; }
+  .pain-section h2 small { color: #dc2626; }
+  .pain-grid {
+    display: grid; gap: 18px; margin-top: 36px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) { .pain-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pain-block {
+    background: white; border: 1px solid var(--line); border-radius: 16px;
+    padding: 28px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    position: relative; overflow: hidden;
+  }
+  .pain-block:hover {
+    transform: translateY(-3px); box-shadow: var(--shadow-md);
+    border-color: var(--brand);
+  }
+  .pain-block .pain-num {
+    position: absolute; top: 20px; right: 24px;
+    font-size: 56px; font-weight: 900; color: #f3f4f6;
+    line-height: 1; letter-spacing: -0.04em;
+    font-family: 'Inter', sans-serif;
+  }
+  .pain-block .pain-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 11px; border-radius: 999px;
+    background: #fef2f2; color: #dc2626;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .03em;
+    margin-bottom: 14px; position: relative; z-index: 1;
+  }
+  .pain-block h3 {
+    font-size: 20px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 12px; letter-spacing: -0.02em; line-height: 1.35;
+    position: relative; z-index: 1;
+  }
+  .pain-block .pain-body {
+    color: var(--ink-2); font-size: 14.5px; line-height: 1.7;
+    margin-bottom: 20px; flex: 1; position: relative; z-index: 1;
+  }
+  .pain-block .pain-body p { margin-bottom: 8px; }
+  .pain-block .pain-body p:last-child { margin-bottom: 0; }
+  .pain-block .pain-body strong { color: var(--ink-1); }
+  .pain-block .pain-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px; background: var(--ink-0); color: white;
+    border-radius: 10px; text-decoration: none;
+    font-size: 13.5px; font-weight: 600;
+    align-self: flex-start; position: relative; z-index: 1;
+    transition: transform .15s, background .15s;
+  }
+  .pain-block .pain-cta:hover { background: var(--brand); transform: translateX(2px); }
+  .pain-block .pain-cta::after { content: '→'; transition: transform .15s; }
+  .pain-block:hover .pain-cta::after { transform: translateX(3px); }
 </style>
 </head>
 <body>
@@ -162,6 +217,63 @@
     <span class="pill">🧩 AEO / GEO 結構優先</span>
     <span class="pill">📱 PWA · 加到主畫面 = App</span>
     <span class="pill">🔌 MCP Gateway · agent-native</span>
+  </div>
+</section>
+
+<section class="pain-section">
+  <h2><small>4 個現在最該擔心的痛</small>你的網站正在發生這些事嗎？</h2>
+  <p class="sub">每一個都對應一個 AICMS 功能。點進去看怎麼解。</p>
+
+  <div class="pain-grid">
+
+    <div class="pain-block">
+      <div class="pain-num">01</div>
+      <span class="pain-tag">📉 搜尋規則變了</span>
+      <h3>新世代搜尋規則整個換了，你的 SEO 還有用嗎？</h3>
+      <div class="pain-body">
+        <p>客人從「打關鍵字 Google」進化到「問 ChatGPT / Claude / Perplexity」。AI 直接給答案 + 引用 3 家來源 — 沒被 AI 認到的網站等於在新世代不存在。</p>
+        <p>傳統 SEO 工具看不到對話式查詢，AI Overview 也把 Google 第一名的點擊掉 30-50%。<strong>關鍵字思維已過時，現在比的是「能不能被 AI 引用」。</strong></p>
+        <p>這是 GEO / AEO 時代 — 網站要從「給 Google 看」改成「給 AI 引用」。</p>
+      </div>
+      <a class="pain-cta" href="./geo-native-site.html">看 GEO 原生網站解法</a>
+    </div>
+
+    <div class="pain-block">
+      <div class="pain-num">02</div>
+      <span class="pain-tag">😩 下單摩擦力太高</span>
+      <h3>下單要填 10 個欄位、跳 3 個頁面，然後客人就消失了。</h3>
+      <div class="pain-body">
+        <p>傳統官網下單流程：找服務 → 填表單 → 等回覆 → 確認 → 付款 → 再回覆。任一步都流失客人，研究說<strong>一般網站 60-70% 的潛在客人會在表單前放棄</strong>。</p>
+        <p>對 AI 時代的客人來說，「填表單」這個動作本身就過時了。他們已經習慣跟 AI 對話直接解決事情 — 你網站如果還是讓他們去填表，等於主動把訂單推走。</p>
+        <p>新解法：站內 AI 客服直接連到預約系統，<strong>在對話框裡就成立訂單</strong>。</p>
+      </div>
+      <a class="pain-cta" href="./ai-chat-booking.html">看 AI 客服 × 線上預約</a>
+    </div>
+
+    <div class="pain-block">
+      <div class="pain-num">03</div>
+      <span class="pain-tag">📦 舊網站搬不動</span>
+      <h3>知道該換 CMS 了，但 WordPress 100 篇文章搬不動。</h3>
+      <div class="pain-body">
+        <p>WordPress 在 AI 時代結構不對、page builder 又把內容鎖住。但要搬：圖片連結會壞、URL 一換 SEO 流量掉 40-70%、100 篇文章手動貼要<strong>整整 2-3 週</strong>。中小企業根本沒這個人力。</p>
+        <p>外包公司又貴又慢（1-2 個月）、page builder 內容常解不開、合約黑盒子、上線後問題還要回頭找。</p>
+        <p>AICMS 內建專用爬蟲讀懂 WP 結構 (含 Elementor / Divi / Gutenberg)，2 小時跑完、URL 保留、AI 自動補 schema、<strong>全程簽合約走</strong>。</p>
+      </div>
+      <a class="pain-cta" href="./wordpress-import.html">看 WordPress 一鍵匯入</a>
+    </div>
+
+    <div class="pain-block">
+      <div class="pain-num">04</div>
+      <span class="pain-tag">🚀 LLM 商務你接不上</span>
+      <h3>ChatGPT 已能訂機票，明年就輪到訂你的服務。</h3>
+      <div class="pain-body">
+        <p>Booking.com、Expedia、OpenTable、Shopify 等大平台<strong>已有自己的 MCP server 給 LLM 串接</strong>。客人在 ChatGPT 問「訂飯店」「訂餐」— LLM 直接走他們的 MCP 完成下單，你的網站完全不在這個流量池。</p>
+        <p>建 MCP server 需要 RPC 後端、tool schema、認證機制、tenant 隔離 — 中小企業沒有工程資源也沒有預算自己做。</p>
+        <p>AICMS 替每個客戶內建 MCP Gateway — <strong>不用懂技術、不用付額外費用、LLM 一搜就找到你</strong>。Anthropic / OpenAI / Google / Microsoft 全部支援，這已是產業共識協議。</p>
+      </div>
+      <a class="pain-cta" href="./mcp-gateway.html">看 MCP Gateway</a>
+    </div>
+
   </div>
 </section>
 
