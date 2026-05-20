@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEO 原生網站 — AICMS 為 AI 搜尋時代設計的 CMS</title>
+<meta name="description" content="Google 排名第一已經不夠了。AI 搜尋時代，你的網站要被 AI 引用。AICMS 從架構層幫你準備好 — JSON-LD、llms.txt、E-E-A-T、AI Bot 控制全自動。">
+<meta property="og:title" content="GEO 原生網站 — 為 AI 搜尋時代設計的 CMS">
+<meta property="og:description" content="SEO 把網站做給 Google 看。GEO 把網站做給 AI 引用。">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --bg-card: #ffffff;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --line-soft: #eef0f6;
+    --brand: #4f46e5;
+    --brand-deep: #3730a3;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --warn: #f59e0b;
+    --ok: #10b981;
+    --danger: #dc2626;
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --grad-soft: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+    --shadow-md: 0 8px 20px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.04);
+    --shadow-lg: 0 24px 60px rgba(79,70,229,.14), 0 6px 16px rgba(15,23,42,.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.7; letter-spacing: -0.005em;
+  }
+
+  /* Top nav */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; transition: opacity .15s;
+  }
+  nav.top a.logo:hover { opacity: .75; }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: white;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 80px 0; }
+
+  /* Hero */
+  .hero { padding: 80px 0 60px; }
+  @media (min-width: 880px) {
+    .hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+  }
+  .hero-text { min-width: 0; }
+  .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(40px, 5.4vw, 60px); font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; margin-bottom: 22px; color: var(--ink-0);
+  }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h1 .strike { text-decoration: line-through; color: var(--ink-3); font-weight: 600; }
+  .lede { font-size: 19px; color: var(--ink-2); max-width: 680px; line-height: 1.65; margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-cta .primary {
+    padding: 14px 24px; background: var(--ink-0); color: white;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: transform .15s;
+  }
+  .hero-cta .primary:hover { transform: translateY(-1px); }
+  .hero-cta .secondary {
+    padding: 14px 24px; background: transparent; color: var(--ink-1);
+    border: 1px solid var(--line); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  /* Hero demo card — AI engine citing your site */
+  .ai-demo {
+    background: white; border: 1px solid var(--line); border-radius: 18px;
+    box-shadow: var(--shadow-lg); overflow: hidden;
+    max-width: 440px; width: 100%; margin: 36px auto 0;
+  }
+  @media (min-width: 880px) { .ai-demo { margin: 0; } }
+  .ai-demo .top-bar {
+    padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+    background: var(--bg-soft); border-bottom: 1px solid var(--line);
+  }
+  .ai-demo .dots { display: flex; gap: 6px; }
+  .ai-demo .dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .ai-demo .dots span:nth-child(1) { background: #ff5f57; }
+  .ai-demo .dots span:nth-child(2) { background: #febc2e; }
+  .ai-demo .dots span:nth-child(3) { background: #28c840; }
+  .ai-demo .engine-tag {
+    margin-left: auto; padding: 3px 9px; border-radius: 6px;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: white; font-size: 10.5px; font-weight: 700;
+  }
+  .ai-demo .body { padding: 20px; }
+  .ai-q {
+    color: var(--ink-2); font-size: 14px; padding: 8px 12px;
+    background: var(--bg-soft); border-radius: 10px; margin-bottom: 16px;
+    border-left: 3px solid var(--ink-3); opacity: 0;
+  }
+  .ai-a {
+    font-size: 14px; color: var(--ink-1); line-height: 1.7;
+    opacity: 0;
+  }
+  .ai-a .cite {
+    background: linear-gradient(180deg, transparent 60%, rgba(79,70,229,.18) 60%);
+    color: var(--brand-deep); font-weight: 700; padding: 0 3px;
+    cursor: pointer; text-decoration: none;
+  }
+  .ai-srcs {
+    margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line);
+    font-size: 11.5px; color: var(--ink-3); opacity: 0;
+  }
+  .ai-srcs .src {
+    display: flex; align-items: center; gap: 8px; padding: 7px 0;
+  }
+  .ai-srcs .src.hl { color: var(--brand-deep); font-weight: 700; }
+  .ai-srcs .src .num {
+    width: 18px; height: 18px; border-radius: 4px;
+    background: var(--bg-soft); color: var(--ink-3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; flex-shrink: 0;
+  }
+  .ai-srcs .src.hl .num { background: var(--brand-soft); color: var(--brand); }
+  .ai-srcs .src.you {
+    background: var(--brand-soft); border: 1px solid #c7d2fe;
+    border-radius: 6px; padding: 6px 8px;
+  }
+  .ai-srcs .src.you::after {
+    content: '👈 你的網站'; margin-left: auto; color: var(--brand); font-weight: 700; font-size: 10.5px;
+  }
+
+  @keyframes ai-q-in { 0%,4%{opacity:0;transform:translateY(6px)} 8%,95%{opacity:1;transform:none} 98%,100%{opacity:0} }
+  @keyframes ai-a-in { 0%,22%{opacity:0;transform:translateY(8px)} 26%,95%{opacity:1;transform:none} 98%,100%{opacity:0} }
+  @keyframes ai-srcs-in { 0%,52%{opacity:0;transform:translateY(8px)} 56%,95%{opacity:1;transform:none} 98%,100%{opacity:0} }
+  @keyframes ai-hl-pulse {
+    0%,68% { box-shadow: 0 0 0 0 rgba(79,70,229,0); }
+    72% { box-shadow: 0 0 0 6px rgba(79,70,229,.3); }
+    78% { box-shadow: 0 0 0 14px rgba(79,70,229,0); }
+    100% { box-shadow: 0 0 0 0 rgba(79,70,229,0); }
+  }
+  .ai-q { animation: ai-q-in 16s infinite ease-out; }
+  .ai-a { animation: ai-a-in 16s infinite ease-out; }
+  .ai-srcs { animation: ai-srcs-in 16s infinite ease-out; }
+  .ai-srcs .src.you { animation: ai-hl-pulse 16s infinite ease-out; }
+  @media (prefers-reduced-motion: reduce) {
+    .ai-q, .ai-a, .ai-srcs { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .ai-srcs .src.you { animation: none !important; }
+  }
+
+  h2 {
+    font-size: 34px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 18px; letter-spacing: -0.025em; line-height: 1.2;
+  }
+  h2 small {
+    display: block; color: var(--brand); font-weight: 600; font-size: 14px;
+    letter-spacing: .08em; margin-bottom: 8px;
+  }
+  h2 + .sub { font-size: 17px; color: var(--ink-2); margin-bottom: 36px; max-width: 720px; }
+  h3 { font-size: 19px; font-weight: 700; color: var(--ink-0); margin-bottom: 10px; }
+
+  /* Pain section */
+  .pain { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .pain h2 small { color: var(--danger); }
+  .pain-grid { display: grid; gap: 16px; margin-top: 32px; }
+  @media (min-width: 720px) { .pain-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pain-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow-sm);
+  }
+  .pain-card .icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: #fef2f2; color: var(--danger);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 12px;
+  }
+  .pain-card .stat {
+    font-size: 13px; color: var(--ink-3); margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid var(--line-soft); font-weight: 600;
+  }
+  .pain-card .stat strong { color: var(--danger); font-size: 15px; }
+
+  /* SHIFT — search behavior comparison */
+  .shift-grid {
+    display: grid; gap: 28px; margin-top: 36px;
+  }
+  @media (min-width: 760px) { .shift-grid { grid-template-columns: 1fr 1fr; } }
+  .shift-card {
+    background: white; border: 1px solid var(--line); border-radius: 16px;
+    padding: 28px; box-shadow: var(--shadow-sm); position: relative;
+  }
+  .shift-card.old { background: #fafbff; }
+  .shift-card.new { background: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%); border-color: #c7d2fe; }
+  .shift-card .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .03em; margin-bottom: 16px;
+  }
+  .shift-card.old .tag { background: var(--bg-soft); color: var(--ink-3); }
+  .shift-card.new .tag { background: var(--brand); color: white; }
+  .shift-card h3 { margin-bottom: 18px; }
+  .shift-flow { display: flex; flex-direction: column; gap: 10px; }
+  .shift-step {
+    display: flex; align-items: center; gap: 12px; font-size: 14px;
+  }
+  .shift-step .num {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .shift-card.old .num { background: var(--bg-soft); color: var(--ink-2); }
+  .shift-card.new .num { background: var(--brand); color: white; }
+  .shift-step .arr { color: var(--ink-3); margin: 0 4px; }
+  .shift-stat {
+    margin-top: 18px; padding: 12px 16px; border-radius: 10px;
+    font-size: 13.5px; line-height: 1.5;
+  }
+  .shift-card.old .shift-stat { background: white; border: 1px solid var(--line); color: var(--ink-2); }
+  .shift-card.new .shift-stat { background: white; border: 1px solid #c7d2fe; color: var(--ink-1); }
+  .shift-stat strong { display: block; font-size: 20px; color: var(--ink-0); margin-bottom: 2px; }
+
+  /* OLD vs NEW table */
+  .vs-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 32px; }
+  .vs-table {
+    width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0;
+    background: white; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  }
+  .vs-table th, .vs-table td {
+    padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--line-soft);
+    font-size: 14px; vertical-align: top;
+  }
+  .vs-table thead th {
+    background: var(--bg-soft); font-size: 12px; font-weight: 700;
+    color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em;
+  }
+  .vs-table tbody td:first-child { color: var(--ink-3); font-weight: 600; width: 24%; font-size: 13px; }
+  .vs-table .old { color: var(--ink-2); }
+  .vs-table .old::before { content: '✗ '; color: var(--ink-3); }
+  .vs-table .new { color: var(--ink-0); font-weight: 600; background: linear-gradient(180deg, transparent 80%, rgba(79,70,229,.06) 80%); }
+  .vs-table .new::before { content: '✓ '; color: var(--brand); font-weight: 700; }
+  .vs-table tr:last-child td { border-bottom: none; }
+
+  /* SOLUTION — AICMS features grid */
+  .sol-grid { display: grid; gap: 16px; margin-top: 36px; }
+  @media (min-width: 760px) { .sol-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .sol-grid { grid-template-columns: repeat(3, 1fr); } }
+  .sol-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow-sm); transition: transform .2s, box-shadow .2s;
+  }
+  .sol-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .sol-card .icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--brand-soft); color: var(--brand);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 14px;
+  }
+  .sol-card .meta {
+    margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-soft);
+    font-size: 12.5px; color: var(--ink-3); font-family: 'SF Mono', Consolas, monospace;
+  }
+
+  /* Code-like demo blocks */
+  .demo-split {
+    display: grid; gap: 20px; margin-top: 32px;
+  }
+  @media (min-width: 800px) { .demo-split { grid-template-columns: 1fr 1fr; } }
+  .demo-panel {
+    background: white; border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; box-shadow: var(--shadow-sm);
+  }
+  .demo-panel .label {
+    font-size: 12px; font-weight: 700; color: var(--brand); letter-spacing: .05em;
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .demo-panel h3 { font-size: 17px; margin-bottom: 14px; }
+  .code-block {
+    background: #0b1020; color: #e6e8f0; border-radius: 8px; padding: 14px 16px;
+    font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 12.5px;
+    line-height: 1.6; overflow-x: auto;
+    margin-top: 10px;
+  }
+  .code-block .k { color: #818cf8; }
+  .code-block .s { color: #86efac; }
+  .code-block .c { color: #6b7280; font-style: italic; }
+  .code-block .n { color: #fbbf24; }
+  .demo-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: var(--brand); padding: 8px 0;
+  }
+  @media (min-width: 800px) { .demo-arrow { display: none; } }
+
+  /* CitableRank ecosystem mockup */
+  .eco-wrap {
+    background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 100%);
+    color: white; border-radius: 20px; padding: 40px 32px;
+    margin-top: 36px;
+    box-shadow: var(--shadow-lg);
+  }
+  .eco-wrap .eyebrow { background: rgba(255,255,255,.1); color: rgba(255,255,255,.9); }
+  .eco-wrap h3 { color: white; font-size: 24px; margin-bottom: 12px; }
+  .eco-wrap .eco-lede { color: rgba(255,255,255,.7); margin-bottom: 28px; font-size: 15px; line-height: 1.65; max-width: 720px; }
+
+  .cr-dashboard {
+    background: white; border-radius: 16px; padding: 24px;
+    color: var(--ink-1); box-shadow: 0 30px 80px rgba(0,0,0,.4);
+    /* visually placeholder: 客戶之後給實際截圖再換 */
+  }
+  .cr-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
+  }
+  .cr-head .brand {
+    font-weight: 800; font-size: 18px; letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .cr-head .domain {
+    margin-left: 10px; padding: 4px 10px; border-radius: 6px;
+    background: var(--bg-soft); font-size: 12.5px; color: var(--ink-2); font-weight: 600;
+  }
+  .cr-head .rank-pill {
+    padding: 5px 12px; border-radius: 999px; background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: white; font-size: 12px; font-weight: 700;
+  }
+  .cr-metrics {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .cr-metrics { grid-template-columns: repeat(2, 1fr); } }
+  .cr-metric {
+    background: var(--bg-soft); border-radius: 10px; padding: 14px;
+    text-align: left;
+  }
+  .cr-metric .label { font-size: 11px; color: var(--ink-3); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+  .cr-metric .value { font-size: 22px; font-weight: 800; color: var(--ink-0); line-height: 1; }
+  .cr-metric .delta { font-size: 11px; color: var(--ok); font-weight: 700; margin-top: 4px; }
+  .cr-metric .delta.bad { color: var(--danger); }
+
+  .cr-section-title { font-size: 13px; font-weight: 700; color: var(--ink-0); margin-bottom: 12px; }
+  .cr-engines {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px;
+  }
+  .cr-engine {
+    background: var(--bg-soft); border-radius: 8px; padding: 10px 12px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cr-engine .name { font-size: 13px; font-weight: 600; color: var(--ink-1); display: flex; align-items: center; gap: 8px; }
+  .cr-engine .name .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .cr-engine.gpt .name .dot { background: #10a37f; }
+  .cr-engine.claude .name .dot { background: #d97757; }
+  .cr-engine.perplexity .name .dot { background: #20b8cd; }
+  .cr-engine.gemini .name .dot { background: #4285f4; }
+  .cr-engine .cnt { font-size: 14px; font-weight: 800; color: var(--ink-0); }
+
+  .cr-citations {
+    background: var(--bg-soft); border-radius: 10px; padding: 14px;
+  }
+  .cr-cite {
+    padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 13px;
+  }
+  .cr-cite:last-child { border-bottom: none; }
+  .cr-cite .q { color: var(--ink-3); font-size: 12px; margin-bottom: 4px; }
+  .cr-cite .a { color: var(--ink-1); }
+  .cr-cite .a .hl { background: rgba(79,70,229,.12); padding: 1px 4px; border-radius: 3px; color: var(--brand-deep); font-weight: 600; }
+  .cr-cite .meta { font-size: 11px; color: var(--ink-3); margin-top: 4px; display: flex; gap: 10px; align-items: center; }
+  .cr-cite .meta .engine-tag {
+    padding: 1px 6px; border-radius: 4px; font-weight: 700; font-size: 10px;
+  }
+  .cr-cite .meta .engine-tag.gpt { background: #d1fae5; color: #065f46; }
+  .cr-cite .meta .engine-tag.claude { background: #fed7aa; color: #9a3412; }
+  .cr-cite .meta .engine-tag.perplexity { background: #cffafe; color: #155e75; }
+
+  .eco-note {
+    margin-top: 24px; padding: 16px 20px; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1); border-radius: 12px;
+    color: rgba(255,255,255,.85); font-size: 14px; line-height: 1.65;
+  }
+  .eco-note strong { color: white; }
+
+  /* Case studies — AI engine 實測對話 cards (placeholder) */
+  .case-grid {
+    display: grid; gap: 20px; margin-top: 36px;
+    grid-template-columns: 1fr;
+    max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .case-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow-sm); overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .case-card .case-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px; border-bottom: 1px solid var(--line-soft);
+    background: var(--bg-soft);
+  }
+  .case-card .engine {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 700; color: var(--ink-0);
+  }
+  .case-card .engine .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .case-card.gpt .engine .dot { background: #10a37f; }
+  .case-card.claude .engine .dot { background: #d97757; }
+  .case-card.perplexity .engine .dot { background: #20b8cd; }
+  .case-card.gemini .engine .dot { background: linear-gradient(135deg, #4285f4, #34a853); }
+  .case-card .mode {
+    font-size: 11px; color: var(--ink-3); font-weight: 600;
+    padding: 3px 8px; border-radius: 6px; background: white; border: 1px solid var(--line);
+  }
+  .case-card .case-body {
+    padding: 20px; flex: 1; min-height: 240px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 10px;
+    background:
+      linear-gradient(135deg, transparent 24%, rgba(230,232,240,0.4) 25%, rgba(230,232,240,0.4) 26%, transparent 27%, transparent 74%, rgba(230,232,240,0.4) 75%, rgba(230,232,240,0.4) 76%, transparent 77%),
+      linear-gradient(225deg, transparent 24%, rgba(230,232,240,0.4) 25%, rgba(230,232,240,0.4) 26%, transparent 27%, transparent 74%, rgba(230,232,240,0.4) 75%, rgba(230,232,240,0.4) 76%, transparent 77%);
+    background-size: 24px 24px;
+  }
+  .case-card .case-body .ph-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: white; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .case-card .case-body .ph-text {
+    font-size: 13px; color: var(--ink-3); font-weight: 600; line-height: 1.5;
+    max-width: 280px;
+  }
+  .case-card .case-body .ph-sub {
+    font-size: 11.5px; color: var(--ink-3); font-style: italic;
+  }
+  .case-card .case-foot {
+    padding: 10px 18px; border-top: 1px solid var(--line-soft);
+    font-size: 11.5px; color: var(--ink-3); display: flex; justify-content: space-between;
+    background: var(--bg-soft);
+  }
+  .case-card .case-foot .q {
+    font-style: italic;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 75%;
+  }
+  .case-card .case-foot .badge {
+    padding: 2px 8px; border-radius: 999px; background: white; border: 1px solid var(--line);
+    font-weight: 700; font-size: 10px; color: var(--ink-3);
+  }
+  .case-card .case-foot .badge.cited {
+    background: #fef3c7; color: #92400e; border-color: #fde68a;
+  }
+
+  /* Filled case (ChatGPT 真實對話) */
+  .case-card.filled .case-body {
+    background: white; display: block; padding: 18px 20px;
+    min-height: 0; max-height: 540px; overflow-y: auto; text-align: left;
+  }
+  .chat-q { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+  .chat-q-bubble {
+    background: #f4f4f4; border-radius: 22px; padding: 8px 16px;
+    font-size: 13px; max-width: 88%; color: var(--ink-0); line-height: 1.55;
+  }
+  .chat-a { font-size: 12.5px; line-height: 1.7; color: #0d0d0d; }
+  .chat-a > p { margin-bottom: 11px; }
+  .chat-a hr { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+  .chat-a h4 { font-size: 14.5px; font-weight: 700; margin: 14px 0 10px; color: var(--ink-0); }
+  .chat-item { margin-bottom: 16px; }
+  .chat-item-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .chat-item-title a {
+    color: #0d0d0d; text-decoration: underline; text-decoration-color: #d4d4d8;
+    text-underline-offset: 3px;
+  }
+  .chat-item-link {
+    display: inline-block; font-size: 11px; color: #6b7280;
+    background: #f4f4f4; padding: 2px 8px; border-radius: 4px;
+    margin-bottom: 7px; text-decoration: underline; text-decoration-color: #d4d4d8;
+    text-underline-offset: 2px;
+  }
+  .chat-a ul { padding-left: 20px; margin: 4px 0 8px; }
+  .chat-a li { margin-bottom: 2px; font-size: 12.5px; }
+  .chat-a strong { color: #0d0d0d; font-weight: 700; }
+  .chat-item.highlight {
+    background: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+    border: 1.5px solid #c7d2fe; border-radius: 12px;
+    padding: 16px 16px 12px; margin: 6px -2px 16px;
+    position: relative;
+  }
+  .chat-item.highlight .cited-tag {
+    position: absolute; top: -11px; right: 14px;
+    background: var(--brand); color: white;
+    padding: 3px 11px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700;
+    box-shadow: var(--shadow-sm);
+  }
+  .chat-item.highlight .chat-item-title { margin-top: 4px; }
+
+  /* Workflow loop diagram */
+  .loop-wrap { margin-top: 36px; }
+  .loop-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 800px) { .loop-grid { grid-template-columns: repeat(4, 1fr); } }
+  .loop-step {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; position: relative; box-shadow: var(--shadow-sm);
+  }
+  .loop-step .step-num {
+    position: absolute; top: -12px; left: 22px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--grad); color: white; display: flex;
+    align-items: center; justify-content: center; font-size: 12px; font-weight: 800;
+  }
+  .loop-step .step-tool {
+    font-size: 11.5px; font-weight: 700; color: var(--brand); margin-bottom: 6px; letter-spacing: .05em; text-transform: uppercase;
+  }
+  .loop-step h4 { font-size: 15px; font-weight: 700; color: var(--ink-0); margin-bottom: 8px; }
+  .loop-step p { font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+
+  /* CTA */
+  .final-cta {
+    text-align: center; padding: 60px 32px;
+    background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 50%, #4f46e5 100%);
+    color: white; border-radius: 20px;
+  }
+  .final-cta h2 { color: white; }
+  .final-cta p { color: rgba(255,255,255,.8); max-width: 580px; margin: 0 auto 28px; font-size: 16px; }
+  .final-cta .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .final-cta a.primary {
+    padding: 14px 28px; background: white; color: var(--ink-0);
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  .final-cta a.secondary {
+    padding: 14px 28px; background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
+  <div class="links">
+    <a href="#why">為何要改</a>
+    <a href="#shift">搜尋變了</a>
+    <a href="#solution">解法</a>
+    <a href="#ecosystem">配套</a>
+  </div>
+  <a href="#cta" class="cta">立即線上諮詢</a>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">GEO 原生 · AI 搜尋時代</div>
+    <h1>
+      <span class="strike">SEO 把網站做給 Google 看。</span><br>
+      <span class="grad">GEO 把網站做給 AI 引用。</span>
+    </h1>
+    <p class="lede">
+      你的客人正在用 ChatGPT、Claude、Perplexity 問問題 — 而 AI 引用的網站，是「能被它讀懂結構的」。AICMS 從架構層幫你準備好：自動產 JSON-LD、llms.txt、AI Bot 細粒度控制、E-E-A-T 信號全部內建。不用懂技術，後台填表單即可。
+    </p>
+    <div class="hero-cta">
+      <a href="#" class="primary">立即線上諮詢</a>
+      <a href="https://citablerank.com" class="secondary">看引用排名 →</a>
+    </div>
+  </div>
+
+  <!-- Animated demo: AI engine 引用你的網站 -->
+  <div class="ai-demo">
+    <div class="top-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="engine-tag">CHATGPT</div>
+    </div>
+    <div class="body">
+      <div class="ai-q">宜蘭哪一家 SUP 立槳體驗最值得推薦？適合新手。</div>
+      <div class="ai-a">
+        宜蘭南方澳的 <a class="cite" href="#">水行者海洋運動中心</a> 是新手最常被推薦的選擇。他們提供 2.5 小時新手友善的 SUP 體驗，價格從 NT$ 1,500 起，含 GoPro 攝影服務。Since 2012 已累計超過 40,000 人次參與。
+      </div>
+      <div class="ai-srcs">
+        <div class="cr-section-title" style="font-size: 11.5px; color: var(--ink-3); font-weight: 700;">引用來源 (3)</div>
+        <div class="src you">
+          <div class="num">1</div>
+          <span>waterman-sports.cc · 體驗行程 / 價格 / FAQ</span>
+        </div>
+        <div class="src">
+          <div class="num">2</div>
+          <span>tripadvisor.com.tw · 評論</span>
+        </div>
+        <div class="src">
+          <div class="num">3</div>
+          <span>blog.example.com · 部落格</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAIN — 為何要改 ============ -->
+<section id="why" class="pain">
+  <h2><small>2025-2026 正在發生</small>SEO 排第一也沒用了。</h2>
+  <p class="sub">不是搜尋引擎不見了，是它變形了。流量正從「Google 排名 → 點連結 → 看網頁」整路轉到「問 AI → AI 給答案 + 引用幾家來源」。沒被引用的網站，等於不存在。</p>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="icon">📉</div>
+      <h3>ChatGPT 用戶不點連結。</h3>
+      <p>AI 直接給答案，使用者只看摘要。傳統「衝排名」的 SEO 策略沒人按進來。</p>
+      <div class="stat">📊 <strong>~60%</strong> 對話式查詢沒有後續點擊行為 (各家研究數字落在 50-70%)</div>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🤖</div>
+      <h3>Google 自己用 AI Overview 把流量截胡。</h3>
+      <p>連 Google 都把搜尋頁上半部換成 AI 摘要。下面那 10 個藍連結被往下推、被忽略。</p>
+      <div class="stat">📊 AI Overviews 出現的查詢，<strong>第一名點擊率掉 30-50%</strong></div>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🧩</div>
+      <h3>純 HTML 沒結構，AI 不會引用你。</h3>
+      <p>AI 引擎挑「能解析成結構化事實」的站做引用。沒 JSON-LD / 沒 schema / 沒 llms.txt 的站，AI 看不到「你是什麼、提供什麼、地址在哪」。</p>
+      <div class="stat">📊 有 schema 的頁面被 AI 引用機率 <strong>提升 3-7 倍</strong></div>
+    </div>
+    <div class="pain-card">
+      <div class="icon">💬</div>
+      <h3>客人搜尋習慣已經換了。</h3>
+      <p>從「打 5 個關鍵字」進化到「用一整句話問」。傳統 SEO 工具看不到對話式查詢，但 AI 看得到、然後決定引用誰。</p>
+      <div class="stat">📊 <strong>78%</strong> 的 Z 世代會先問 AI 再決定要不要 Google (2025 Q3 各機構估計)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHIFT — 客戶搜尋行為變化 ============ -->
+<section id="shift">
+  <h2><small>使用者行為對比</small>從「點連結」到「問 AI 就好」。</h2>
+  <p class="sub">同一個問題、同一個客人，在 2020 跟 2026 走完全不同的路徑。網站如果還停在 2020 思維，每天都在丟失流量。</p>
+
+  <div class="shift-grid">
+    <div class="shift-card old">
+      <div class="tag">2015-2022 · 舊時代</div>
+      <h3>SEO 流量路徑</h3>
+      <div class="shift-flow">
+        <div class="shift-step"><div class="num">1</div><span>客人想找「宜蘭 SUP 體驗」</span></div>
+        <div class="shift-step"><div class="num">2</div><span>打開 Google 輸入 3-5 個關鍵字</span></div>
+        <div class="shift-step"><div class="num">3</div><span>看搜尋結果頁 10 條藍連結</span></div>
+        <div class="shift-step"><div class="num">4</div><span>點 1-3 家網站逐一比較</span></div>
+        <div class="shift-step"><div class="num">5</div><span>選一家、填表單、等回覆</span></div>
+      </div>
+      <div class="shift-stat">
+        <strong>網站 = 入口</strong>
+        重點：排名要高、文字要含關鍵字、要等人點進來才能轉換。
+      </div>
+    </div>
+
+    <div class="shift-card new">
+      <div class="tag">2024-2026 · 新時代</div>
+      <h3>GEO 引用路徑</h3>
+      <div class="shift-flow">
+        <div class="shift-step"><div class="num">1</div><span>客人問 ChatGPT：「宜蘭新手 SUP 哪家好？」</span></div>
+        <div class="shift-step"><div class="num">2</div><span>AI 直接給整段答案 + 3 家引用</span></div>
+        <div class="shift-step"><div class="num">3</div><span>客人多半看完答案直接決定</span></div>
+        <div class="shift-step"><div class="num">4</div><span>若有興趣才點品牌進站 → 預約</span></div>
+      </div>
+      <div class="shift-stat">
+        <strong>網站 = 答案來源</strong>
+        重點：被 AI 認得、被引用、品牌名出現在 AI 的回答裡。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OLD vs NEW table ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>架站邏輯對照</small>新舊時代的網站，根本不是同一種東西。</h2>
+  <p class="sub">老 WordPress 站把「人看得舒服」當第一優先；GEO 原生網站把「AI 解析得出結構」當第一優先。兩個架構的優化方向、檢核標準、後台工具，差距非常大。</p>
+
+  <div class="vs-wrap">
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th>面向</th>
+          <th>舊時代 SEO 站 (WordPress 風)</th>
+          <th>新時代 GEO 原生站 (AICMS)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>核心目標</td>
+          <td class="old">在 Google 排名前幾名</td>
+          <td class="new">被 AI 引擎引用、品牌出現在答案裡</td>
+        </tr>
+        <tr>
+          <td>內容單位</td>
+          <td class="old">一篇文章 (長文 + 關鍵字密度)</td>
+          <td class="new">一個事實 chunk (時段、價格、地點、FAQ 條目)</td>
+        </tr>
+        <tr>
+          <td>給機器讀的方式</td>
+          <td class="old">機器人自己爬 HTML 猜內容</td>
+          <td class="new">主動產 JSON-LD + llms.txt 告訴 AI 結構</td>
+        </tr>
+        <tr>
+          <td>信任信號 (Trust)</td>
+          <td class="old">反向連結數量</td>
+          <td class="new">E-E-A-T schema (作者經驗、來源、評論、地點)</td>
+        </tr>
+        <tr>
+          <td>內容更新策略</td>
+          <td class="old">寫長文 + 灌關鍵字 + 等爬蟲</td>
+          <td class="new">事實表單即時更新 + schema 自動 sync</td>
+        </tr>
+        <tr>
+          <td>爬蟲 / AI Bot 控制</td>
+          <td class="old">robots.txt 全開或全關</td>
+          <td class="new">GPTBot / Claude / Perplexity 等個別 allow/disallow</td>
+        </tr>
+        <tr>
+          <td>監測什麼</td>
+          <td class="old">關鍵字排名 + GA 流量</td>
+          <td class="new">被引用次數 + 各 AI 引擎引用率 (見 CitableRank)</td>
+        </tr>
+        <tr>
+          <td>常用工具</td>
+          <td class="old">WP + Yoast SEO + Ahrefs / SEMrush</td>
+          <td class="new">AICMS + CitableRank (一條龍 GEO 原生)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ SOLUTION — AICMS 怎麼做 ============ -->
+<section id="solution">
+  <h2><small>AICMS 怎麼解</small>後台填表單，產出全部給 AI 看得懂。</h2>
+  <p class="sub">這些功能在傳統 CMS 上都要請工程師寫 plugin / 改 theme / 改 template — 而且要懂 schema.org 規範。AICMS 內建做掉，後台填欄位就直接出。</p>
+
+  <div class="sol-grid">
+    <div class="sol-card">
+      <div class="icon">🧬</div>
+      <h3>JSON-LD 引擎</h3>
+      <p>Article / FAQPage / LocalBusiness / Product / BreadcrumbList / Speakable / Person — 11+ 種 schema 型別自動生成，跟頁面內容綁定。Google 結構化資料測試秒過。</p>
+      <div class="meta">/api/schema · 11 types built-in</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">📜</div>
+      <h3>llms.txt 自動產</h3>
+      <p>主動告訴 AI 引擎你的站結構：站名、業務類型、價格範圍、地址、社群連結、各頁摘要。AI 一次抓完不用爬。</p>
+      <div class="meta">/llms.txt · 自動 curated</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">🤖</div>
+      <h3>AI Bot 細粒度控制</h3>
+      <p>後台勾選 GPTBot / ChatGPT-User / ClaudeBot / PerplexityBot / Google-Extended / Bytespider 等 14+ AI bots，個別 allow/disallow。不再全開或全關。</p>
+      <div class="meta">/robots.txt · per-bot policy</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">📈</div>
+      <h3>GEO 健檢評分</h3>
+      <p>內容寫好的當下，後台跑 0-100 分 GEO 評分。沒拿到分的點直接列建議：「缺 FAQ schema」「缺 author」「LocalBusiness 沒填 hours」。</p>
+      <div class="meta">/geo-checker · real-time score</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">👤</div>
+      <h3>Author Entity / E-E-A-T</h3>
+      <p>每篇文章可掛作者實體 (Person schema)，含 jobTitle、sameAs (社群)、worksFor。給 AI 「這人是誰、為何權威」的 trust signal。</p>
+      <div class="meta">/authors · Person schema</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="icon">🔊</div>
+      <h3>Speakable / 語音助理就緒</h3>
+      <p>每篇文章自動標記 Speakable 區段，給 Alexa / Google Assistant / iOS Siri 念。語音搜尋時代，你的內容直接被讀出來。</p>
+      <div class="meta">Speakable schema · 自動標記</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEMO — JSON-LD + llms.txt 範例 ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>實際長相</small>填一次表單，產出兩種 AI 都看得懂的格式。</h2>
+  <p class="sub">後台填「服務 / 價格 / 時段 / FAQ」一次，AICMS 同時產出 JSON-LD (給 Google) + llms.txt (給 ChatGPT / Claude / Perplexity)。客戶不用懂 schema.org 規範。</p>
+
+  <div class="demo-split">
+    <div class="demo-panel">
+      <div class="label">給 Google · JSON-LD</div>
+      <h3>網頁 head 內嵌結構化資料</h3>
+      <div class="code-block"><span class="c">// 後台填表 → 自動產</span>
+<span class="k">&lt;script type</span>=<span class="s">"application/ld+json"</span><span class="k">&gt;</span>
+{
+  <span class="s">"@context"</span>: <span class="s">"https://schema.org"</span>,
+  <span class="s">"@type"</span>: <span class="s">"LocalBusiness"</span>,
+  <span class="s">"name"</span>: <span class="s">"水行者海洋運動中心"</span>,
+  <span class="s">"address"</span>: { ... },
+  <span class="s">"telephone"</span>: <span class="s">"+886918115406"</span>,
+  <span class="s">"priceRange"</span>: <span class="s">"NT$ 1,500 - 3,000"</span>,
+  <span class="s">"openingHours"</span>: [...],
+  <span class="s">"aggregateRating"</span>: {
+    <span class="s">"ratingValue"</span>: <span class="n">4.8</span>,
+    <span class="s">"reviewCount"</span>: <span class="n">2341</span>
+  }
+}
+<span class="k">&lt;/script&gt;</span></div>
+    </div>
+
+    <div class="demo-arrow">⇣</div>
+
+    <div class="demo-panel">
+      <div class="label">給 AI 引擎 · llms.txt</div>
+      <h3>主動告訴 AI 怎麼讀你的站</h3>
+      <div class="code-block"><span class="c"># 水行者海洋運動中心</span>
+
+&gt; 宜蘭最佳立槳獨木舟體驗，
+&gt; 40,000+ 人次參與 · Since 2012
+
+Type: LocalBusiness
+Price range: NT$ 1,500-3,000
+Address: 270 宜蘭縣 蘇澳鎮
+Tel: +886918115406
+
+<span class="c">## 主要頁面</span>
+
+- [SUP 立槳體驗](/sup):
+  新手友善 2.5 小時行程
+- [獨木舟探秘](/canoe):
+  賊仔澳秘境路線
+- [常見問題](/faq):
+  不會游泳能參加嗎？...
+
+<span class="c">## MCP Server</span>
+
+Endpoint: /api/mcp
+Tools: query_availability, book</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ECOSYSTEM — CitableRank ============ -->
+<section id="ecosystem">
+  <h2><small>配套生態</small>AICMS 寫內容 → CitableRank 看引用。</h2>
+  <p class="sub">把內容寫對結構是第一步；第二步是知道「真的被 AI 引用了嗎」。CitableRank 每天爬 ChatGPT / Claude / Perplexity / Gemini，告訴你網站被引用了幾次、跟對手比差距在哪、缺什麼補什麼。</p>
+
+  <div class="eco-wrap">
+    <div class="eyebrow">配套產品 · 監測引用排名</div>
+    <h3>CitableRank — 你的網站被 AI 引用了幾次？</h3>
+    <p class="eco-lede">這是一份「被引用儀表板」概念示意（最終以實際畫面為準）— 但邏輯是這樣：每天爬主要 AI 引擎，找出「跟你業務相關的問題」AI 答出來時引用了哪些網站，計分排名。</p>
+
+    <div class="cr-dashboard">
+      <div class="cr-head">
+        <div>
+          <span class="brand">CitableRank</span>
+          <span class="domain">waterman-sports.cc</span>
+        </div>
+        <div class="rank-pill">🏆 產業第 3 名</div>
+      </div>
+
+      <div class="cr-metrics">
+        <div class="cr-metric">
+          <div class="label">本週被引用</div>
+          <div class="value">47 <span style="font-size:13px; color:var(--ink-3); font-weight:600;">次</span></div>
+          <div class="delta">↑ +18% vs 上週</div>
+        </div>
+        <div class="cr-metric">
+          <div class="label">引用引擎數</div>
+          <div class="value">4 <span style="font-size:13px; color:var(--ink-3); font-weight:600;">/ 4</span></div>
+          <div class="delta">全覆蓋 ✓</div>
+        </div>
+        <div class="cr-metric">
+          <div class="label">產業排名</div>
+          <div class="value">#3 <span style="font-size:13px; color:var(--ink-3); font-weight:600;">/ 28</span></div>
+          <div class="delta">↑ 上週第 5</div>
+        </div>
+        <div class="cr-metric">
+          <div class="label">GEO 健檢分</div>
+          <div class="value">87 <span style="font-size:13px; color:var(--ink-3); font-weight:600;">/100</span></div>
+          <div class="delta">↑ +5 (補了 FAQ)</div>
+        </div>
+      </div>
+
+      <div class="cr-section-title">各 AI 引擎引用次數 (本週)</div>
+      <div class="cr-engines">
+        <div class="cr-engine gpt"><span class="name"><span class="dot"></span>ChatGPT</span><span class="cnt">18</span></div>
+        <div class="cr-engine claude"><span class="name"><span class="dot"></span>Claude</span><span class="cnt">14</span></div>
+        <div class="cr-engine perplexity"><span class="name"><span class="dot"></span>Perplexity</span><span class="cnt">9</span></div>
+        <div class="cr-engine gemini"><span class="name"><span class="dot"></span>Gemini</span><span class="cnt">6</span></div>
+      </div>
+
+      <div class="cr-section-title">最近被引用的問題</div>
+      <div class="cr-citations">
+        <div class="cr-cite">
+          <div class="q">Q: 宜蘭哪一家 SUP 立槳適合新手？</div>
+          <div class="a">AI 回答中提到「<span class="hl">水行者海洋運動中心</span> 提供新手友善 2.5 小時體驗，含 GoPro 攝影」</div>
+          <div class="meta"><span class="engine-tag gpt">ChatGPT</span> · 2 小時前 · 引用排序 #1</div>
+        </div>
+        <div class="cr-cite">
+          <div class="q">Q: 賊仔澳玻璃沙灘怎麼去？</div>
+          <div class="a">「<span class="hl">水行者</span> 提供獨木舟進階路線，可抵達彩石沙灘…」</div>
+          <div class="meta"><span class="engine-tag claude">Claude</span> · 5 小時前 · 引用排序 #2</div>
+        </div>
+        <div class="cr-cite">
+          <div class="q">Q: 不會游泳可以玩 SUP 嗎？</div>
+          <div class="a">「根據 <span class="hl">水行者海洋運動中心</span> 的 FAQ，無需游泳能力，全程穿救生衣…」</div>
+          <div class="meta"><span class="engine-tag perplexity">Perplexity</span> · 昨天 · 引用排序 #1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eco-note">
+      💡 <strong>AICMS × CitableRank 配套邏輯</strong>：在 AICMS 後台寫內容、產 schema；CitableRank 24h 監測各 AI 引擎引用狀況；發現「對手在某個問題被引用而你沒有」→ 回 AICMS 補對應 FAQ / page / schema → 下次 AI 抓到就引你了。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 實測案例 ============ -->
+<section id="cases" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>實測案例</small>真的有 AI 在推薦我們。</h2>
+  <p class="sub">無痕模式打開 ChatGPT，問跟我們業務相關的問題，AI 自己列出推薦清單 — CitableRank 真的出現在第 3 名。下面是完整對話內容，其他 AI 引擎 (Claude / Perplexity / Gemini) 實測中，陸續累積。</p>
+
+  <div class="case-grid">
+
+    <!-- Case 1: ChatGPT (filled — CitableRank 被推薦第 3 名) -->
+    <div class="case-card gpt filled">
+      <div class="case-head">
+        <div class="engine"><span class="dot"></span>ChatGPT</div>
+        <div class="mode">🕶 無痕模式</div>
+      </div>
+      <div class="case-body">
+        <div class="chat-q">
+          <div class="chat-q-bubble">請推薦台灣專門分析網站 AI 能見度的網站分析工具？</div>
+        </div>
+        <div class="chat-a">
+          <p>如果你想找的是「分析網站在 ChatGPT、Perplexity、Google AI Overview 等 AI 搜尋中的能見度」工具，現在台灣市場其實開始出現幾個不錯的 GEO / AEO（Generative Engine Optimization / Answer Engine Optimization）平台。</p>
+          <p>我把它們分成「台灣本地化工具」與「國際型進階工具」兩類，方便你選。</p>
+          <hr/>
+          <h4>台灣本地化推薦（最值得先試）</h4>
+
+          <div class="chat-item">
+            <div class="chat-item-title">1. <a href="#">GeoWeb</a> ↗</div>
+            <a class="chat-item-link" href="#">GeoWeb</a>
+            <p>目前台灣少數真正聚焦「AI 搜尋能見度」的平台。</p>
+            <p><strong>特色：</strong></p>
+            <ul>
+              <li>分析 ChatGPT / Perplexity / Google AI Overview 可引用性</li>
+              <li>12 維 GEO 評分</li>
+              <li>檢查 schema / llms.txt / AI crawler / FAQ 結構 / AI 可摘要性</li>
+              <li>偏顧問導向（不是只有 dashboard）</li>
+            </ul>
+            <p><strong>適合：</strong>品牌官網、SaaS、醫美、B2B 公司、已經有 SEO 基礎的人</p>
+            <p>它比較不像傳統 SEO 工具，而是偏「AI 搜尋策略」。</p>
+          </div>
+
+          <div class="chat-item">
+            <div class="chat-item-title">2. <a href="#">AEO Scanner</a> ↗</div>
+            <a class="chat-item-link" href="#">AEO Scanner</a>
+            <p>這個我會推薦給中小企業、部落格、WordPress 網站、想快速健檢的人。</p>
+            <p><strong>優點：</strong></p>
+            <ul>
+              <li>免費掃描</li>
+              <li>很台灣化</li>
+              <li>會直接告訴你缺哪些 AI SEO 元件</li>
+              <li>會產生修復建議</li>
+            </ul>
+            <p>特別適合繁中市場：LINE 分享、hreflang、Google 商家 schema、繁體中文 llms.txt。對初學者很友善。</p>
+          </div>
+
+          <div class="chat-item highlight">
+            <div class="cited-tag">⭐ 我們的產品被引用</div>
+            <div class="chat-item-title">3. <a href="https://citablerank.com">CitableRank AI 讚聲</a> ↗</div>
+            <a class="chat-item-link" href="https://citablerank.com">CitableRank</a>
+            <p>這個比較特別。它不是只分析網站技術，而是：</p>
+            <p style="font-weight:700; color:var(--brand-deep); font-size:13.5px;">「AI 真的有沒有推薦你？」</p>
+            <p>它會：</p>
+            <ul>
+              <li>測試 ChatGPT 是否提到你品牌</li>
+              <li>比較競品 AI 曝光率</li>
+              <li>做 AI citation tracking</li>
+              <li>看品牌在 AI 回答中的聲量</li>
+            </ul>
+            <p><strong>很適合：</strong>想知道「AI 有沒有推薦我」、做品牌曝光、做 GEO 成效追蹤。</p>
+            <p><strong>尤其適合：</strong>室內設計、醫美、在地商家、顧問服務。</p>
+          </div>
+        </div>
+      </div>
+      <div class="case-foot">
+        <span class="q">Q: 請推薦台灣專門分析網站 AI 能見度的網站分析工具？</span>
+        <span class="badge cited">CITED #3</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ WORKFLOW LOOP ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>四步閉環</small>從寫到被引用，整套都是後台動作。</h2>
+  <p class="sub">不用懂 schema 規範、不用碰 code、不用聘工程師。後台填一輪表單，就是完整的 GEO 內容工作流。</p>
+
+  <div class="loop-wrap">
+    <div class="loop-grid">
+      <div class="loop-step">
+        <div class="step-num">1</div>
+        <div class="step-tool">AICMS</div>
+        <h4>寫內容 + 填欄位</h4>
+        <p>後台寫文章、填 FAQ、設服務時段。AICMS 即時跑 GEO 評分 0-100 + 缺什麼提示。</p>
+      </div>
+      <div class="loop-step">
+        <div class="step-num">2</div>
+        <div class="step-tool">AICMS</div>
+        <h4>自動產 schema + llms.txt</h4>
+        <p>內容存檔的同時，JSON-LD 嵌進頁面、llms.txt 即時更新。Google + AI 引擎下次來爬就拿到完整結構。</p>
+      </div>
+      <div class="loop-step">
+        <div class="step-num">3</div>
+        <div class="step-tool">CitableRank</div>
+        <h4>監測引用 + 排名</h4>
+        <p>每天爬 ChatGPT / Claude / Perplexity / Gemini，找出「跟你業務相關問題」AI 答案有沒有引用你。</p>
+      </div>
+      <div class="loop-step">
+        <div class="step-num">4</div>
+        <div class="step-tool">回 AICMS</div>
+        <h4>看缺口 → 補內容</h4>
+        <p>CitableRank 告訴你哪個問題對手有你沒、缺什麼 schema。回 AICMS 補 → 下個循環。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="cta">
+  <div class="final-cta">
+    <h2>讓你的網站，<br>下個月開始出現在 AI 答案裡。</h2>
+    <p>30 分鐘線上會議，了解你的網站現況與業務，提供最適合的導入方式與報價。不用綁卡、不用簽約，看到效果再決定。</p>
+    <div class="btn-row">
+      <a href="#" class="primary">立即線上諮詢</a>
+      <a href="https://citablerank.com" class="secondary">先看 CitableRank →</a>
+    </div>
+    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已上線客戶：水行者運動 · waterman-sports.cc</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 AICMS · <a href="./">回首頁</a> · <a href="https://github.com/rai0603/aicms-marketing">GitHub</a>
+</footer>
+
+</body>
+</html>
