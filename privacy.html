@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>隱私權政策 — AICMS</title>
+<meta name="description" content="AICMS 隱私權政策。資料控制者：水行者運動國際有限公司。蒐集範圍、使用目的、第三方分享、用戶權利。">
+<meta name="robots" content="noindex, follow">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --brand: #4f46e5;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.75; letter-spacing: -0.005em;
+  }
+
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none;
+  }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: white;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    nav.top { padding: 12px 16px; }
+    nav.top .links { display: none; }
+    nav.top .cta { padding: 7px 12px; font-size: 12px; }
+  }
+
+  main { max-width: 820px; margin: 0 auto; padding: 0 28px; }
+
+  .doc-hero { padding: 64px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 48px; }
+  .doc-hero .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 18px;
+  }
+  .doc-hero h1 {
+    font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.2;
+    letter-spacing: -0.025em; margin-bottom: 14px; color: var(--ink-0);
+  }
+  .doc-hero .meta {
+    font-size: 13.5px; color: var(--ink-3);
+  }
+  .doc-hero .meta strong { color: var(--ink-2); }
+
+  article { padding-bottom: 80px; }
+  article h2 {
+    font-size: 22px; font-weight: 800; color: var(--ink-0);
+    margin: 40px 0 14px; letter-spacing: -0.02em; line-height: 1.3;
+    padding-bottom: 10px; border-bottom: 2px solid var(--brand-soft);
+  }
+  article h2:first-of-type { margin-top: 0; }
+  article h3 { font-size: 17px; font-weight: 700; color: var(--ink-0); margin: 24px 0 10px; }
+  article p { color: var(--ink-1); font-size: 15px; line-height: 1.85; margin-bottom: 14px; }
+  article ul { margin: 8px 0 18px 24px; }
+  article ul li { font-size: 14.5px; color: var(--ink-1); line-height: 1.75; margin-bottom: 6px; }
+  article ul li strong { color: var(--ink-0); }
+  article table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: white; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    margin: 14px 0 24px; font-size: 14px;
+  }
+  article table th, article table td {
+    padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  article table thead th {
+    background: var(--bg-soft); font-size: 13px; font-weight: 700; color: var(--ink-1);
+  }
+  article table tbody tr:last-child td { border-bottom: none; }
+  article a { color: var(--brand); text-decoration: none; }
+  article a:hover { text-decoration: underline; }
+
+  .note-box {
+    background: var(--bg-soft); border-left: 4px solid var(--brand);
+    padding: 14px 18px; border-radius: 6px;
+    font-size: 14px; color: var(--ink-2); line-height: 1.7;
+    margin: 18px 0;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
+  <div class="links">
+    <a href="./">首頁</a>
+    <a href="./solution.html">方案</a>
+    <a href="./about.html">關於</a>
+  </div>
+  <a href="./solution.html" class="cta">看方案</a>
+</nav>
+
+<main>
+
+<section class="doc-hero">
+  <div class="eyebrow">法律文件</div>
+  <h1>隱私權政策</h1>
+  <p class="meta"><strong>最後更新：</strong>2026 年 5 月 22 日 · <strong>適用：</strong>ai-cms.cc 網站及衍生服務</p>
+</section>
+
+<article>
+
+  <div class="note-box">
+    本政策說明水行者運動國際有限公司（以下簡稱「本公司」、「我們」）在您造訪 ai-cms.cc 及使用 AICMS 相關服務時，如何蒐集、使用、保存與保護您的個人資料。請您詳閱本政策；繼續使用本服務即表示您同意本政策之內容。
+  </div>
+
+  <h2>1. 資料控制者</h2>
+  <p>本政策所稱「資料控制者」為：</p>
+  <ul>
+    <li><strong>公司名稱：</strong>水行者運動國際有限公司</li>
+    <li><strong>統一編號：</strong>55867625</li>
+    <li><strong>聯絡信箱：</strong><a href="mailto:rai0603@gmail.com">rai0603@gmail.com</a></li>
+  </ul>
+
+  <h2>2. 蒐集之個人資料範圍</h2>
+  <p>本公司於以下情境蒐集您的個人資料：</p>
+  <h3>2.1 您主動提供</h3>
+  <ul>
+    <li>諮詢 / 報價表單填寫時提供的姓名、電子郵件、聯絡電話、公司或品牌名稱、業務需求描述</li>
+    <li>透過 Email 或其他通訊管道與我們互動時所傳達的內容</li>
+  </ul>
+  <h3>2.2 自動蒐集</h3>
+  <ul>
+    <li>網站存取記錄：IP 位址、瀏覽器類型、作業系統、來源網址、瀏覽頁面、停留時間</li>
+    <li>Cookie 與類似技術（如 localStorage）以維持瀏覽狀態、辨識重複訪客、進行流量分析</li>
+  </ul>
+
+  <h2>3. 蒐集目的與使用方式</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>蒐集目的</th>
+        <th>使用個資項目</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>回覆諮詢、提供報價、簽署合約</td>
+        <td>姓名、Email、電話、公司、需求描述</td>
+      </tr>
+      <tr>
+        <td>網站流量分析、改善使用體驗</td>
+        <td>IP、瀏覽器資訊、頁面瀏覽記錄、Cookie</td>
+      </tr>
+      <tr>
+        <td>寄送與服務相關之通知、合約文件、發票</td>
+        <td>Email、姓名、公司</td>
+      </tr>
+      <tr>
+        <td>遵守法令及合約義務（如稅務、發票開立）</td>
+        <td>客戶基本資料、交易記錄</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. 保存期限</h2>
+  <ul>
+    <li><strong>諮詢未成案：</strong>自最後互動日起保存 1 年，超過後刪除或匿名化</li>
+    <li><strong>已成案客戶：</strong>於服務契約存續期間及契約終止後 5 年內保存，以符合稅務、會計、契約相關法令要求</li>
+    <li><strong>網站存取記錄：</strong>保存 90 天（GA4 預設保存政策可設定）</li>
+    <li><strong>法律要求保存：</strong>遇法令明文規定者，依該法令保存期限</li>
+  </ul>
+
+  <h2>5. 第三方服務與資料分享</h2>
+  <p>我們不會將您的個人資料出售或租賃給第三方。但為提供服務所必要，部分資料會由以下服務商處理：</p>
+  <table>
+    <thead>
+      <tr>
+        <th>服務商</th>
+        <th>用途</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Google Analytics 4 / Google Search Console</td>
+        <td>網站流量分析、SEO 監測（已啟用 IP 匿名化）</td>
+      </tr>
+      <tr>
+        <td>Cloudflare</td>
+        <td>DNS 解析、DDoS 防護</td>
+      </tr>
+      <tr>
+        <td>Zeabur</td>
+        <td>網站主機與部署</td>
+      </tr>
+      <tr>
+        <td>Supabase</td>
+        <td>後端資料庫（用於 AICMS 平台客戶資料）</td>
+      </tr>
+      <tr>
+        <td>Email 服務商（如 Gmail）</td>
+        <td>諮詢 / 通知信件收發</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>上述服務商皆為國際知名供應商，並承擔其自身之資料保護義務。我們僅在必要範圍內提供資料，並要求對方依其自身隱私政策處理。</p>
+
+  <h2>6. 您的權利</h2>
+  <p>依據個人資料保護法及相關法令，您對所提供之個人資料享有以下權利：</p>
+  <ul>
+    <li><strong>查閱權：</strong>請求查詢或閱覽我們持有之您的個人資料</li>
+    <li><strong>更正權：</strong>請求補充或更正不正確之個人資料</li>
+    <li><strong>刪除權：</strong>請求刪除您的個人資料（部分受法定保存期限限制者除外）</li>
+    <li><strong>停止處理權：</strong>請求停止蒐集、處理或利用您的個人資料</li>
+    <li><strong>資料攜帶權：</strong>請求以可攜帶之格式取得您所提供之個人資料</li>
+  </ul>
+  <p>如欲行使上述權利，請來信 <a href="mailto:rai0603@gmail.com">rai0603@gmail.com</a>，我們將於 30 個工作日內回覆。為確保資料安全，我們可能要求您提供身分驗證資訊。</p>
+
+  <h2>7. Cookie 政策</h2>
+  <p>本網站使用 Cookie 及類似技術以提供以下功能：</p>
+  <ul>
+    <li><strong>必要性 Cookie：</strong>維持網站正常運作（如語系偏好、權限狀態）</li>
+    <li><strong>分析性 Cookie：</strong>Google Analytics 4 等流量分析工具，協助我們了解網站使用狀況</li>
+  </ul>
+  <p>您可在瀏覽器設定中管理或停用 Cookie，但部分網站功能可能因此受影響。</p>
+
+  <h2>8. 資料安全</h2>
+  <p>我們採取合理之技術及管理措施保護您的個人資料，包含：</p>
+  <ul>
+    <li>傳輸層採用 HTTPS / TLS 加密</li>
+    <li>後端資料庫採存取權限分離與 Row Level Security 隔離</li>
+    <li>定期備份與災害復原機制</li>
+    <li>員工 / 委外人員簽署保密義務</li>
+  </ul>
+  <p>然而，網路傳輸與電子儲存在本質上無法保證 100% 安全。若發生資料外洩事件，我們將依個人資料保護法第 12 條於 72 小時內通知您及主管機關。</p>
+
+  <h2>9. 兒童隱私</h2>
+  <p>本網站及服務不針對 13 歲以下兒童提供。我們不會故意蒐集 13 歲以下兒童之個人資料。如您發現我們持有兒童個資，請來信通知，我們將儘速刪除。</p>
+
+  <h2>10. 政策變更</h2>
+  <p>本公司保留隨時修訂本政策之權利。修訂後將更新「最後更新日期」並於本網站公告。重大變更我們會以 Email 或網站醒目位置另行通知。建議您定期查閱本政策。</p>
+
+  <h2>11. 準據法與管轄法院</h2>
+  <p>本政策之解釋與適用，以及與本政策有關之爭議，均應依中華民國法律處理；如有訴訟之必要，雙方同意以臺灣宜蘭地方法院為第一審管轄法院。</p>
+
+  <h2>12. 聯絡我們</h2>
+  <p>如您對本政策有任何疑問、意見或欲行使您的權利，請來信：<a href="mailto:rai0603@gmail.com">rai0603@gmail.com</a></p>
+
+</article>
+
+</main>
+
+<footer>
+  <div>水行者運動國際有限公司 · 統一編號 55867625</div>
+  <div style="margin-top: 8px;">© 2026 AICMS · <a href="./">首頁</a> · <a href="./about.html">關於我們</a> · <a href="./privacy.html">隱私權政策</a> · <a href="./terms.html">服務條款</a> · <a href="mailto:rai0603@gmail.com">聯絡我們</a></div>
+</footer>
+
+</body>
+</html>

@@ -7,7 +7,11 @@ AICMS 對外行銷 + 功能介紹頁，部署在 Zeabur（Cloudflare DNS）。
 
 ## 頁面
 
-- `index.html` — 主站首頁，hero + 功能 grid + 適合誰 + CTA
+- `index.html` — 主站首頁，hero + 4 痛點 + 功能 grid + CTA
+- `solution.html` — 三大服務 × 三方案定價（Starter / Pro / Custom）
+- `about.html` — 關於 AICMS（技術 / 產品差異化）
+- `privacy.html` — 隱私權政策
+- `terms.html` — 服務條款
 - `ai-chat-booking.html` — AI 客服 × 線上預約
 - `geo-native-site.html` — GEO 原生網站
 - `mcp-gateway.html` — MCP Gateway + LLM 支援現況

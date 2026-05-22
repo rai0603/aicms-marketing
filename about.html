@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>關於 AICMS — 為 AI 搜尋時代設計的商務基建</title>
+<meta name="description" content="AICMS 從架構層為 AI 搜尋而生：AEO/GEO 結構優先、內建 AI 客服 × 預約、MCP Gateway agent-native。由水行者運動國際有限公司開發，水行者運動實戰 dogfood。">
+<meta property="og:title" content="關於 AICMS — 為 AI 搜尋時代設計的商務基建">
+<meta property="og:description" content="不是另一個 WordPress 替代品。從架構層為 AI 搜尋而生。">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --line-soft: #eef0f6;
+    --brand: #4f46e5;
+    --brand-deep: #3730a3;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --grad-soft: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+    --shadow-md: 0 8px 20px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.04);
+    --shadow-lg: 0 24px 60px rgba(79,70,229,.14), 0 6px 16px rgba(15,23,42,.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.7; letter-spacing: -0.005em;
+  }
+
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; transition: opacity .15s;
+  }
+  nav.top a.logo:hover { opacity: .75; }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: white;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    nav.top { padding: 12px 16px; }
+    nav.top .links { display: none; }
+    nav.top .cta { padding: 7px 12px; font-size: 12px; }
+  }
+
+  main { max-width: 980px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 72px 0; }
+
+  .hero { padding: 80px 0 48px; }
+  .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(30px, 6vw, 56px); font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 22px; color: var(--ink-0);
+  }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 18px; color: var(--ink-2); max-width: 720px; line-height: 1.7; }
+
+  h2 {
+    font-size: 30px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 16px; letter-spacing: -0.025em; line-height: 1.25;
+  }
+  h2 small {
+    display: block; color: var(--brand); font-weight: 600; font-size: 13px;
+    letter-spacing: .08em; margin-bottom: 8px;
+  }
+  h2 + .sub { font-size: 17px; color: var(--ink-2); margin-bottom: 32px; max-width: 720px; }
+  h3 { font-size: 19px; font-weight: 700; color: var(--ink-0); margin-bottom: 10px; }
+
+  /* Why blocks */
+  .why-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+  .why-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px; box-shadow: var(--shadow-sm);
+  }
+  .why-card .why-num {
+    font-size: 12px; font-weight: 800; color: var(--brand);
+    letter-spacing: .1em; margin-bottom: 8px;
+  }
+  .why-card h3 { font-size: 17px; margin-bottom: 8px; }
+  .why-card p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+  /* Differentiator table */
+  .diff-wrap { overflow-x: auto; margin-top: 32px; }
+  .diff {
+    width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0;
+    background: white; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    font-size: 14px;
+  }
+  .diff th, .diff td {
+    padding: 14px 18px; text-align: center; border-bottom: 1px solid var(--line-soft);
+    vertical-align: middle;
+  }
+  .diff thead th {
+    background: var(--bg-soft); font-size: 13px; font-weight: 700;
+    color: var(--ink-1); text-transform: uppercase; letter-spacing: .04em;
+  }
+  .diff thead th.featured { background: var(--brand-soft); color: var(--brand-deep); }
+  .diff tbody td:first-child {
+    text-align: left; color: var(--ink-1); font-weight: 600;
+    width: 30%; font-size: 13.5px;
+  }
+  .diff tbody td.yes { color: var(--brand); font-weight: 800; }
+  .diff tbody td.no { color: var(--ink-3); }
+  .diff tbody tr:last-child td { border-bottom: none; }
+
+  /* Tech-stack */
+  .stack {
+    background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .stack-grid { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 28px; }
+  @media (min-width: 720px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stack-item {
+    background: white; border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px; box-shadow: var(--shadow-sm);
+  }
+  .stack-item h4 { font-size: 15px; font-weight: 800; color: var(--ink-0); margin-bottom: 6px; }
+  .stack-item p { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+  .stack-item .stack-tag {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 11px; font-weight: 700; letter-spacing: .04em; margin-bottom: 8px;
+  }
+
+  /* Proven */
+  .proven-grid { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 28px; }
+  @media (min-width: 720px) { .proven-grid { grid-template-columns: repeat(2, 1fr); } }
+  .proven-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+  }
+  .proven-card .proven-domain {
+    font-family: 'SF Mono', Consolas, monospace; font-size: 12.5px;
+    color: var(--brand); font-weight: 700; margin-bottom: 6px;
+  }
+  .proven-card h4 { font-size: 16px; font-weight: 700; color: var(--ink-0); margin-bottom: 8px; }
+  .proven-card p { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px; flex: 1; }
+  .proven-card .proven-status {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    background: #ecfdf5; color: #065f46; font-size: 11.5px; font-weight: 700;
+    align-self: flex-start;
+  }
+
+  /* Founder */
+  .founder {
+    background: var(--grad-soft); border-top: 1px solid #c7d2fe; border-bottom: 1px solid #c7d2fe;
+    border-radius: 0;
+  }
+  .founder-card {
+    background: white; border: 1px solid var(--line); border-radius: 16px;
+    padding: 32px; margin-top: 28px; box-shadow: var(--shadow-md);
+  }
+  .founder-card .founder-name {
+    font-size: 22px; font-weight: 800; color: var(--ink-0);
+    letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  .founder-card .founder-role {
+    font-size: 13.5px; color: var(--brand); font-weight: 700;
+    letter-spacing: .04em; margin-bottom: 18px;
+  }
+  .founder-card p { font-size: 14.5px; color: var(--ink-1); line-height: 1.75; margin-bottom: 12px; }
+  .founder-card p:last-child { margin-bottom: 0; }
+  .founder-card .pill-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .founder-card .pill-list .pill {
+    padding: 5px 12px; background: var(--bg-soft); border: 1px solid var(--line);
+    border-radius: 999px; font-size: 12.5px; color: var(--ink-2); font-weight: 500;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    text-align: center; padding: 60px 32px;
+    background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 50%, #4f46e5 100%);
+    color: white; border-radius: 20px;
+  }
+  .final-cta h2 { color: white; }
+  .final-cta h2 small { color: rgba(255,255,255,.7); }
+  .final-cta p { color: rgba(255,255,255,.8); max-width: 580px; margin: 0 auto 28px; font-size: 16px; }
+  .final-cta .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .final-cta a.primary {
+    padding: 14px 28px; background: white; color: var(--ink-0);
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  .final-cta a.secondary {
+    padding: 14px 28px; background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
+  <div class="links">
+    <a href="./">首頁</a>
+    <a href="./solution.html">方案</a>
+    <a href="#why">為什麼做 AICMS</a>
+    <a href="#diff">差異化</a>
+    <a href="#proven">實戰驗證</a>
+  </div>
+  <a href="#cta" class="cta">立即線上諮詢</a>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="eyebrow">About AICMS · 2026</div>
+  <h1>
+    我們做的不是<br>
+    <span class="grad">另一個 CMS</span> — 是 AI 搜尋時代的商務基建。
+  </h1>
+  <p class="lede">
+    AICMS 不是想取代 WordPress。WordPress 在「給 Google 看」的時代是對的工具。但 AI 搜尋接管 30-50% 流量後，網站要做的事變了 — 從「給人讀」進化成「給 AI 引用 + 在對話裡直接成單」。AICMS 從架構層為這件事而生。
+  </p>
+</section>
+
+<section id="why">
+  <h2><small>為什麼做 AICMS</small>三件正在發生、但中小企業還沒準備好的事。</h2>
+  <p class="sub">這三件事是 AICMS 每個功能的設計依據。不是技術炫技，是替客戶把基建備好。</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3>AI 搜尋接管流量</h3>
+      <p>ChatGPT、Claude、Perplexity、Google AI Overview 直接給答案 + 引用 3 家來源。沒被 AI 引用 = 在新世代不存在。傳統 SEO 工具看不到「對話式查詢」。</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3>對話成單變預設</h3>
+      <p>客人習慣跟 AI 對話解決事情。「填表單 → 等回覆」的流程在 AI 時代是過時 UX。新一代客戶要的是「我說一句、AI 直接報價收單」。</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3>LLM 變商務通路</h3>
+      <p>Booking.com、OpenTable、Shopify 已有自己的 MCP server 給 LLM 串接。客人在 ChatGPT 直接訂機票、訂飯店。中小企業沒工程資源做這層基建。</p>
+    </div>
+  </div>
+</section>
+
+<section id="diff">
+  <h2><small>跟其他方案差在哪</small>不是「另一個架站工具」，是兩代之差。</h2>
+  <p class="sub">同樣是把網站架起來，AICMS 跟主流方案的根本差別在「面對的對象是誰」。WordPress 設計給 Google 爬蟲；AICMS 設計給 LLM 引用 + agent 下單。</p>
+
+  <div class="diff-wrap">
+    <table class="diff">
+      <thead>
+        <tr>
+          <th></th>
+          <th>WordPress + Yoast</th>
+          <th>Wix / Squarespace</th>
+          <th class="featured">AICMS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>JSON-LD schema 自動產</td>
+          <td class="no">需裝外掛 + 手動</td>
+          <td class="no">基礎 OG 標籤</td>
+          <td class="yes">✓ 11 種型別內建</td>
+        </tr>
+        <tr>
+          <td>llms.txt 自動產</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓ 站名 / 價格 / 摘要自動生成</td>
+        </tr>
+        <tr>
+          <td>AI Bot 細粒度控制</td>
+          <td class="no">robots.txt 統一允許/禁止</td>
+          <td class="no">—</td>
+          <td class="yes">✓ 14+ bot 個別 allow/disallow</td>
+        </tr>
+        <tr>
+          <td>內建 AI 客服 + 對話成單</td>
+          <td class="no">第三方 chatbot 外掛</td>
+          <td class="no">第三方</td>
+          <td class="yes">✓ AI 直接連預約系統</td>
+        </tr>
+        <tr>
+          <td>MCP Gateway（LLM 直連）</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓ 每客戶自動有</td>
+        </tr>
+        <tr>
+          <td>GEO 健檢評分</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓ 0-100 即時評分</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="stack" class="stack">
+  <h2><small>技術選型</small>每個決策都為「AI 搜尋時代」這個前提服務。</h2>
+  <p class="sub">不裝外掛、不堆砌服務 — 我們只選真正解問題的工具。</p>
+
+  <div class="stack-grid">
+    <div class="stack-item">
+      <span class="stack-tag">FRONTEND</span>
+      <h4>Next.js 15 App Router + ISR</h4>
+      <p>結構化資料 build 時就生成，AI 爬蟲 / 一般用戶都拿到完整 HTML。熱門頁 ISR 快取，CDN 直送，成本 / 速度雙贏。</p>
+    </div>
+    <div class="stack-item">
+      <span class="stack-tag">BACKEND</span>
+      <h4>Supabase + Row Level Security</h4>
+      <p>多租戶 SaaS 架構，每個客戶資料完全隔離。內建 Auth、Edge Functions、Storage，不重複造輪子。</p>
+    </div>
+    <div class="stack-item">
+      <span class="stack-tag">AI</span>
+      <h4>多模型（Claude / GPT / Gemini）可選</h4>
+      <p>不綁單一供應商。AI 客服 / 內容生成 / schema 補洞各自挑最適合的模型。費用、品質、合規同時優化。</p>
+    </div>
+    <div class="stack-item">
+      <span class="stack-tag">MCP</span>
+      <h4>Model Context Protocol Gateway</h4>
+      <p>每個客戶自動有一個 MCP server，ChatGPT / Claude / Perplexity 可直連，把你的服務暴露在 LLM 的「能做的事」清單裡。</p>
+    </div>
+    <div class="stack-item">
+      <span class="stack-tag">DEPLOY</span>
+      <h4>Zeabur + Cloudflare DNS</h4>
+      <p>主機在亞洲節點，台灣使用者延遲 &lt;50ms。Cloudflare DNS only（不走 proxy），讓 SSL / cache header 我們自己控。</p>
+    </div>
+    <div class="stack-item">
+      <span class="stack-tag">CMS</span>
+      <h4>TipTap 編輯器 + Schema-first 內容模型</h4>
+      <p>不是 page builder。內容跟 schema 結構綁定 — 寫一篇文章自動有 Article schema、寫一個 FAQ 自動有 FAQPage schema。</p>
+    </div>
+  </div>
+</section>
+
+<section id="proven">
+  <h2><small>實戰驗證</small>我們自己用，客戶才敢用。</h2>
+  <p class="sub">AICMS 的每個核心功能都先在自家或合作站跑過 dogfood，確認真的能用、真的能轉換，才開放給客戶。</p>
+
+  <div class="proven-grid">
+    <div class="proven-card">
+      <div class="proven-domain">waterman-sports.cc</div>
+      <h4>水行者運動 — 第一個正式商用案例</h4>
+      <p>從 WordPress 遷移到 AICMS，含 GEO 結構優化、AI 客服 × 預約整合、MCP Gateway 啟用。從 dogfood 到正式上線，所有功能都在真實業務裡跑過。</p>
+      <span class="proven-status">✓ 上線中</span>
+    </div>
+    <div class="proven-card">
+      <div class="proven-domain">ai-cms.cc</div>
+      <h4>AICMS 行銷站 — 你正在看的這個</h4>
+      <p>本站也用 AICMS 自己生產的結構標準：JSON-LD、llms.txt、響應式、PWA、AI Bot 控制全自動。實作 = 規格，沒有捷徑。</p>
+      <span class="proven-status">✓ 上線中</span>
+    </div>
+  </div>
+</section>
+
+<section class="founder">
+  <h2 style="text-align: center;"><small>創辦團隊</small>一個工程師背景的創業者，扛全部技術。</h2>
+
+  <div class="founder-card">
+    <div class="founder-name">陳建文 · Rai</div>
+    <div class="founder-role">創辦人 / 技術負責人</div>
+    <p>10 年以上全端開發經驗，主力 TypeScript / Node.js。從架構設計、Supabase 多租戶、AI 整合、到 MCP server 全部一人扛。AICMS 是把 30 個月的中小企業官網開發痛點濃縮成一套基建。</p>
+    <p>同時經營水行者運動國際有限公司（宜蘭蘇澳，水上活動體驗品牌），AICMS 就是從「自己的店要怎麼被 AI 找到」這個問題出發，做出來的解。</p>
+    <p>30 天用 Claude Code 上線 3 個產品：<strong>DiDiPo</strong>（AI 社群發文）、<strong>IQ Suite</strong>（多測驗平台）、<strong>零時生存</strong>（災難應變遊戲）。AICMS 是第四個。AI 輔助開發不是炒作，是這家公司能存在的前提。</p>
+
+    <div class="pill-list">
+      <span class="pill">TypeScript / Node.js</span>
+      <span class="pill">Next.js / Supabase</span>
+      <span class="pill">AI Integration（Claude / GPT / Gemini）</span>
+      <span class="pill">MCP Gateway</span>
+      <span class="pill">Multi-tenant SaaS</span>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="final-cta">
+    <h2><small>下一步</small>30 分鐘了解你的需求。</h2>
+    <p>不用先做功課、不用準備什麼。你講現況 + 想解決的問題，我們給「該選哪個方案、預算多少、多久能上線」的具體答案。</p>
+    <div class="btn-row">
+      <a href="#" class="primary">立即預約諮詢</a>
+      <a href="./solution.html" class="secondary">看方案與報價 →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>水行者運動國際有限公司 · 統一編號 55867625</div>
+  <div style="margin-top: 8px;">© 2026 AICMS · <a href="./">首頁</a> · <a href="./about.html">關於我們</a> · <a href="./privacy.html">隱私權政策</a> · <a href="./terms.html">服務條款</a> · <a href="mailto:rai0603@gmail.com">聯絡我們</a></div>
+</footer>
+
+</body>
+</html>
