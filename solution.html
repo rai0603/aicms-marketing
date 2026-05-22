@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AICMS 整合方案 — 從架站到 AI 訂單落地，一條龍服務</title>
+<meta name="description" content="三大服務（GEO 原生架站 / GEO 優化 / AI 預約 × AI 客服落地）排列組合，三方案任挑：Starter 3-5 萬／Pro 8-12 萬／Custom 客報。第一年建置 + 維護年費透明定價。">
+<meta property="og:title" content="AICMS 整合方案 — 從架站到 AI 訂單落地">
+<meta property="og:description" content="GEO 原生架站 × GEO 優化 × AI 客服落地三大服務任選組合，Starter / Pro / Custom 三方案透明定價。">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fb;
+    --bg-card: #ffffff;
+    --ink-0: #0b1020;
+    --ink-1: #1f2540;
+    --ink-2: #555c7a;
+    --ink-3: #8a90a8;
+    --line: #e6e8f0;
+    --line-soft: #eef0f6;
+    --brand: #4f46e5;
+    --brand-deep: #3730a3;
+    --brand-soft: #eef2ff;
+    --accent: #06b6d4;
+    --accent-soft: #ecfeff;
+    --warn: #f59e0b;
+    --ok: #10b981;
+    --danger: #dc2626;
+    --grad: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --grad-soft: linear-gradient(135deg, #eef2ff 0%, #ecfeff 100%);
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+    --shadow-md: 0 8px 20px rgba(15,23,42,.06), 0 2px 6px rgba(15,23,42,.04);
+    --shadow-lg: 0 24px 60px rgba(79,70,229,.14), 0 6px 16px rgba(15,23,42,.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--bg); color: var(--ink-1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 16px; line-height: 1.7; letter-spacing: -0.005em;
+  }
+
+  /* Top nav */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    padding: 14px 32px;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav.top .logo {
+    font-weight: 800; letter-spacing: -0.02em; font-size: 17px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-decoration: none; transition: opacity .15s;
+  }
+  nav.top a.logo:hover { opacity: .75; }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
+  nav.top .cta {
+    padding: 8px 16px; background: var(--ink-0); color: white;
+    border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    nav.top { padding: 12px 16px; }
+    nav.top .links { display: none; }
+    nav.top .cta { padding: 7px 12px; font-size: 12px; }
+  }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 72px 0; }
+
+  /* Hero */
+  .hero { padding: 72px 0 40px; }
+  .eyebrow {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12.5px; font-weight: 600; letter-spacing: .04em; margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(30px, 6vw, 56px); font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.03em; margin-bottom: 22px; color: var(--ink-0);
+  }
+  h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 18px; color: var(--ink-2); max-width: 720px; line-height: 1.7; margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-cta .primary {
+    padding: 14px 24px; background: var(--ink-0); color: white;
+    border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;
+    transition: transform .15s;
+  }
+  .hero-cta .primary:hover { transform: translateY(-1px); }
+  .hero-cta .secondary {
+    padding: 14px 24px; background: transparent; color: var(--ink-1);
+    border: 1px solid var(--line); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  h2 {
+    font-size: 32px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 16px; letter-spacing: -0.025em; line-height: 1.2;
+  }
+  h2 small {
+    display: block; color: var(--brand); font-weight: 600; font-size: 13px;
+    letter-spacing: .08em; margin-bottom: 8px;
+  }
+  h2 + .sub { font-size: 17px; color: var(--ink-2); margin-bottom: 36px; max-width: 720px; }
+  h3 { font-size: 19px; font-weight: 700; color: var(--ink-0); margin-bottom: 10px; }
+
+  /* SERVICE BLOCKS — 三大服務 */
+  .svc-intro {
+    background: var(--grad-soft); border: 1px solid #c7d2fe; border-radius: 16px;
+    padding: 20px 24px; margin-bottom: 32px;
+    font-size: 14.5px; color: var(--ink-1); line-height: 1.65;
+  }
+  .svc-intro strong { color: var(--brand-deep); }
+
+  .svc-grid {
+    display: grid; gap: 18px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 880px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+  .svc-card {
+    background: white; border: 1px solid var(--line); border-radius: 16px;
+    padding: 26px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .svc-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--brand); }
+  .svc-card .svc-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px; background: var(--brand-soft);
+    color: var(--brand); font-size: 11.5px; font-weight: 700; letter-spacing: .03em;
+    width: fit-content; margin-bottom: 14px;
+  }
+  .svc-card .svc-letter {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--grad);
+    color: white; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; margin-bottom: 14px;
+  }
+  .svc-card h3 {
+    font-size: 19px; margin-bottom: 8px;
+  }
+  .svc-card .svc-sub {
+    font-size: 13px; color: var(--ink-3); margin-bottom: 14px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line-soft);
+  }
+  .svc-card ul {
+    list-style: none; padding: 0; margin: 0; flex: 1;
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.55;
+  }
+  .svc-card ul li {
+    padding: 5px 0 5px 22px; position: relative;
+  }
+  .svc-card ul li::before {
+    content: '✓'; position: absolute; left: 0; top: 5px;
+    color: var(--brand); font-weight: 700;
+  }
+  .svc-card .svc-foot {
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line-soft);
+    font-size: 12px; color: var(--ink-3); font-weight: 600;
+  }
+
+  /* COMBINE — 排列組合視覺 */
+  .combine {
+    margin-top: 36px; padding: 28px;
+    background: white; border: 1px dashed #c7d2fe; border-radius: 14px;
+    text-align: center;
+  }
+  .combine .combine-title {
+    font-size: 14px; font-weight: 700; color: var(--brand);
+    letter-spacing: .05em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .combine .combine-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex-wrap: wrap; font-size: 15px;
+  }
+  .combine .pill-svc {
+    padding: 8px 16px; background: var(--brand-soft); color: var(--brand-deep);
+    border-radius: 999px; font-weight: 700; font-size: 14px;
+  }
+  .combine .plus { color: var(--ink-3); font-weight: 800; font-size: 18px; }
+  .combine .arrow { color: var(--ink-3); font-size: 22px; margin: 0 6px; }
+  .combine .pill-plan {
+    padding: 8px 18px; background: var(--ink-0); color: white;
+    border-radius: 999px; font-weight: 700; font-size: 14px;
+  }
+
+  /* PRICING */
+  .pricing-wrap { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .price-grid {
+    display: grid; gap: 18px; margin-top: 36px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 880px) { .price-grid { grid-template-columns: repeat(3, 1fr); } }
+  .price-card {
+    background: white; border: 1px solid var(--line); border-radius: 18px;
+    padding: 30px 28px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; position: relative;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .price-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .price-card.featured {
+    border: 2px solid var(--brand); box-shadow: var(--shadow-lg);
+    background: linear-gradient(180deg, white 0%, var(--brand-soft) 100%);
+  }
+  .price-card.featured::before {
+    content: '⭐ 最多人選'; position: absolute; top: -12px; left: 50%;
+    transform: translateX(-50%); padding: 4px 14px; border-radius: 999px;
+    background: var(--brand); color: white; font-size: 11.5px; font-weight: 700; letter-spacing: .04em;
+    box-shadow: var(--shadow-sm);
+  }
+  .price-card .plan-name {
+    font-size: 13px; font-weight: 700; color: var(--brand); letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .price-card h3 {
+    font-size: 24px; font-weight: 800; color: var(--ink-0);
+    margin-bottom: 6px; letter-spacing: -0.02em;
+  }
+  .price-card .plan-pitch {
+    font-size: 13px; color: var(--ink-3); margin-bottom: 22px; line-height: 1.5;
+  }
+  .price-card .price-box {
+    padding: 18px 0; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 22px;
+  }
+  .price-card .price-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 5px 0; font-size: 13px;
+  }
+  .price-card .price-row .lbl { color: var(--ink-3); }
+  .price-card .price-row .val { color: var(--ink-0); font-weight: 700; font-size: 14.5px; }
+  .price-card .price-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line);
+  }
+  .price-card .price-total .lbl { font-size: 13px; color: var(--ink-2); font-weight: 600; }
+  .price-card .price-total .val {
+    font-size: 24px; font-weight: 800; color: var(--ink-0);
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .price-card.custom .price-total .val { background: none; -webkit-text-fill-color: var(--ink-0); }
+  .price-card .price-note { font-size: 11.5px; color: var(--ink-3); margin-top: 6px; }
+  .price-card ul.plan-feat {
+    list-style: none; padding: 0; margin: 0 0 24px; flex: 1;
+    font-size: 14px; color: var(--ink-1); line-height: 1.55;
+  }
+  .price-card ul.plan-feat li {
+    padding: 7px 0 7px 24px; position: relative;
+  }
+  .price-card ul.plan-feat li::before {
+    content: '✓'; position: absolute; left: 0; top: 7px;
+    color: var(--brand); font-weight: 800; font-size: 14px;
+  }
+  .price-card ul.plan-feat li.dim { color: var(--ink-3); }
+  .price-card ul.plan-feat li.dim::before { content: '—'; color: var(--ink-3); }
+  .price-card ul.plan-feat li.plus { color: var(--brand-deep); font-weight: 700; }
+  .price-card ul.plan-feat li.plus::before { content: '＋'; color: var(--accent); font-weight: 800; }
+  .price-card .plan-cta {
+    display: block; text-align: center; padding: 12px 24px;
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14.5px;
+    transition: transform .15s;
+  }
+  .price-card .plan-cta:hover { transform: translateY(-1px); }
+  .price-card .plan-cta.dark { background: var(--ink-0); color: white; }
+  .price-card .plan-cta.brand { background: var(--brand); color: white; }
+  .price-card .plan-cta.outline { background: white; color: var(--ink-0); border: 1px solid var(--line); }
+
+  /* SPEC TABLE — 完整功能規格清單 */
+  .spec-toggle {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; margin-bottom: 24px;
+  }
+  .spec-toggle button {
+    padding: 8px 18px; border-radius: 999px;
+    border: 1px solid var(--line); background: white;
+    font-size: 13.5px; font-weight: 600; color: var(--ink-2);
+    cursor: pointer; transition: all .15s;
+    font-family: inherit;
+  }
+  .spec-toggle button:hover { border-color: var(--brand); color: var(--brand); }
+  .spec-toggle button.active {
+    background: var(--ink-0); color: white; border-color: var(--ink-0);
+  }
+  .spec-panel { display: none; }
+  .spec-panel.active { display: block; }
+  .spec-block {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 26px 28px; box-shadow: var(--shadow-sm); margin-bottom: 16px;
+  }
+  .spec-block .spec-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--line-soft);
+  }
+  .spec-block .spec-letter {
+    width: 36px; height: 36px; border-radius: 10px; background: var(--brand-soft);
+    color: var(--brand); display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; flex-shrink: 0;
+  }
+  .spec-block .spec-title { font-size: 17px; font-weight: 700; color: var(--ink-0); }
+  .spec-block .spec-tag {
+    margin-left: auto; padding: 3px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: #0e7490;
+    font-size: 11px; font-weight: 700; letter-spacing: .03em;
+  }
+  .spec-block ul.spec-items {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 8px;
+  }
+  @media (min-width: 720px) { .spec-block ul.spec-items { grid-template-columns: 1fr 1fr; } }
+  .spec-block ul.spec-items li {
+    padding: 8px 0 8px 26px; position: relative;
+    font-size: 13.5px; color: var(--ink-1); line-height: 1.55;
+  }
+  .spec-block ul.spec-items li::before {
+    content: '●'; position: absolute; left: 6px; top: 8px;
+    color: var(--brand); font-size: 8px;
+  }
+  .spec-block ul.spec-items li strong { color: var(--ink-0); font-weight: 700; }
+  .spec-block ul.spec-items li .qty {
+    display: inline-block; padding: 1px 7px; margin-left: 6px;
+    background: var(--bg-soft); border-radius: 4px;
+    font-size: 11.5px; color: var(--ink-2); font-weight: 600;
+    font-family: 'SF Mono', Consolas, monospace;
+  }
+
+  /* MATRIX — 三方案 × 三服務 對照表 */
+  .matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 28px; }
+  .matrix {
+    width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0;
+    background: white; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    font-size: 14px;
+  }
+  .matrix th, .matrix td {
+    padding: 14px 18px; text-align: center; border-bottom: 1px solid var(--line-soft);
+    vertical-align: middle;
+  }
+  .matrix thead th {
+    background: var(--bg-soft); font-size: 13px; font-weight: 700;
+    color: var(--ink-1); text-transform: uppercase; letter-spacing: .04em;
+  }
+  .matrix thead th.featured { background: var(--brand-soft); color: var(--brand-deep); }
+  .matrix tbody td:first-child {
+    text-align: left; color: var(--ink-1); font-weight: 600;
+    width: 36%; font-size: 13.5px;
+  }
+  .matrix tbody td.yes { color: var(--brand); font-weight: 800; font-size: 18px; }
+  .matrix tbody td.partial { color: var(--warn); font-weight: 800; font-size: 14px; }
+  .matrix tbody td.no { color: var(--ink-3); font-size: 18px; }
+  .matrix tbody tr:last-child td { border-bottom: none; }
+  .matrix tbody td .small { font-size: 11.5px; color: var(--ink-3); font-weight: 500; margin-top: 2px; display: block; }
+
+  /* USE CASES */
+  .uc-grid {
+    display: grid; gap: 16px; margin-top: 28px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .uc-grid { grid-template-columns: repeat(3, 1fr); } }
+  .uc-card {
+    background: white; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow-sm);
+  }
+  .uc-card .uc-icon { font-size: 26px; margin-bottom: 10px; }
+  .uc-card h4 { font-size: 16px; font-weight: 700; color: var(--ink-0); margin-bottom: 8px; }
+  .uc-card p { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; margin-bottom: 12px; }
+  .uc-card .uc-pick {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    font-size: 12px; font-weight: 700;
+  }
+
+  /* FAQ */
+  .faq { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .faq-list { margin-top: 28px; }
+  .faq-item {
+    background: white; border: 1px solid var(--line); border-radius: 12px;
+    margin-bottom: 12px; box-shadow: var(--shadow-sm);
+  }
+  .faq-item summary {
+    padding: 18px 22px; cursor: pointer; font-weight: 700; font-size: 15px;
+    color: var(--ink-0); list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 22px; color: var(--brand); font-weight: 400; }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item .faq-body {
+    padding: 0 22px 20px; color: var(--ink-2); font-size: 14.5px; line-height: 1.75;
+  }
+  .faq-item .faq-body p { margin-bottom: 10px; }
+  .faq-item .faq-body p:last-child { margin-bottom: 0; }
+  .faq-item .faq-body strong { color: var(--ink-1); }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center; padding: 60px 32px;
+    background: linear-gradient(135deg, #0b1020 0%, #1e1b4b 50%, #4f46e5 100%);
+    color: white; border-radius: 20px;
+  }
+  .final-cta h2 { color: white; }
+  .final-cta h2 small { color: rgba(255,255,255,.7); }
+  .final-cta p { color: rgba(255,255,255,.8); max-width: 580px; margin: 0 auto 28px; font-size: 16px; }
+  .final-cta .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .final-cta a.primary {
+    padding: 14px 28px; background: white; color: var(--ink-0);
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  .final-cta a.secondary {
+    padding: 14px 28px; background: transparent; color: white;
+    border: 1px solid rgba(255,255,255,.3); border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 32px 28px; text-align: center;
+    color: var(--ink-3); font-size: 13px;
+  }
+  footer a { color: var(--ink-2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
+  <div class="links">
+    <a href="./">首頁</a>
+    <a href="#services">三大服務</a>
+    <a href="#plans">方案組合</a>
+    <a href="#specs">功能規格</a>
+    <a href="#faq">常見問題</a>
+  </div>
+  <a href="#cta" class="cta">立即線上諮詢</a>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="eyebrow">AICMS 整合解決方案 · 2026</div>
+  <h1>
+    從架站、被 AI 引用，到<br>
+    <span class="grad">客人在對話裡完成下單</span> — 一條龍。
+  </h1>
+  <p class="lede">
+    AICMS 不只是 CMS，是一整套「AI 搜尋時代的商務基建」。三大服務模組可以排列組合：
+    <strong>GEO 原生架站</strong>負責讓你被 AI 看見、<strong>GEO 優化</strong>負責持續被 AI 引用、
+    <strong>AI 預約 × 客服落地</strong>負責把流量變訂單。三方案任挑，第一年建置費 + 維護年費透明定價。
+  </p>
+  <div class="hero-cta">
+    <a href="#plans" class="primary">看方案與報價</a>
+    <a href="#services" class="secondary">先看服務內容 →</a>
+  </div>
+</section>
+
+<!-- ============ THREE SERVICES ============ -->
+<section id="services">
+  <h2><small>三大服務模組</small>選你需要的，不需要的不收費。</h2>
+  <p class="sub">每個服務模組獨立可運作、也可彼此疊加。建站只想要被 AI 看見，挑 A；要全程被代管做 GEO 優化、加 B；要 AI 直接幫你接客人下單、加 C。</p>
+
+  <div class="svc-intro">
+    💡 <strong>邏輯很簡單</strong>：A = 把地基打對（站架在對的結構上）；B = 持續產出（每月內容 + 引用監測）；C = 把流量收成（AI 對話直接成單）。多數客戶從 A 起步，3-6 個月後加 C。
+  </div>
+
+  <div class="svc-grid">
+
+    <!-- Service A -->
+    <div class="svc-card">
+      <div class="svc-letter">A</div>
+      <span class="svc-tag">📐 基礎建置</span>
+      <h3>GEO 原生架站服務</h3>
+      <p class="svc-sub">把網站架在「AI 看得懂」的結構上。網域代管，內容你自管或我代管二選一。</p>
+      <ul>
+        <li>自有網域 + 主機 + SSL 一次設定好</li>
+        <li>11 種 schema.org 型別自動產 JSON-LD</li>
+        <li>llms.txt 自動產 + AI Bot 細粒度控制</li>
+        <li>GEO 健檢 0-100 評分（後台即時顯示）</li>
+        <li>響應式 + PWA（加到主畫面像 App）</li>
+        <li>內建 GA / Search Console 串接</li>
+        <li>後台帳號（最多 3 位編輯）</li>
+      </ul>
+      <div class="svc-foot">建置週期：2-3 週 · 含基礎內容遷移最多 10 頁</div>
+    </div>
+
+    <!-- Service B -->
+    <div class="svc-card">
+      <div class="svc-letter">B</div>
+      <span class="svc-tag">📈 持續優化</span>
+      <h3>GEO 優化服務（全套代管）</h3>
+      <p class="svc-sub">內容寫到對結構、被 AI 持續引用。CitableRank 監測 + 補洞策略，每月迭代。</p>
+      <ul>
+        <li>每月 4 篇文章代寫（含完整 schema）</li>
+        <li>CitableRank 月度引用報告</li>
+        <li>競品引用差距分析 + 補洞建議</li>
+        <li>FAQ / Author / LocalBusiness schema 維護</li>
+        <li>WordPress 或舊站匯入（≤100 篇）一次性</li>
+        <li>季度 GEO 健檢報告</li>
+        <li>每月 1 次線上策略會議</li>
+      </ul>
+      <div class="svc-foot">需先有服務 A · 內容代管深度可調</div>
+    </div>
+
+    <!-- Service C -->
+    <div class="svc-card">
+      <div class="svc-letter">C</div>
+      <span class="svc-tag">🤖 落地陪跑</span>
+      <h3>AI 預約 × AI 客服下單系統</h3>
+      <p class="svc-sub">把流量變訂單。AI 客服 + 預約系統落地，含 LINE / Web 整合與上線後陪跑。</p>
+      <ul>
+        <li>AI 客服 Persona 設定 + Prompt 調校</li>
+        <li>預約系統設定（服務時段 / 價格 / 規則）</li>
+        <li>LINE OA + Web Chat 整合</li>
+        <li>MCP Gateway 啟用（ChatGPT/Claude 直連）</li>
+        <li>訂單通知（LINE / Email / Slack 三選二）</li>
+        <li>客服話術訓練（最多 50 個 FAQ）</li>
+        <li>上線後 4 週落地陪跑（每週 1 次回顧）</li>
+      </ul>
+      <div class="svc-foot">需先有服務 A · 建置週期 3-4 週</div>
+    </div>
+
+  </div>
+
+  <!-- 排列組合視覺 -->
+  <div class="combine">
+    <div class="combine-title">服務模組 → 對應方案</div>
+    <div class="combine-row">
+      <span class="pill-svc">A</span>
+      <span class="arrow">→</span>
+      <span class="pill-plan">Starter</span>
+    </div>
+    <div class="combine-row" style="margin-top: 10px;">
+      <span class="pill-svc">A</span><span class="plus">＋</span><span class="pill-svc">C</span>
+      <span class="arrow">→</span>
+      <span class="pill-plan">Pro</span>
+    </div>
+    <div class="combine-row" style="margin-top: 10px;">
+      <span class="pill-svc">A</span><span class="plus">＋</span><span class="pill-svc">B</span><span class="plus">＋</span><span class="pill-svc">C</span>
+      <span class="arrow">→</span>
+      <span class="pill-plan">Custom</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="plans" class="pricing-wrap">
+  <h2><small>三方案 · 透明定價</small>第一年建置費 ＋ 維護年費，看清楚再簽。</h2>
+  <p class="sub">所有方案皆含 1 個自有網域、SSL、主機、AICMS 後台帳號、JSON-LD/llms.txt 自動產出。差異在「內容是否代管」「是否含 AI 客服落地」「自動化深度」。</p>
+
+  <div class="price-grid">
+
+    <!-- Starter -->
+    <div class="price-card">
+      <div class="plan-name">Starter</div>
+      <h3>站立刻能跑</h3>
+      <p class="plan-pitch">個人品牌 / 單店面 / 想自己寫內容的中小企業。先把地基打對，被 AI 看得見。</p>
+
+      <div class="price-box">
+        <div class="price-row"><span class="lbl">第一年建置費</span><span class="val">NT$ 18,000</span></div>
+        <div class="price-row"><span class="lbl">維護年費（第 2 年起）</span><span class="val">NT$ 18,000</span></div>
+        <div class="price-row"><span class="lbl">月攤約</span><span class="val">NT$ 1,500</span></div>
+        <div class="price-total">
+          <span class="lbl">第一年總價</span>
+          <span class="val">NT$ 36,000</span>
+        </div>
+        <div class="price-note">＝ 建置 18,000 ＋ 第一年維護 18,000</div>
+      </div>
+
+      <ul class="plan-feat">
+        <li>服務 A：GEO 原生架站</li>
+        <li>內容由客戶自行管理</li>
+        <li>後台帳號 3 位</li>
+        <li>基礎內容遷移 ≤10 頁</li>
+        <li>Email 客服支援</li>
+        <li class="dim">每月文章代寫</li>
+        <li class="dim">CitableRank 引用報告</li>
+        <li class="dim">AI 客服 / 預約系統落地</li>
+      </ul>
+
+      <a href="#cta" class="plan-cta outline">諮詢 Starter →</a>
+    </div>
+
+    <!-- Pro (Featured) -->
+    <div class="price-card featured">
+      <div class="plan-name">Pro</div>
+      <h3>站 + AI 訂單落地</h3>
+      <p class="plan-pitch">服務業 / 醫美 / 補習 / 預約制商家。要降客服成本，要接 ChatGPT 來的訂單流量。</p>
+
+      <div class="price-box">
+        <div class="price-row"><span class="lbl">第一年建置費</span><span class="val">NT$ 60,000</span></div>
+        <div class="price-row"><span class="lbl">維護年費（第 2 年起）</span><span class="val">NT$ 60,000</span></div>
+        <div class="price-row"><span class="lbl">月攤約</span><span class="val">NT$ 5,000</span></div>
+        <div class="price-total">
+          <span class="lbl">第一年總價</span>
+          <span class="val">NT$ 120,000</span>
+        </div>
+        <div class="price-note">＝ 建置 60,000 ＋ 第一年維護 60,000</div>
+      </div>
+
+      <ul class="plan-feat">
+        <li>服務 A：GEO 原生架站</li>
+        <li>內容由客戶自行管理</li>
+        <li>後台帳號 5 位</li>
+        <li>基礎內容遷移 ≤20 頁</li>
+        <li class="plus">服務 C：AI 客服 × 預約系統落地</li>
+        <li class="plus">MCP Gateway 啟用（給 LLM 直連）</li>
+        <li class="plus">客服話術訓練 ≤50 個 FAQ</li>
+        <li class="plus">上線 4 週陪跑（每週回顧）</li>
+        <li>Email + LINE 客服支援</li>
+        <li class="dim">每月文章代寫（可加價）</li>
+      </ul>
+
+      <a href="#cta" class="plan-cta brand">諮詢 Pro →</a>
+    </div>
+
+    <!-- Custom -->
+    <div class="price-card custom">
+      <div class="plan-name">Custom</div>
+      <h3>全代管 / 客製化</h3>
+      <p class="plan-pitch">連鎖品牌 / 多店面 / 持續產出內容的企業。網站全代管、內容代管、AI 全套，依範圍報價。</p>
+
+      <div class="price-box">
+        <div class="price-row"><span class="lbl">第一年建置費</span><span class="val">NT$ 100,000 起</span></div>
+        <div class="price-row"><span class="lbl">維護月費</span><span class="val">NT$ 8,000 起 / 月</span></div>
+        <div class="price-row"><span class="lbl">維護年費換算</span><span class="val">NT$ 96,000 起</span></div>
+        <div class="price-total">
+          <span class="lbl">第一年總價</span>
+          <span class="val">客報</span>
+        </div>
+        <div class="price-note">依連鎖數量、內容量、整合複雜度報價</div>
+      </div>
+
+      <ul class="plan-feat">
+        <li>服務 A：GEO 原生架站（含內容代管）</li>
+        <li class="plus">服務 B：GEO 優化（每月 4 篇代寫）</li>
+        <li class="plus">服務 C：AI 客服 × 預約全套</li>
+        <li class="plus">CitableRank 月度引用報告</li>
+        <li class="plus">WordPress / 舊站匯入（≤100 篇）</li>
+        <li class="plus">多店 / 多分館後台架構</li>
+        <li class="plus">CRM / 自有系統整合（可議）</li>
+        <li class="plus">每月策略會議 + 季度健檢</li>
+        <li>專屬窗口 + 4 小時內回應</li>
+      </ul>
+
+      <a href="#cta" class="plan-cta dark">諮詢 Custom →</a>
+    </div>
+
+  </div>
+
+  <p style="text-align: center; margin-top: 28px; font-size: 13px; color: var(--ink-3);">
+    所有報價含稅 · 簽約後 7 日內開工 · 第一年滿意度不過按比例退款
+  </p>
+</section>
+
+<!-- ============ FULL SPEC LIST ============ -->
+<section id="specs">
+  <h2><small>完整功能規格清單</small>每一項都列出來，不藏細節。</h2>
+  <p class="sub">想看哪個服務模組的詳細項目，下面切換看。所有規格皆寫進合約，依方案勾選對應項目。</p>
+
+  <div class="spec-toggle">
+    <button class="active" data-spec="a">A · GEO 原生架站</button>
+    <button data-spec="b">B · GEO 優化代管</button>
+    <button data-spec="c">C · AI 客服 × 預約落地</button>
+  </div>
+
+  <!-- Spec A -->
+  <div class="spec-panel active" id="spec-a">
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">A1</div>
+        <div class="spec-title">網域與主機建置</div>
+        <span class="spec-tag">建置一次</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>網域代管</strong>：協助申請或轉移 .com / .tw / .cc<span class="qty">×1</span></li>
+        <li><strong>DNS 設定</strong>：Cloudflare 或客戶指定 DNS</li>
+        <li><strong>主機部署</strong>：Zeabur 或 Vercel</li>
+        <li><strong>SSL 憑證</strong>：Let's Encrypt 自動續期</li>
+        <li><strong>CDN 加速</strong>：全球節點，免費版</li>
+        <li><strong>備份策略</strong>：每日自動備份，保留 14 天</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">A2</div>
+        <div class="spec-title">AICMS 後台與內容架構</div>
+        <span class="spec-tag">建置一次</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>後台帳號</strong>：Admin / Editor 兩種角色<span class="qty">3-5 位</span></li>
+        <li><strong>內容類型</strong>：頁面 / 文章 / FAQ / 服務 / 案例</li>
+        <li><strong>媒體管理</strong>：圖片自動 WebP 轉檔 + 縮圖</li>
+        <li><strong>多語系</strong>：繁中為主，英／日／簡可加購</li>
+        <li><strong>版本控制</strong>：每次儲存有 history 可回復</li>
+        <li><strong>內容遷移</strong>：原網站內容轉入<span class="qty">≤10 頁</span></li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">A3</div>
+        <div class="spec-title">GEO / AEO 結構優化（核心）</div>
+        <span class="spec-tag">自動產出</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>JSON-LD 自動產</strong>：11 種 schema 型別<span class="qty">11 types</span></li>
+        <li>Article / FAQPage / LocalBusiness / Product / Service</li>
+        <li>BreadcrumbList / Person / Organization / Event</li>
+        <li>Speakable / Review / AggregateRating</li>
+        <li><strong>llms.txt 自動產出</strong>：站名 / 業務 / 價格 / 地址 / 頁面摘要</li>
+        <li><strong>AI Bot 細粒度控制</strong>：14+ bot 個別 allow/disallow<span class="qty">14+ bots</span></li>
+        <li>GPTBot / ChatGPT-User / ClaudeBot / PerplexityBot</li>
+        <li>Google-Extended / Bytespider / Applebot 等</li>
+        <li><strong>GEO 健檢評分</strong>：後台即時跑 0-100 分</li>
+        <li><strong>缺項提示</strong>：「缺 author」「缺 LocalBusiness hours」即時提示</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">A4</div>
+        <div class="spec-title">前台與使用者體驗</div>
+        <span class="spec-tag">建置一次</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>響應式設計</strong>：手機 / 平板 / 桌機自動適配</li>
+        <li><strong>PWA 支援</strong>：加到主畫面像 App</li>
+        <li><strong>頁面速度</strong>：Lighthouse 目標 ≥90 分</li>
+        <li><strong>無障礙設計</strong>：WCAG 2.1 AA 基本符合</li>
+        <li><strong>SEO 基礎</strong>：sitemap.xml / robots.txt 自動產</li>
+        <li><strong>Open Graph</strong>：社群分享預覽自動生成</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">A5</div>
+        <div class="spec-title">分析與監測串接</div>
+        <span class="spec-tag">建置一次</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>Google Analytics 4</strong> 串接</li>
+        <li><strong>Google Search Console</strong> 串接 + sitemap 提交</li>
+        <li><strong>Bing Webmaster</strong> 串接（可選）</li>
+        <li><strong>內建流量儀表板</strong>：後台直接看週/月走勢</li>
+        <li><strong>Email 客服</strong>：1 個工作日內回覆</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Spec B -->
+  <div class="spec-panel" id="spec-b">
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">B1</div>
+        <div class="spec-title">內容代管 / 月度產出</div>
+        <span class="spec-tag">每月持續</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>文章代寫</strong>：每月撰寫 + 上稿<span class="qty">4 篇 / 月</span></li>
+        <li><strong>每篇含</strong>：1500-2500 字 + 圖片 + 完整 schema</li>
+        <li><strong>FAQ 維護</strong>：每月補 5-10 條<span class="qty">5-10 / 月</span></li>
+        <li><strong>產品 / 服務頁更新</strong>：每月最多 4 頁</li>
+        <li><strong>主題策劃</strong>：根據業務季節 + CitableRank 缺口</li>
+        <li><strong>關鍵字研究</strong>：對話式查詢為主（不是傳統 SEO 關鍵字）</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">B2</div>
+        <div class="spec-title">CitableRank 引用監測</div>
+        <span class="spec-tag">每月報告</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>4 大 AI 引擎監測</strong>：ChatGPT / Claude / Perplexity / Gemini</li>
+        <li><strong>業務相關問題追蹤</strong>：自訂 20-50 個查詢<span class="qty">20-50 題</span></li>
+        <li><strong>引用次數 / 排名變化</strong>：每週快照</li>
+        <li><strong>競品對照</strong>：與最多 5 家對手對比<span class="qty">≤5 家</span></li>
+        <li><strong>缺口分析</strong>：對手有引用而你沒有的題目清單</li>
+        <li><strong>月度報告</strong>：PDF 寄送 + 線上會議講解</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">B3</div>
+        <div class="spec-title">舊站匯入（一次性）</div>
+        <span class="spec-tag">建置一次</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>WordPress 一鍵匯入</strong>：含 Elementor / Divi / Gutenberg<span class="qty">≤100 篇</span></li>
+        <li><strong>圖片自動下載</strong>：原站圖片轉存到新站 CDN</li>
+        <li><strong>URL 結構保留</strong>：301 重導不掉 SEO 流量</li>
+        <li><strong>AI 自動補 schema</strong>：原站沒有的也補上</li>
+        <li><strong>內容清洗</strong>：去除舊 page builder 殘留 HTML</li>
+        <li><strong>上線檢核</strong>：跑完 GEO 健檢確認 0-100 分數</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">B4</div>
+        <div class="spec-title">策略溝通與健檢</div>
+        <span class="spec-tag">月度 / 季度</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>月度線上會議</strong>：30-60 分鐘<span class="qty">1 次 / 月</span></li>
+        <li><strong>季度 GEO 健檢報告</strong>：書面 + 簡報<span class="qty">1 次 / 季</span></li>
+        <li><strong>年度策略檢討</strong>：whole-year review<span class="qty">1 次 / 年</span></li>
+        <li><strong>專屬窗口</strong>：固定 PM 對接</li>
+        <li><strong>緊急應變</strong>：工作日 8 小時內回應</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Spec C -->
+  <div class="spec-panel" id="spec-c">
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">C1</div>
+        <div class="spec-title">AI 客服設定</div>
+        <span class="spec-tag">建置 + 訓練</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>AI Persona 設定</strong>：人設 / 語氣 / 業務範圍</li>
+        <li><strong>多模型可選</strong>：Claude / GPT / Gemini</li>
+        <li><strong>Prompt 調校</strong>：建置期 3 輪迭代</li>
+        <li><strong>知識庫匯入</strong>：FAQ / 產品 / 政策<span class="qty">≤50 條</span></li>
+        <li><strong>對話記錄保存</strong>：後台可查 90 天</li>
+        <li><strong>轉真人機制</strong>：客人說「真人」自動 escalate</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">C2</div>
+        <div class="spec-title">預約系統設定</div>
+        <span class="spec-tag">建置 + 設定</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>服務 / 商品設定</strong>：項目 / 價格 / 時長<span class="qty">≤20 項</span></li>
+        <li><strong>時段管理</strong>：營業時間 / 公休 / 例外日</li>
+        <li><strong>定價規則</strong>：人數加價 / 平假日 / 早鳥折扣</li>
+        <li><strong>付款方式</strong>：信用卡 / LINE Pay / 匯款 / 到店付</li>
+        <li><strong>取消政策</strong>：可設定退費規則</li>
+        <li><strong>容量管理</strong>：教練／場地／設備衝突檢查</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">C3</div>
+        <div class="spec-title">整合通道</div>
+        <span class="spec-tag">建置一次</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>Web Chat Widget</strong>：站內右下角對話框</li>
+        <li><strong>LINE 官方帳號</strong>：webhook 整合</li>
+        <li><strong>MCP Gateway 啟用</strong>：ChatGPT / Claude / Perplexity 可直連</li>
+        <li><strong>訂單通知</strong>：LINE / Email / Slack 三選二</li>
+        <li><strong>Google Calendar</strong>：同步可選</li>
+        <li><strong>Webhook 對外</strong>：可串自有 CRM</li>
+      </ul>
+    </div>
+
+    <div class="spec-block">
+      <div class="spec-head">
+        <div class="spec-letter">C4</div>
+        <div class="spec-title">上線後落地陪跑</div>
+        <span class="spec-tag">4 週陪跑</span>
+      </div>
+      <ul class="spec-items">
+        <li><strong>第 1 週</strong>：每日對話檢視 + 即時修 Prompt</li>
+        <li><strong>第 2 週</strong>：3 次 / 週對話品質回顧</li>
+        <li><strong>第 3 週</strong>：1 次 / 週週會 + 報表</li>
+        <li><strong>第 4 週</strong>：交接 + 自主操作訓練</li>
+        <li><strong>陪跑後</strong>：轉入維護階段（含於年費）</li>
+        <li><strong>教育訓練</strong>：客戶端 2 小時實體 / 線上培訓</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MATRIX ============ -->
+<section style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <h2><small>方案 × 服務 對照表</small>一張表看完每方案包到哪。</h2>
+  <p class="sub">如果你猶豫在 Starter / Pro 中間，先看下表 — 通常「需要接訂單流量、降客服成本」就是 Pro，「先把站架起來、自己慢慢養內容」就是 Starter。</p>
+
+  <div class="matrix-wrap">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Starter<br><span style="font-weight:500;font-size:11px;color:var(--ink-3);">NT$ 36,000 第一年</span></th>
+          <th class="featured">Pro<br><span style="font-weight:500;font-size:11px;color:var(--ink-3);">NT$ 120,000 第一年</span></th>
+          <th>Custom<br><span style="font-weight:500;font-size:11px;color:var(--ink-3);">NT$ 100,000+ 客報</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A1 網域 + 主機 + SSL</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>A2 AICMS 後台 + 帳號</td>
+          <td class="yes">✓ <span class="small">3 位</span></td>
+          <td class="yes">✓ <span class="small">5 位</span></td>
+          <td class="yes">✓ <span class="small">不限</span></td>
+        </tr>
+        <tr>
+          <td>A3 JSON-LD / llms.txt / Bot 控制</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>A4 PWA / 響應式 / 速度優化</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>內容遷移 / 舊站匯入</td>
+          <td class="partial">≤10 頁</td>
+          <td class="partial">≤20 頁</td>
+          <td class="yes">≤100 篇 WP</td>
+        </tr>
+        <tr>
+          <td>B1 月度文章代寫</td>
+          <td class="no">—</td>
+          <td class="partial">加價購</td>
+          <td class="yes">✓ 4 篇 / 月</td>
+        </tr>
+        <tr>
+          <td>B2 CitableRank 引用監測</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓ 月報告</td>
+        </tr>
+        <tr>
+          <td>B4 月度策略會議</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>C1 AI 客服建置 + Persona</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>C2 預約系統建置</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>C3 MCP Gateway（LLM 直連）</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>C4 上線後 4 週陪跑</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>CRM / 自有系統整合</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="partial">可議</td>
+        </tr>
+        <tr>
+          <td>客服 SLA</td>
+          <td>Email 1 工作日</td>
+          <td>Email + LINE</td>
+          <td>專屬窗口 4hr</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section id="usecases">
+  <h2><small>適合誰</small>三種典型客戶，三種選擇邏輯。</h2>
+  <p class="sub">同樣是要被 AI 看見，不同型態的生意該挑的方案差很多。下面 3 個典型輪廓你對得上哪個就挑那個，對不上就直接諮詢。</p>
+
+  <div class="uc-grid">
+    <div class="uc-card">
+      <div class="uc-icon">👤</div>
+      <h4>個人品牌 / 顧問 / 工作室</h4>
+      <p>單人 / 小團隊，內容自己寫得來。要的是「不用懂技術、後台填一填就能被 AI 引用」的基建。沒有大量客服或預約需求。</p>
+      <span class="uc-pick">推薦：Starter</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-icon">🏥</div>
+      <h4>醫美 / 牙醫 / 補習 / 預約制商家</h4>
+      <p>有實體服務 + 預約流程，客服詢問量大、希望降人工成本，同時要接得到 ChatGPT 來的潛在客人。最常見的選擇。</p>
+      <span class="uc-pick">推薦：Pro</span>
+    </div>
+    <div class="uc-card">
+      <div class="uc-icon">🏢</div>
+      <h4>連鎖品牌 / 多店 / 集團</h4>
+      <p>分館多、內容量大、有自有 CRM / POS 要串。需要全代管、月度產出、長期 GEO 策略陪跑。網站可代管也可內容代管。</p>
+      <span class="uc-pick">推薦：Custom</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="faq">
+  <h2><small>常見問題</small>諮詢前先看這 6 題，最常被問到。</h2>
+  <p class="sub">如果這裡沒解答到你的疑問，直接點下面預約 30 分鐘線上會議，現場 Q&A。</p>
+
+  <div class="faq-list">
+
+    <details class="faq-item" open>
+      <summary>Q1. 第一年費用以外，第二年要付什麼？</summary>
+      <div class="faq-body">
+        <p>只付「維護年費」— Starter NT$ 18,000、Pro NT$ 60,000、Custom 依合約月費 ×12。建置費是<strong>一次性</strong>，不重複收。</p>
+        <p>維護費包含：主機 / SSL / CDN 費用、後台軟體更新、安全性 patch、基礎技術支援。<strong>不包含</strong>大改版（新增頁面結構、整合新系統）— 那會另案估價。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Q2. 我可以從 Starter 升級到 Pro 嗎？</summary>
+      <div class="faq-body">
+        <p>可以，隨時升級。升級時只補「Pro 與 Starter 的建置費差額」+ 該年剩餘月數的月費差額。</p>
+        <p>例如你 Starter 用了 6 個月後升 Pro：補建置費差 NT$ 42,000 + 剩餘 6 個月月費差約 NT$ 21,000，當下總計約 NT$ 63,000。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Q3. 內容代管和自管差在哪？我該選哪個？</summary>
+      <div class="faq-body">
+        <p><strong>自管</strong>：我們把後台、結構、schema 都做好，你自己（或你的小編）寫文章。適合內容專業在你身上、想保有編輯主控權的客戶。Starter / Pro 都是這種。</p>
+        <p><strong>代管</strong>：我們每月幫你寫 4 篇文章、補 FAQ、維護 schema。適合沒人寫內容、或想把內容外包專注本業的客戶。屬於 Custom 方案範圍。</p>
+        <p>選擇邏輯：每個月能撥出 6-10 小時寫內容 → 自管夠用；不行 → 直接代管比較划算。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Q4. 你們的 AI 客服跟外面那種 chatbot 差在哪？</summary>
+      <div class="faq-body">
+        <p>三個層次的差別：</p>
+        <p>1. <strong>不是規則樹</strong>：傳統 chatbot 是「if 客人說 A → 回 B」的決策樹，問法稍微變化就失效。AICMS 用 Claude / GPT 真正的 LLM，能理解自然語言。</p>
+        <p>2. <strong>真的能下單</strong>：不是回答完叫客人「請點此連結預約」就閃人。AI 直接連到預約系統、查時段、報價、收資料、跳確認單。<strong>對話框內成單</strong>。</p>
+        <p>3. <strong>LLM 平台原生可用</strong>：透過 MCP Gateway，客人在 ChatGPT / Claude 直接問「幫我訂下週六」，他們的 AI 走我們的 MCP 完成下單。你的服務出現在 LLM 的「能做的事」清單裡。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Q5. 我已經有 WordPress / Wix 網站，可以搬過來嗎？</summary>
+      <div class="faq-body">
+        <p>WordPress 我們有專用爬蟲，含 Elementor / Divi / Gutenberg 都能解，URL 結構保留 + AI 自動補 schema。100 篇文章大約 2-3 小時跑完，全程合約走。</p>
+        <p>Wix / SquareSpace / Cyberbiz 等封閉平台：可以匯出基本 HTML / 內容，但媒體跟結構需要手動處理 — 屬於 Custom 範圍另案估價。</p>
+        <p>建議：先給我們你的舊站 URL，30 分鐘評估後給你明確的搬遷可行性 + 報價。</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Q6. 合約怎麼簽？可以中途解約嗎？</summary>
+      <div class="faq-body">
+        <p><strong>合約期</strong>：以 1 年為基本單位，到期前 30 天可選續約或停。</p>
+        <p><strong>中途解約</strong>：建置費不退（已交付）；維護年費按未使用月數比例退還。例如年費 60,000 用了 4 個月解約，退 60,000 × (8/12) = NT$ 40,000。</p>
+        <p><strong>網域與資料</strong>：解約後網域歸客戶、資料庫匯出給客戶。我們不會綁架資產。</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section id="cta">
+  <div class="final-cta">
+    <h2><small>下一步</small>30 分鐘了解你的需求，給你客製化方案。</h2>
+    <p>不用先做功課、不用準備什麼 — 你講現況跟想要解決的問題，我們給你「該選哪個方案、預算多少、多久能上線」的具體答案。會議後寄正式報價單，看到效果再決定。</p>
+    <div class="btn-row">
+      <a href="#" class="primary">立即預約諮詢</a>
+      <a href="./" class="secondary">回首頁看功能 →</a>
+    </div>
+    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已上線客戶：水行者運動 · waterman-sports.cc · ai-cms.cc</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 AICMS · <a href="./">回首頁</a> · <a href="https://github.com/rai0603/aicms-marketing">GitHub</a>
+</footer>
+
+<script>
+  // Spec toggle
+  document.querySelectorAll('.spec-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.spec-toggle button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.spec-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('spec-' + btn.dataset.spec).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

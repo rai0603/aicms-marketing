@@ -1,0 +1,14 @@
+# 本地草稿 / 對外方案 / 報價單 — 不進 public repo
+private/
+drafts/
+*.local.html
+*.local.md
+
+# macOS / 編輯器
+.DS_Store
+.vscode/
+.idea/
+
+# 環境變數（萬一以後有）
+.env
+.env.*

@@ -46,9 +46,17 @@
     text-decoration: none; transition: opacity .15s;
   }
   nav.top a.logo:hover { opacity: .75; }
+  nav.top .links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-2); }
+  nav.top .links a { color: var(--ink-2); text-decoration: none; transition: color .2s; }
+  nav.top .links a:hover { color: var(--ink-0); }
   nav.top .cta {
     padding: 8px 16px; background: var(--ink-0); color: white;
     border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 720px) {
+    nav.top { padding: 12px 16px; }
+    nav.top .links { display: none; }
+    nav.top .cta { padding: 7px 12px; font-size: 12px; }
   }
   main { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
   section { padding: 80px 0; }
@@ -193,7 +201,12 @@
 
 <nav class="top">
   <a href="./" class="logo" aria-label="回 AICMS 首頁">AICMS</a>
-  <a href="#features" class="cta">看功能</a>
+  <div class="links">
+    <a href="#pain">痛點</a>
+    <a href="#features">功能</a>
+    <a href="./solution.html">方案</a>
+  </div>
+  <a href="#" class="cta">立即線上諮詢</a>
 </nav>
 
 <main>
@@ -220,7 +233,7 @@
   </div>
 </section>
 
-<section class="pain-section">
+<section id="pain" class="pain-section">
   <h2><small>4 個現在最該擔心的痛</small>你的網站正在發生這些事嗎？</h2>
   <p class="sub">每一個都對應一個 AICMS 功能。點進去看怎麼解。</p>
 
