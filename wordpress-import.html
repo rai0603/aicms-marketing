@@ -390,15 +390,15 @@
   <div class="hero-text">
     <div class="eyebrow">WordPress 一鍵匯入 · 專用爬蟲</div>
     <h1>
-      <span class="strike">100 篇文章手動搬 = 3 個月。</span><br>
-      <span class="grad">AICMS 兩小時跑完。</span>
+      <span class="strike">100 篇手動搬遷需 3 個月。</span><br>
+      <span class="grad">AICMS 兩小時完成。</span>
     </h1>
     <p class="lede">
-      AICMS 內建 WordPress 專用爬蟲，看得懂 Elementor / Divi / Gutenberg 等 page builder，自動下載媒體、保留 URL、AI 再排版上 schema。全程合約走、權責清楚、客戶可隨時監督。原站照常運轉，新站平行上線。
+      AICMS 內建 WordPress 專用爬蟲，可解析 Elementor、Divi、Gutenberg 等 page builder，自動下載媒體、保留 URL、AI 重排版並補上 schema。全程簽署合約、權責清楚、客戶可隨時監督。原站照常運作，新站平行建置上線。
     </p>
     <div class="hero-cta">
       <a href="#" class="primary">立即線上諮詢</a>
-      <a href="#process" class="secondary">看遷移流程 →</a>
+      <a href="#process" class="secondary">看遷移流程</a>
     </div>
   </div>
 
@@ -421,9 +421,9 @@
         <div class="row l1"><span class="ok">✓</span> <span class="file">連線 WP REST API</span><span class="count">200 OK</span></div>
         <div class="row l2"><span class="info">→</span> <span class="file">掃描 sitemap.xml</span><span class="count">120 頁</span></div>
         <div class="row l3"><span class="ok">✓</span> <span class="file">爬取 page builder 內容</span><span class="count">87/120</span></div>
-        <div class="row l4"><span class="ok">✓</span> <span class="file">下載媒體檔 (圖片 / PDF)</span><span class="count">234 個</span></div>
-        <div class="row l5"><span class="info">⚡</span> <span class="file">AI 重排版 + 補 schema</span><span class="count">running…</span></div>
-        <div class="row l6"><span class="ok">✓</span> <span class="file">URL slug 保留 + 301 對照表</span><span class="count">產出</span></div>
+        <div class="row l4"><span class="ok">✓</span> <span class="file">下載媒體檔（圖片 / PDF）</span><span class="count">234 個</span></div>
+        <div class="row l5"><span class="info">·</span> <span class="file">AI 重排版並補 schema</span><span class="count">執行中…</span></div>
+        <div class="row l6"><span class="ok">✓</span> <span class="file">URL slug 保留與 301 對照表</span><span class="count">產出</span></div>
         <div class="row l7"><span class="ok">✓</span> <span class="file">客戶預覽連結就緒</span><span class="count">/preview</span></div>
       </div>
 
@@ -438,82 +438,72 @@
 
 <!-- ============ PAIN ============ -->
 <section id="pain" class="pain">
-  <h2><small>WP 換 CMS 為什麼這麼痛</small>「自己搬」幾乎不可能。</h2>
-  <p class="sub">WordPress 本身的匯出機制就是給「同樣是 WP 站」用的，換到別的 CMS 立刻一團亂。Page Builder 內容變 HTML 雜訊、圖片連結壞、URL 換、SEO 全掉。中小企業根本沒人力處理。</p>
+  <h2><small>WordPress 換 CMS 的痛點</small>「自行搬遷」實際上幾乎不可行。</h2>
+  <p class="sub">WordPress 的匯出機制是為「同樣是 WP 站」設計，換到其他 CMS 即會出現嚴重相容性問題：Page Builder 內容變成 HTML 雜訊、圖片連結失效、URL 變動、SEO 流量大幅流失。中小企業沒有人力處理這些。</p>
 
   <div class="pain-grid">
     <div class="pain-card">
-      <div class="icon">📦</div>
-      <h3>WP Export XML 一團亂</h3>
-      <p>官方匯出格式是給 WP 自己用的。圖片用絕對網址、page builder 的 shortcode 嵌入、自訂 fields 混在一起。換到別的 CMS 等於要重新解析所有東西。</p>
-      <div class="toll">🔧 <strong>典型解析失敗率 30-60%</strong>（看 builder 種類）</div>
+      <h3>WP 官方匯出 XML 結構混亂</h3>
+      <p>官方匯出格式是為 WP 自身設計：圖片使用絕對網址、page builder 的 shortcode 內嵌、自訂欄位混雜。換到其他 CMS 等於要全部重新解析。</p>
+      <div class="toll"><strong>典型解析失敗率 30–60%</strong>（視 builder 種類而定）</div>
     </div>
     <div class="pain-card">
-      <div class="icon">⏰</div>
-      <h3>100 篇要一篇一篇貼</h3>
-      <p>沒有專用工具就只能複製貼上 — 標題、內文、圖片、SEO 描述、發佈日期、分類⋯每篇 5-10 分鐘。100 篇 = 一個人滿班搞 2-3 週。</p>
-      <div class="toll">⏱️ <strong>典型耗時 8-25 工作天</strong>（看內容複雜度）</div>
+      <h3>100 篇文章需逐篇複製貼上</h3>
+      <p>無專用工具時只能手動處理：標題、內文、圖片、SEO 描述、發佈日期、分類等，每篇 5–10 分鐘。100 篇 = 一人滿班 2–3 週。</p>
+      <div class="toll"><strong>典型耗時 8–25 工作天</strong>（依內容複雜度）</div>
     </div>
     <div class="pain-card">
-      <div class="icon">📉</div>
-      <h3>URL 一換 SEO 全掉</h3>
-      <p>新站如果用新 slug，Google 既有排名要從零再爬。沒做 301 對照表，原本第一頁的關鍵字會掉到 5-10 名外，3 個月才養得回來。</p>
-      <div class="toll">📊 <strong>流量典型掉 40-70%</strong>（沒做 301 重導向時）</div>
+      <h3>URL 一變動 SEO 流量大幅流失</h3>
+      <p>新站若使用新 slug，Google 既有排名等於歸零重來。未做 301 重導對照表時，原本第一頁的關鍵字會掉到 5–10 名外，需要 3 個月才能恢復。</p>
+      <div class="toll"><strong>流量典型下降 40–70%</strong>（未做 301 重導時）</div>
     </div>
     <div class="pain-card">
-      <div class="icon">🧩</div>
-      <h3>搬完還要重排版 + 補 schema</h3>
-      <p>就算搬完，舊站內容沒結構，AI 引擎看不懂。要重新標 schema、補 FAQ、做 llms.txt — 等於從 WP 撈出來後還要再做一次「GEO 原生化」工程。</p>
-      <div class="toll">🛠️ <strong>後續再花 1-2 週</strong> 內容結構化</div>
+      <h3>搬完還需要重排版並補 schema</h3>
+      <p>即使搬遷完成，舊站內容缺乏結構，AI 引擎無法解析。仍需重新標 schema、補 FAQ、產 llms.txt，等於從 WP 撈出後還要再做一次 GEO 原生化工程。</p>
+      <div class="toll"><strong>後續再 1–2 週</strong>進行內容結構化</div>
     </div>
   </div>
 </section>
 
 <!-- ============ SOLUTION — 技術解法 ============ -->
 <section id="solution">
-  <h2><small>AICMS 怎麼做</small>WordPress 專用爬蟲 + AI 重排，一條龍。</h2>
-  <p class="sub">我們的爬蟲不是通用 HTML scraper，是「看得懂 WordPress 結構」的專用工具。先試 REST API 拿乾淨資料，失敗才 fallback 到 HTML 解析。Page Builder 各家規則都內建。</p>
+  <h2><small>AICMS 的解法</small>WordPress 專用爬蟲與 AI 重排，一條龍服務。</h2>
+  <p class="sub">本工具非通用 HTML scraper，而是專為 WordPress 結構設計。優先呼叫 REST API 取得乾淨資料，失敗時再 fallback 至 HTML 解析。各家 Page Builder 規則皆內建。</p>
 
   <div class="sol-grid">
     <div class="sol-card">
-      <div class="icon">🔌</div>
-      <h3>REST API 優先 + HTML fallback</h3>
-      <p>WP 4.7+ 預設啟用的 /wp-json/ REST API 直接拿乾淨 JSON。沒開的話 fallback 走 sitemap.xml + HTML 雙重解析。兩條路徑相互備援。</p>
+      <h3>REST API 優先，HTML 為備援</h3>
+      <p>WP 4.7 以上預設啟用 /wp-json/ REST API，可直接取得乾淨 JSON。未啟用時 fallback 走 sitemap.xml 與 HTML 雙重解析，兩條路徑互為備援。</p>
       <div class="meta">REST · sitemap · OG · JSON-LD</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🧱</div>
       <h3>Page Builder 解析</h3>
-      <p>Elementor / Divi / Gutenberg / WPBakery / Beaver Builder — 各家 page builder 的 shortcode / block 規則內建。不是把整段 HTML 搬過去，而是還原成乾淨結構化內容。</p>
+      <p>Elementor、Divi、Gutenberg、WPBakery、Beaver Builder 各家 page builder 的 shortcode 與 block 規則皆內建。不是搬遷整段 HTML，而是還原成乾淨的結構化內容。</p>
       <div class="meta">5+ builders supported</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🖼️</div>
-      <h3>媒體自動下載 + CDN re-host</h3>
-      <p>原站圖片 / PDF / 影片自動撈到 AICMS Storage (Supabase CDN)。連結重新指向新網域，原站關了不影響。retina / WebP 自動產出。</p>
+      <h3>媒體自動下載與 CDN 重新代管</h3>
+      <p>原站圖片、PDF、影片自動匯入 AICMS Storage（Supabase CDN）。連結重新指向新網域，原站關閉不影響運作。retina 與 WebP 自動產出。</p>
       <div class="meta">Supabase Storage · 自動 retry</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🔗</div>
-      <h3>URL slug 保留 + 301 對照表</h3>
-      <p>原 WP 的 slug 在新站照搬，SEO 不掉。若必須改 slug，自動產出 301 重導向對照表 (CSV)，給 Cloudflare / 主機 redirect 使用。</p>
+      <h3>URL slug 保留與 301 對照表</h3>
+      <p>原 WordPress 的 slug 在新站完整保留，SEO 不掉。若必須變更 slug，自動產出 301 重導對照表（CSV），供 Cloudflare 或主機 redirect 使用。</p>
       <div class="meta">slug map · 301 csv export</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🤖</div>
-      <h3>AI 重排版 + schema 自動補</h3>
-      <p>匯入後第二階段：用 Claude / GPT 把長篇內容拆 chunk、抽 FAQ、補 LocalBusiness / Article schema。一進來就直接是 GEO 原生內容。</p>
+      <h3>AI 重排版與 schema 自動補完</h3>
+      <p>匯入後第二階段：使用 Claude / GPT 將長篇內容拆段、萃取 FAQ、補上 LocalBusiness 與 Article schema。匯入即為 GEO 原生內容。</p>
       <div class="meta">post-import AI · 自動 schema</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">👁️</div>
-      <h3>預覽 + 客戶確認後上線</h3>
-      <p>爬完先進「預覽模式」(/preview)。客戶逐頁檢查、有問題回滾或重跑單頁。確認後才正式發佈、做 DNS 切換。不會偷偷上線。</p>
+      <h3>預覽後客戶確認再上線</h3>
+      <p>爬完先進入預覽模式（/preview）。客戶逐頁檢查，有問題可回滾或單頁重跑。確認後才正式發佈並做 DNS 切換，絕不私下上線。</p>
       <div class="meta">preview mode · 客戶 sign-off</div>
     </div>
   </div>
@@ -537,7 +527,7 @@
           <span>權責確認書</span>
           <span>SOW 服務範圍</span>
         </div>
-        <div class="time">⏱ 1-3 工作天 (依雙方法務節奏)</div>
+        <div class="time">1–3 工作天（依雙方法務節奏）</div>
       </div>
     </div>
 
@@ -552,7 +542,7 @@
           <span>媒體總量盤點</span>
           <span>評估報告 PDF</span>
         </div>
-        <div class="time">⏱ 1 工作天</div>
+        <div class="time">1 工作天</div>
       </div>
     </div>
 
@@ -566,7 +556,7 @@
           <span>/preview 連結</span>
           <span>客戶簽核</span>
         </div>
-        <div class="time">⏱ 1-2 工作天 (含客戶 review 來回)</div>
+        <div class="time">1–2 工作天（含客戶 review 來回）</div>
       </div>
     </div>
 
@@ -581,7 +571,7 @@
           <span>自動 retry</span>
           <span>fail-log 透明</span>
         </div>
-        <div class="time">⏱ 100 頁約 2-4 小時，500 頁約 1-2 工作天</div>
+        <div class="time">100 頁約 2–4 小時，500 頁約 1–2 工作天</div>
       </div>
     </div>
 
@@ -595,7 +585,7 @@
           <span>schema 補完</span>
           <span>逐頁驗收 sign-off</span>
         </div>
-        <div class="time">⏱ 3-7 工作天 (含客戶逐頁 review)</div>
+        <div class="time">3–7 工作天（含客戶逐頁 review）</div>
       </div>
     </div>
 
@@ -610,7 +600,7 @@
           <span>30 天 SEO 監測</span>
           <span>完整交接</span>
         </div>
-        <div class="time">⏱ 切換 1 天，監測期 30 天</div>
+        <div class="time">切換 1 天，監測期 30 天</div>
       </div>
     </div>
 
@@ -619,48 +609,48 @@
 
 <!-- ============ LEGAL — 合約權責 ============ -->
 <section id="legal">
-  <h2><small>合約權責</small>不是隨便爬一爬，先把規矩定清楚。</h2>
-  <p class="sub">網站遷移涉及智慧財產權、資料隱私、SEO 流量風險。我們堅持每個案件都簽正式合約，雙方權責白紙黑字。這不是法律包袱，是對客戶跟對我們自己的保護。</p>
+  <h2><small>合約權責</small>不是直接爬取，而是先把權責定清楚。</h2>
+  <p class="sub">網站遷移涉及智慧財產權、資料隱私、SEO 流量風險。我們堅持每個案件都簽署正式合約，雙方權責白紙黑字。這是對客戶與服務商雙方的保障，並非單純的法律程序。</p>
 
   <div class="legal-wrap">
-    <div class="eyebrow">📋 合約核心條款</div>
-    <h3>4 件事，動工前先講清楚。</h3>
-    <p class="lede-dark">客戶常問「能不能直接幫我把那個站搬過來？」— 答案永遠是：能，但要先簽合約。否則我們無法保護客戶、也無法保護我們自己。</p>
+    <div class="eyebrow">合約核心條款</div>
+    <h3>四件事，動工前先講清楚。</h3>
+    <p class="lede-dark">常見問題是「能否直接幫忙把網站搬過來？」答案是可以，但必須先簽合約，否則無法保障客戶與服務商雙方。</p>
 
     <div class="legal-grid">
 
       <div class="legal-card">
         <span class="l-num">1</span>
         <h4>智慧財產權歸屬</h4>
-        <p>客戶須為原網站之內容所有人 (或經授權代理者)。我們會要求出示網站擁有權證明 (DNS 控制權 + WP 管理者帳號)。原站文字、圖片版權歸客戶；遷移後新站版權仍歸客戶。</p>
-        <span class="clause">📜 條款引用：服務合約 §3 智財權條款</span>
+        <p>客戶須為原網站內容所有人（或經授權代理人）。我們會要求出示網站擁有權證明（DNS 控制權與 WP 管理者帳號）。原站文字與圖片版權歸客戶，遷移後新站版權仍歸客戶。</p>
+        <span class="clause">條款引用：服務合約 §3 智財權條款</span>
       </div>
 
       <div class="legal-card">
         <span class="l-num">2</span>
-        <h4>資料隱私 (PDPA / GDPR)</h4>
-        <p>若原站含會員資料、訂單、Email 訂閱清單，我們依個資法處理：傳輸全程加密、僅用於遷移用途、遷移完成後 30 天內銷毀我方端的暫存。客戶可隨時要求查驗銷毀證明。</p>
-        <span class="clause">📜 條款引用：服務合約 §5 個資保護條款</span>
+        <h4>資料隱私（PDPA / GDPR）</h4>
+        <p>若原站含會員資料、訂單、Email 訂閱清單，依個資法規範處理：傳輸全程加密、僅用於遷移用途、完成後 30 天內銷毀我方端的暫存。客戶可隨時要求查驗銷毀證明。</p>
+        <span class="clause">條款引用：服務合約 §5 個資保護條款</span>
       </div>
 
       <div class="legal-card">
         <span class="l-num">3</span>
         <h4>原站既存問題不轉嫁</h4>
-        <p>遷移工程不負責修原站既有問題：版權有爭議的圖片、過去的 SEO penalty、第三方 plugin 留下的後門等。我們會在掃描階段列出已知風險，由客戶決定處理方式。</p>
-        <span class="clause">📜 條款引用：服務合約 §7 既存風險揭露</span>
+        <p>遷移工程不負責修復原站既有問題：版權爭議圖片、過去的 SEO penalty、第三方 plugin 殘留後門等。掃描階段會列出已知風險，由客戶決定處理方式。</p>
+        <span class="clause">條款引用：服務合約 §7 既存風險揭露</span>
       </div>
 
       <div class="legal-card">
         <span class="l-num">4</span>
-        <h4>透明流程 + 客戶簽核</h4>
-        <p>遷移每個階段都有客戶簽核點 (Step 1, 3, 5)。客戶可隨時暫停、要求調整或終止。我們保留每個爬蟲動作的日誌；客戶查驗時須能調閱。任何「偷偷加料」「悄悄上線」都明文禁止。</p>
-        <span class="clause">📜 條款引用：服務合約 §4 服務透明性</span>
+        <h4>透明流程與客戶簽核</h4>
+        <p>遷移各階段皆有客戶簽核點（步驟 1、3、5）。客戶可隨時暫停、要求調整或終止。我們保留爬蟲動作日誌，客戶可隨時調閱查驗。明文禁止任何未告知的修改或上線。</p>
+        <span class="clause">條款引用：服務合約 §4 服務透明性</span>
       </div>
 
     </div>
 
     <div class="legal-promise">
-      💡 <strong>我們對客戶的承諾</strong>：合約範本可在線上會議時直接 review，所有條款可逐條討論調整。若客戶現有法務有特殊規定 (NDA / DPA 等)，我們可依客戶版本簽署。<strong>沒簽合約一律不開工。</strong>
+      <strong>對客戶的承諾</strong>：合約範本可在線上會議中逐條檢視討論調整。若客戶法務有特殊規範（NDA、DPA 等），可依客戶版本簽署。<strong>未簽合約一律不開工。</strong>
     </div>
   </div>
 </section>
@@ -677,7 +667,7 @@
           <th>面向</th>
           <th>自己手動搬</th>
           <th>一般外包公司</th>
-          <th style="color: var(--brand);">AICMS 專用工具 ✨</th>
+          <th style="color: var(--brand);">AICMS 專用工具</th>
         </tr>
       </thead>
       <tbody>
@@ -720,7 +710,7 @@
         <tr>
           <td>客戶可見度</td>
           <td class="bad">自己做自己知道</td>
-          <td class="bad">黑盒子, 等交付</td>
+          <td class="bad">流程不透明，僅能等交付</td>
           <td class="ok-c">即時 dashboard + 階段 sign-off</td>
         </tr>
       </tbody>
@@ -731,13 +721,13 @@
 <!-- ============ CTA ============ -->
 <section id="cta">
   <div class="final-cta">
-    <h2>把那個老 WP 站<br>搬到 GEO 原生新站。</h2>
-    <p>30 分鐘線上會議，先看你網站規模、評估遷移工程量、提供合約範本與報價。沒簽合約一律不開工 — 但簽完之後，2 週內就能上新站。</p>
+    <h2>將舊 WordPress 站<br>遷移到 GEO 原生新站。</h2>
+    <p>30 分鐘線上會議，評估您的網站規模與遷移工程量，提供合約範本與報價。未簽合約一律不開工，簽約後 2 週內即可上新站。</p>
     <div class="btn-row">
       <a href="#" class="primary">立即線上諮詢</a>
-      <a href="./geo-native-site.html" class="secondary">先看 GEO 原生網站介紹 →</a>
+      <a href="./geo-native-site.html" class="secondary">先看 GEO 原生網站介紹</a>
     </div>
-    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已實際完成遷移：waterman-sports.com → waterman-sports.cc (120+ 頁)</p>
+    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已完成遷移：waterman-sports.com → waterman-sports.cc（120+ 頁）</p>
   </div>
 </section>
 

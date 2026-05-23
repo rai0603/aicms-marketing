@@ -494,17 +494,18 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-text">
-    <div class="eyebrow">MCP Gateway · LLM-Ready</div>
+    <div class="eyebrow">MCP Gateway · 對接 LLM</div>
     <h1>
-      ChatGPT 已經能訂機票。<br>
-      <span class="grad">下一個就是訂你的服務。</span>
+      ChatGPT 已能在對話中完成訂購。<br>
+      <span class="grad">下一個就是您的服務。</span>
     </h1>
     <p class="lede">
-      Booking.com、Expedia 已經有自己的 MCP 介面給 LLM 串接 — 中小企業沒有，等於完全被 LLM-driven 商務排除在外。AICMS 替每個客戶內建 MCP Gateway，不用寫一行 code，LLM 一搜就能找到、查價、下單。已在 AI 客服內部驗證過。
+      <strong>MCP（Model Context Protocol）</strong>是讓 LLM 與您網站系統直接對話的標準協議。Booking.com、Expedia 已有自己的 MCP 介面供 LLM 串接，中小企業缺乏這層基建，就被 LLM 商務流量排除在外。
+      AICMS 為每個客戶內建 MCP Gateway，不需寫一行程式，LLM 即可搜尋、查價、下單。本平台 AI 客服已內部驗證運作。
     </p>
     <div class="hero-cta">
       <a href="#" class="primary">立即線上諮詢</a>
-      <a href="#shift" class="secondary">看 LLM-shopping 趨勢 →</a>
+      <a href="#shift" class="secondary">看 LLM 商務趨勢</a>
     </div>
   </div>
 
@@ -518,7 +519,7 @@
       <div class="flow-q a1">我想週六訂宜蘭新手 SUP 體驗，2 人。</div>
 
       <div class="flow-step scan a2">
-        <div class="ic">🔍</div>
+        <div class="ic">·</div>
         <span>搜尋 MCP servers…</span>
         <span class="endpoint">/.well-known/mcp.json</span>
       </div>
@@ -530,42 +531,42 @@
       </div>
 
       <div class="flow-step call a4">
-        <div class="ic">⚡</div>
+        <div class="ic">·</div>
         <span>呼叫 search_availability / get_pricing</span>
         <span class="endpoint">tools/call</span>
       </div>
 
       <div class="flow-result a5">
-        <div class="head">📋 ChatGPT 回應 — 直接給可預約選項</div>
-        <div class="row"><span class="l">行程</span><span class="v">SUP 立槳體驗 (新手)</span></div>
-        <div class="row"><span class="l">時間</span><span class="v">5/24 (六) 09:00</span></div>
+        <div class="head">ChatGPT 回應：直接給可預約選項</div>
+        <div class="row"><span class="l">行程</span><span class="v">SUP 立槳體驗（新手）</span></div>
+        <div class="row"><span class="l">時間</span><span class="v">5/24（六）09:00</span></div>
         <div class="row"><span class="l">人數</span><span class="v">2 人</span></div>
         <div class="total"><span>NT$ 3,000</span><span>含 GoPro</span></div>
-        <button class="btn">在 ChatGPT 內直接確認 →</button>
+        <button class="btn">在 ChatGPT 內直接確認</button>
       </div>
 
-      <div class="flow-success a6">✅ 訂單成立 — 全程沒離開 ChatGPT</div>
+      <div class="flow-success a6">訂單成立，全程未離開 ChatGPT</div>
     </div>
   </div>
 </section>
 
 <!-- ============ SHIFT — 未來會發生 ============ -->
 <section id="shift" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
-  <h2><small>未來 12-24 個月</small>從 SEO 流量到 LLM-driven shopping。</h2>
-  <p class="sub">2024 是 ChatGPT 學會「在對話內訂機票、訂飯店、訂餐」的元年。Anthropic 的 MCP (Model Context Protocol) 已成為產業標準，OpenAI、Google 都跟進。明年 LLM 直接幫客人下單的場景會普及到所有產業 — 包括你的。</p>
+  <h2><small>未來 12–24 個月</small>從 SEO 流量轉向 LLM 主導的商務。</h2>
+  <p class="sub">2024 年是 ChatGPT 學會在對話中完成訂機票、訂飯店、訂餐的元年。Anthropic 的 MCP（Model Context Protocol）已成為產業標準，OpenAI、Google、Microsoft 皆已跟進。未來一年，LLM 直接代客下單的情境將普及至所有產業。</p>
 
   <div class="primer">
-    <h3>什麼是 MCP？(2 分鐘搞懂)</h3>
-    <p><strong>MCP = Model Context Protocol</strong>，Anthropic 在 2024 年底開源的協議。它定義「LLM 怎麼跟外部系統溝通」— 你的網站如果有 MCP server，ChatGPT / Claude / Perplexity 等 AI 就能跟你的後台直接對話：查產品、查價、下單，全程不用客人離開對話框。</p>
-    <p>簡單講：<code>網站結構化 = SEO / GEO</code> 給搜尋引擎讀；<code>網站 MCP-ready = 給 AI 直接操作</code>，後者是更高一層的整合。</p>
-    <p>OpenAI / Google / 微軟在 2025 年都已支援 MCP。它不是「會不會普及」的問題，是「你準備好了沒」的問題。</p>
+    <h3>什麼是 MCP？兩分鐘理解</h3>
+    <p><strong>MCP（Model Context Protocol）</strong>是 Anthropic 在 2024 年底開源的協議，定義「LLM 如何與外部系統溝通」。網站若有 MCP server，ChatGPT、Claude、Perplexity 等 AI 即能與後台直接對話：查產品、查價格、下訂單，全程不需離開對話框。</p>
+    <p>簡單比喻：<code>網站結構化 = SEO / GEO</code> 是給搜尋引擎讀；<code>網站 MCP-ready = 給 AI 直接操作</code>，後者是更高層的整合。</p>
+    <p>OpenAI、Google、Microsoft 已在 2025 年支援 MCP。問題不再是「會不會普及」，而是「您的網站準備好了沒有」。</p>
   </div>
 </section>
 
 <!-- ============ LLM 支援現況 ============ -->
 <section id="llm-support">
-  <h2><small>LLM 支援現況</small>主要 AI 引擎都已經支援 MCP。</h2>
-  <p class="sub">很多人問「這是不是只有 Anthropic 在推？」— 不是。從 2024 年底開源以來，OpenAI、Google、Microsoft、Perplexity 接連跟進。下面是各家的採用時程跟支援範圍，到 2026 年中已成為事實上的產業標準。</p>
+  <h2><small>LLM 支援現況</small>主要 AI 引擎均已支援 MCP。</h2>
+  <p class="sub">常見疑問是「這是否只有 Anthropic 在推動？」答案是否。自 2024 年底開源以來，OpenAI、Google、Microsoft、Perplexity 接連跟進。以下為各家採用時程與支援範圍，至 2026 年中已成為事實上的產業標準。</p>
 
   <!-- Adoption timeline strip -->
   <div class="llm-timeline">
@@ -597,7 +598,7 @@
     <div class="llm-card anthropic">
       <div class="head">
         <div class="name"><span class="badge">A</span>Anthropic Claude</div>
-        <span class="status native">✓ 原生</span>
+        <span class="status native">原生</span>
       </div>
       <div class="clients">
         MCP 規範發起者。所有 Claude 產品線完整支援：
@@ -614,7 +615,7 @@
     <div class="llm-card openai">
       <div class="head">
         <div class="name"><span class="badge">O</span>OpenAI ChatGPT</div>
-        <span class="status supported">✓ 已支援</span>
+        <span class="status supported">已支援</span>
       </div>
       <div class="clients">
         2025 年正式採用 MCP 為主要 connector 協議：
@@ -631,7 +632,7 @@
     <div class="llm-card google">
       <div class="head">
         <div class="name"><span class="badge">G</span>Google Gemini</div>
-        <span class="status supported">✓ 已支援</span>
+        <span class="status supported">已支援</span>
       </div>
       <div class="clients">
         2025 年底宣告全面相容 MCP：
@@ -648,7 +649,7 @@
     <div class="llm-card microsoft">
       <div class="head">
         <div class="name"><span class="badge">M</span>Microsoft Copilot</div>
-        <span class="status supported">✓ 已支援</span>
+        <span class="status supported">已支援</span>
       </div>
       <div class="clients">
         Copilot 系列全面接 MCP：
@@ -665,7 +666,7 @@
     <div class="llm-card perplexity">
       <div class="head">
         <div class="name"><span class="badge">P</span>Perplexity</div>
-        <span class="status supported">✓ 已支援</span>
+        <span class="status supported">已支援</span>
       </div>
       <div class="clients">
         AI 搜尋類產品代表，全產品線支援 MCP：
@@ -682,7 +683,7 @@
     <div class="llm-card oss">
       <div class="head">
         <div class="name"><span class="badge">+</span>開源 IDE / Agent 工具</div>
-        <span class="status supported">✓ 廣泛採用</span>
+        <span class="status supported">廣泛採用</span>
       </div>
       <div class="clients">
         開源 / 第三方生態系都已支援 MCP：
@@ -699,51 +700,51 @@
   </div>
 
   <div class="llm-summary">
-    💡 <strong>結論：MCP 不是某一家在推，而是整個 LLM 產業的共識協議。</strong>
-    一個協議只要 4 家以上主流 AI 公司同時支援，就確定不會消失。AICMS 內建 MCP gateway 意義是 — 你不用賭哪家 LLM 會贏，因為現在全部都吃這個協議。
+    <strong>結論：MCP 不是單一公司在推，而是整個 LLM 產業的共識協議。</strong>
+    一個協議若有 4 家以上主流 AI 公司同時支援，幾乎確定不會消失。AICMS 內建 MCP gateway 的意義在於 — 您不必賭哪家 LLM 會勝出，因為各家目前皆採用同一協議。
   </div>
 </section>
 
 <!-- ============ GAP — 大型 vs 中小 ============ -->
 <section id="gap">
-  <h2><small>產業現況差距</small>大平台有 MCP，你沒有。</h2>
-  <p class="sub">先看一個現實 — 過去 12 個月內，Booking.com、Expedia、OpenTable、Shopify 等大型平台都已上線自己的 MCP server。當客人問 ChatGPT「幫我訂飯店」，LLM 直接走他們的 MCP 完成下單。中小企業沒有 MCP，自然不在這個流量池裡。</p>
+  <h2><small>產業現況差距</small>大型平台有 MCP，中小企業沒有。</h2>
+  <p class="sub">過去 12 個月內，Booking.com、Expedia、OpenTable、Shopify 等大型平台都已上線自己的 MCP server。當客人在 ChatGPT 問「幫我訂飯店」，LLM 即直接走他們的 MCP 完成下單。中小企業若無 MCP，自然不在這個流量池內。</p>
 
   <div class="haves-grid">
 
     <div class="haves-card has">
-      <span class="pill">✓ 已有 MCP</span>
-      <h3>大型平台 — 已被 LLM 收錄</h3>
-      <p style="color: var(--ink-2); font-size: 14.5px; line-height: 1.65;">他們投入工程資源自建 MCP，跟主要 LLM 都有直接整合。客人在 ChatGPT 問「訂機票」「訂飯店」「訂餐廳」，AI 就走他們的 MCP 給選項。</p>
+      <span class="pill">已有 MCP</span>
+      <h3>大型平台：已被 LLM 收錄</h3>
+      <p style="color: var(--ink-2); font-size: 14.5px; line-height: 1.65;">這些平台投入工程資源自建 MCP，與主要 LLM 均有直接整合。客人在 ChatGPT 詢問「訂機票」「訂飯店」「訂餐廳」時，AI 直接走他們的 MCP 提供選項。</p>
       <div class="ex">
-        <span>✈️ Booking.com</span>
-        <span>✈️ Expedia</span>
-        <span>🏨 Airbnb</span>
-        <span>🍽️ OpenTable</span>
-        <span>🛒 Shopify</span>
-        <span>🚖 Uber</span>
-        <span>🎟️ Ticketmaster</span>
+        <span>Booking.com</span>
+        <span>Expedia</span>
+        <span>Airbnb</span>
+        <span>OpenTable</span>
+        <span>Shopify</span>
+        <span>Uber</span>
+        <span>Ticketmaster</span>
       </div>
       <div class="res">
-        🚀 <strong>結果</strong>：LLM-driven 流量直接接收，傳統搜尋廣告依賴度下降。
+        <strong>結果</strong>：直接承接 LLM 帶來的流量，降低對傳統搜尋廣告的依賴。
       </div>
     </div>
 
     <div class="haves-card not">
-      <span class="pill">✗ 沒有 MCP</span>
-      <h3>絕大多數中小企業 — LLM 看不到你</h3>
-      <p style="color: var(--ink-2); font-size: 14.5px; line-height: 1.65;">建 MCP server 需要 RPC 後端、tool schema、認證機制、tenant 隔離 — 一般中小企業沒有工程資源做這件事，也沒有那個成本去開。</p>
+      <span class="pill">尚未具備 MCP</span>
+      <h3>多數中小企業：LLM 看不見</h3>
+      <p style="color: var(--ink-2); font-size: 14.5px; line-height: 1.65;">自建 MCP server 需要 RPC 後端、tool schema、認證機制、多租戶隔離。多數中小企業沒有工程資源處理這層基建，也沒有預算自行開發。</p>
       <div class="ex">
-        <span>🏞 在地體驗業者</span>
-        <span>💆 美容 / 美髮</span>
-        <span>🩺 診所 / 復健</span>
-        <span>🏋️ 個人教練</span>
-        <span>📸 攝影 / 接案</span>
-        <span>💼 顧問 / 諮詢</span>
-        <span>🍷 私廚 / 預約制店</span>
+        <span>在地體驗業者</span>
+        <span>美容 / 美髮</span>
+        <span>診所 / 復健</span>
+        <span>個人教練</span>
+        <span>攝影 / 接案</span>
+        <span>顧問 / 諮詢</span>
+        <span>私廚 / 預約制店</span>
       </div>
       <div class="res">
-        ⚠️ <strong>結果</strong>：LLM 找不到你 → AI 推薦清單裡沒你 → 流量被大平台抽走。
+        <strong>結果</strong>：LLM 找不到您的服務、AI 推薦清單沒有您，流量被大型平台吸走。
       </div>
     </div>
 
@@ -752,55 +753,49 @@
 
 <!-- ============ SOLUTION ============ -->
 <section id="solution" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
-  <h2><small>AICMS 怎麼解</small>每個客戶都預設配備一台 MCP Gateway。</h2>
-  <p class="sub">這不是要客戶自己開發 — 是平台層一次性建好，所有 AICMS 客戶自動有自己的 MCP server。LLM 一搜就找到、查得到產品、能下單。中小企業靠自己做不來的事，AICMS 替你做掉。</p>
+  <h2><small>AICMS 的解法</small>每個客戶預設配備一台 MCP Gateway。</h2>
+  <p class="sub">不需客戶自行開發 — 平台層一次性建好，所有 AICMS 客戶自動擁有專屬 MCP server。LLM 即可搜尋到、查得到產品、完成下單，將中小企業難以獨立完成的工程由 AICMS 一次處理。</p>
 
   <div class="sol-grid">
     <div class="sol-card">
-      <div class="icon">🔌</div>
-      <h3>每個 tenant 預設一台 MCP server</h3>
-      <p>新客戶開帳號的瞬間，<code style="font-family:Menlo,Consolas,monospace; font-size:12px;">/api/mcp</code> endpoint 自動就緒。LLM 透過 <code style="font-family:Menlo,Consolas,monospace; font-size:12px;">/.well-known/mcp.json</code> 自動發現。完全不用設定。</p>
+      <h3>每個租戶預設一台 MCP server</h3>
+      <p>新客戶開帳號的瞬間，<code style="font-family:Menlo,Consolas,monospace; font-size:12px;">/api/mcp</code> endpoint 即就緒。LLM 透過 <code style="font-family:Menlo,Consolas,monospace; font-size:12px;">/.well-known/mcp.json</code> 自動發現，無需任何設定。</p>
       <div class="meta">auto-provisioned · 0 setup</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🛠️</div>
-      <h3>8+ 個 booking tool 內建</h3>
-      <p>list_services / search_availability / get_pricing / create_booking / cancel_booking 等 tool 已實作。LLM 拿到 tool list 自己決定怎麼用。</p>
+      <h3>內建 8 個以上 booking tool</h3>
+      <p>list_services、search_availability、get_pricing、create_booking、cancel_booking 等 tool 已實作完成。LLM 拿到 tool list 後自行決定如何使用。</p>
       <div class="meta">8 tools out-of-box</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🔐</div>
       <h3>Magic-link 雙因素認證</h3>
-      <p>需要寫入操作（建立 / 取消預約）時 LLM 觸發 magic-link 流程，客人手機收連結確認才執行。LLM 無法擅自下單。</p>
+      <p>需執行寫入操作（建立 / 取消預約）時，LLM 觸發 magic-link 流程，客人需於手機點擊連結確認後才執行，LLM 無法擅自下單。</p>
       <div class="meta">magic-link 2FA</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">📡</div>
       <h3>Streamable HTTP + JSON-RPC 2.0</h3>
-      <p>支援 MCP 規範的 Streamable HTTP transport，相容 ChatGPT、Claude Desktop、Perplexity 等所有主要 MCP client。標準協議，零 lock-in。</p>
+      <p>支援 MCP 規範的 Streamable HTTP transport，相容 ChatGPT、Claude Desktop、Perplexity 等所有主要 MCP client。採用標準協議，無平台綁定。</p>
       <div class="meta">MCP spec compliant</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🧱</div>
-      <h3>tenant 完整隔離</h3>
-      <p>每個客戶 MCP 只能存取自己的資料 (Supabase RLS + service role 雙層守門)。隔壁客戶不會看到你的 booking，LLM 也不會誤呼叫到別家。</p>
+      <h3>租戶完整隔離</h3>
+      <p>每個客戶的 MCP 只能存取自身資料（Supabase RLS 加 service role 雙層守門）。其他客戶看不到您的訂單，LLM 也不會誤呼叫到別家資料。</p>
       <div class="meta">multi-tenant safe</div>
     </div>
 
     <div class="sol-card">
-      <div class="icon">🚀</div>
-      <h3>未來新 tool 自動推給所有客戶</h3>
-      <p>平台加一個新 tool (e.g. <code style="font-family:Menlo,Consolas,monospace; font-size:12px;">get_loyalty_points</code>)，所有 tenant 立刻有。不用客戶等版本 / 付升級費。</p>
+      <h3>未來新 tool 自動推送至所有客戶</h3>
+      <p>平台加入新 tool（例如 <code style="font-family:Menlo,Consolas,monospace; font-size:12px;">get_loyalty_points</code>）後，所有租戶即時取得，不需等版本更新、不需支付升級費。</p>
       <div class="meta">platform-level upgrade</div>
     </div>
   </div>
 
   <!-- Tool 列表 -->
-  <h3 style="margin-top: 48px; font-size: 18px;">📋 目前內建的 MCP tools</h3>
+  <h3 style="margin-top: 48px; font-size: 18px;">目前內建的 MCP tools</h3>
   <div class="tools-grid">
     <div class="tool-item"><code>list_services</code><span class="desc">列出該 tenant 所有服務商品</span></div>
     <div class="tool-item"><code>get_service_details</code><span class="desc">單一服務的詳細資料 + 規則</span></div>
@@ -865,34 +860,34 @@
 
 <!-- ============ PROVEN — AI 客服已內部串接 ============ -->
 <section id="proven" style="background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
-  <h2><small>不是 vapor — 已內部驗證</small>AI 客服 widget 早就在用 MCP。</h2>
-  <p class="sub">這套 MCP Gateway 不是規劃中的功能。AICMS 站內的 AI 客服 widget 已經是它的第一個 MCP client — 客人對話成立的每一筆訂單，後台都走 MCP。先在我們自己 widget 上驗證 → 再對外開放給 ChatGPT / Claude 等外部 LLM。</p>
+  <h2><small>非規劃中功能，已內部驗證</small>AI 客服 widget 已實際運作於 MCP 之上。</h2>
+  <p class="sub">這套 MCP Gateway 並非規劃中功能。AICMS 站內 AI 客服 widget 即為它的第一個 MCP client，每筆透過對話成立的訂單後台皆走 MCP。先在自家 widget 上驗證，再對外開放給 ChatGPT、Claude 等外部 LLM。</p>
 
   <div class="case-box">
-    <div class="eyebrow">🧪 dogfood 數據 · waterman-sports.cc</div>
+    <div class="eyebrow">內部 dogfood 數據 · waterman-sports.cc</div>
     <h3>站內 AI 客服 → MCP → 預約成立流程</h3>
-    <p class="lede-dark">水行者運動中心 (waterman-sports.cc) 是 AICMS 第一個導入案例。站內 AI 客服自 2026-05 起完全走 MCP 跟後台對話 — 每一筆透過 widget 成立的預約都驗證了 MCP gateway 的可用性。</p>
+    <p class="lede-dark">水行者運動中心（waterman-sports.cc）是 AICMS 第一個正式商用案例。站內 AI 客服自 2026 年 5 月起完全走 MCP 與後台對話，每筆透過 widget 成立的預約都驗證了 MCP gateway 的可用性。</p>
 
     <div class="case-stats">
       <div class="case-stat">
         <div class="label">8</div>
         <div class="value">MCP Tools</div>
-        <div class="desc">全部已實作 + 線上跑</div>
+        <div class="desc">全部實作完成、線上運作</div>
       </div>
       <div class="case-stat">
         <div class="label">100%</div>
         <div class="value">通訊成功率</div>
-        <div class="desc">站內 widget → MCP 連線</div>
+        <div class="desc">站內 widget 至 MCP 連線</div>
       </div>
       <div class="case-stat">
-        <div class="label">Spec</div>
+        <div class="label">合規</div>
         <div class="value">MCP 規範相容</div>
-        <div class="desc">外部 LLM 開放只待客戶授權</div>
+        <div class="desc">對外 LLM 開放等客戶授權</div>
       </div>
     </div>
 
     <div class="note">
-      💡 <strong>意思是</strong>：站內 widget 跑通的這套協議，跟 ChatGPT、Claude 未來連線用的協議完全一樣。AICMS 客戶現在就已經是「LLM-Ready」狀態，要不要對外開放（讓 ChatGPT 直接抓到）由客戶決定。
+      <strong>關鍵在此</strong>：站內 widget 跑通的這套協議，與 ChatGPT、Claude 未來連線使用的協議完全一致。AICMS 客戶當下已具備 LLM 就緒狀態，是否對外開放（讓 ChatGPT 直接呼叫）由客戶決定。
     </div>
   </div>
 </section>
@@ -900,13 +895,13 @@
 <!-- ============ CTA ============ -->
 <section id="cta">
   <div class="final-cta">
-    <h2>等 LLM-driven 商務全面爆發時，<br>你的網站已經就位。</h2>
-    <p>不用懂 MCP、不用寫 code、不用付額外費用。AICMS 客戶開帳號的當下，就是 LLM-Ready 狀態。要不要等 ChatGPT 真的找上你才回頭做，你可以選。</p>
+    <h2>當 LLM 商務全面普及時，<br>您的網站已備妥就緒。</h2>
+    <p>不必理解 MCP、不必寫程式、不必支付額外費用。AICMS 客戶在開帳號的當下，網站即具備 LLM 就緒狀態。是否要等 ChatGPT 真的找上門才開始準備，由您決定。</p>
     <div class="btn-row">
       <a href="#" class="primary">立即線上諮詢</a>
-      <a href="./ai-chat-booking.html" class="secondary">看 AI 客服 + MCP 實作 →</a>
+      <a href="./ai-chat-booking.html" class="secondary">看 AI 客服與 MCP 實作</a>
     </div>
-    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已運作中：waterman-sports.cc · 每個 AICMS tenant 內建 MCP gateway</p>
+    <p style="font-size: 13px; color: rgba(255,255,255,.5); margin-top: 24px;">已運作中：waterman-sports.cc · 每個 AICMS 租戶內建 MCP gateway</p>
   </div>
 </section>
 
