@@ -1,0 +1,11 @@
+{
+  "name": "aicms-marketing",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./",
+    // 未知路徑回首頁，與 Zeabur 現行行為一致
+    // 保留 .html 網址原樣（預設會 307 轉成無副檔名，改變現有網址與 canonical）
+    "html_handling": "none",
+    "not_found_handling": "single-page-application"
+  }
+}

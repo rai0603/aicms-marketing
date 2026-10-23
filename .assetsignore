@@ -1,0 +1,13 @@
+# 不上傳到 Cloudflare 的檔案（private/ 為本地草稿與報價，絕不可公開）
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+.wrangler
+private/
+drafts/
+*.local.html
+*.local.md
+CLAUDE.md
+README.md
+.DS_Store
